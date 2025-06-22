@@ -1,0 +1,11 @@
+.back--color {
+  background-color: var(--color-back-ground)
+}
+
+.back--height {
+  min-height: calc(100vh - var(--nav_height));
+}
+
+.m-width-1024 {
+  max-width: 1024px;
+}

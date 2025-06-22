@@ -2,3 +2,12 @@
   font-family: 'raleway';
   src: url('./../public/font/Raleway.ttf');
 }
+
+:root {
+  /* Hauteur navbar*/
+  --nav_height: 90px;
+
+
+  /* Couleur */
+  --color-back-ground:  #fffdfd
+}

@@ -9,21 +9,32 @@ import { gameReducers } from './store/state'
 import { EffectsModule } from '@ngrx/effects';
 import { MemoryCardEffect } from './store/memoryCardGame/effect';
 import { MemoryColorEffect } from './store/memoryColorGame/effect';
+import { CardComponent } from './components/memoryCardGame/card/card.component';
+import { MemoryCardGameComponent } from './components/memoryCardGame/memory-card-game/memory-card-game.component';
+import { MemoryColorGamePageComponent } from './pages/memory-color-game-page/memory-color-game-page.component';
+import { CommonComponentModule } from "../common-component/common-component.module";
+
+import { MessageModule } from 'primeng/message';
 
 
 @NgModule({
   declarations: [
     GameSelectionPageComponent,
-    MemoryCardGamePageComponent
+    MemoryCardGamePageComponent,
+    CardComponent,
+    MemoryCardGameComponent,
+    MemoryColorGamePageComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(gameRouting),
     StoreModule.forFeature('gameState', gameReducers),
     EffectsModule.forFeature([
-      MemoryCardEffect,
-      MemoryColorEffect
-    ])
-  ]
+        MemoryCardEffect,
+        MemoryColorEffect
+    ]),
+    CommonComponentModule,
+    MessageModule
+]
 })
 export class GameModule { }

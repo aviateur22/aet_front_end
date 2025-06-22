@@ -4,5 +4,6 @@ export const environment: IEnvironment  = {
   production: false,
   name: 'loc',
   api_base: 'http://localhost:8080/api/v1',
-  main_page_title: 'AET-LOCAL'
+  main_page_title: 'AET-LOCAL',
+  isFakeData: true
 }

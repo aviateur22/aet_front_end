@@ -15,6 +15,9 @@ import { environment } from '../environment/environment';
 import { provideHttpClient } from '@angular/common/http';
 import { GameModule } from './modules/game/game.module';
 import { CommonModule } from '@angular/common';
+import { AuthorizeModule } from './modules/authorize/authorize.module';
+
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { CommonModule } from '@angular/common';
     BrowserModule,
     CommonModule,
     GameModule,
+    AuthorizeModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(),
@@ -31,6 +35,7 @@ import { CommonModule } from '@angular/common';
       maxAge: 25, logOnly:! environment.production,
       serialize: {replacer: (_key, value) => (typeof value === "bigint" ? value.toString() : value)}
     }),
+    ToastModule
   ],
   providers: [
     provideHttpClient(),

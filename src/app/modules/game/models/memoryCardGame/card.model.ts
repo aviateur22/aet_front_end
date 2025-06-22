@@ -9,15 +9,22 @@ export class Card {
   ) {}
 }
 
+/**
+ * Position d'une carte dans le jeu
+ */
 export class CardPosition {
   constructor(
     public readonly positionX: number,
     public readonly positionY: number) {}
 }
 
+/**
+ * Path Images
+ */
 export class CardImage {
   constructor(
     public readonly cardFrontImagePath: string,
     public readonly cardBackImagePath: string
   ) {}
 }
+

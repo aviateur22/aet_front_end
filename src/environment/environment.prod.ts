@@ -4,5 +4,6 @@ export const environment: IEnvironment  = {
   production: true,
   name: 'prod',
   api_base: '/api',
-  main_page_title: 'AET'
+  main_page_title: 'AET',
+  isFakeData: false
 }

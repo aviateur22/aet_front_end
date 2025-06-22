@@ -2,6 +2,9 @@ export interface IEnvironment {
   // si build en mode production
   production: boolean,
 
+  // Utilisation de fausse Données (mock-data)
+  isFakeData: boolean,
+
   // Nom de le config du build
   name: string,
 

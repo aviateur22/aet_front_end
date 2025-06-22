@@ -1,0 +1,13 @@
+<!--contenu du jeu de carte-->
+<div class="flex flex-column w-full shadow-1">
+  <!-- Message erreur de chargement-->
+  <div class="flex justify-content-center h-3rem">
+    <div *ngIf="(isGameLoadingSuccess$ | async) === false">
+      <p-message severity="error"> Oups le jeu ne s'est pas chargé correctement. </p-message>
+    </div>
+  </div>
+
+
+  <app-card></app-card>
+
+</div>

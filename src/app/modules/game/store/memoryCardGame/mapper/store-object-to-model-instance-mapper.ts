@@ -1,7 +1,8 @@
 import { GameTextInformation } from "../../../models/game.model";
+import { CardToFind } from "../../../models/memoryCardGame/card-to-find.model";
 import { Card } from "../../../models/memoryCardGame/card.model";
 import { MemoryCardGame } from "../../../models/memoryCardGame/memory-card-game.model";
-import { ICardState, IMemoryCardGameState } from "../model";
+import { ICardState, ICardToFindState, IMemoryCardGameState } from "../model";
 
 /**
  * Map un IMemoryCardGameState en MemoryCardGame
@@ -10,9 +11,10 @@ import { ICardState, IMemoryCardGameState } from "../model";
  * @returns
  */
 export function mapToMemoryCardGame(memoryCardState: IMemoryCardGameState): MemoryCardGame {
+  console.log(memoryCardState);
   return new MemoryCardGame(
     mapToGameTextInformation(memoryCardState),
-    memoryCardState.cardToFindInGame,
+    mapToCardToFind(memoryCardState.cardToFindInGame),
     memoryCardState.numberOfCardColumn,
     memoryCardState.numberOfCardRow,
     memoryCardState.cards.map(card => mapToCard(card)),
@@ -49,4 +51,11 @@ export function mapToCard(card: ICardState): Card {
     card.isMarkToShow
   )
 
+}
+
+export function mapToCardToFind(cardToFind: ICardToFindState): CardToFind {
+  return new CardToFind(
+    cardToFind.cardImages,
+    cardToFind.isCardVisible
+  );
 }

@@ -1,7 +1,7 @@
 import { IBaseGameState } from "../model";
 
 export interface IMemoryCardGameState extends IBaseGameState {
-  cardToFindInGame: ICardImageState;
+  cardToFindInGame: ICardToFindState;
   numberOfCardColumn: number;
   numberOfCardRow: number;
   cards: ICardState[];
@@ -29,4 +29,9 @@ export interface ICardPositionState {
 export interface ICardImageState {
   cardFrontImagePath: string,
   cardBackImagePath: string
+}
+
+export interface ICardToFindState {
+  cardImages: ICardImageState,
+  isCardVisible: boolean,
 }

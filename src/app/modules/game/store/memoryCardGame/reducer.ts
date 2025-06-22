@@ -1,7 +1,6 @@
-import { IGameSate } from "../state";
 import { createReducer, on } from "@ngrx/store";
 import * as memoryCardAction from './action';
-import { mapToMemoryCardGameStateInitiilalizer } from "./mapper/dto-to-store-object-mapper";
+import { mapToMemoryCardGameStateInitilalizer } from "./mapper/dto-to-store-object-mapper";
 import { IMemoryCardGameState } from "./model";
 
 export interface  IMemoryCardState {
@@ -12,11 +11,14 @@ export interface  IMemoryCardState {
 
 export const initialMemoryCardState: IMemoryCardState = {
   isGameLoading: false,
-  isLoadingSuccess: false,
+  isLoadingSuccess: true,
   memoryCardGame: {
     cardToFindInGame: {
-      cardFrontImagePath: "",
-      cardBackImagePath: ""
+      cardImages: {
+        cardFrontImagePath: "",
+        cardBackImagePath: ""
+      },
+      isCardVisible: false
     },
     numberOfCardColumn: 0,
     numberOfCardRow: 0,
@@ -50,15 +52,14 @@ export const memoryCardReducers = createReducer(
   })),
   on(memoryCardAction.getMemoryCardGameCompleteAction, (state, { memoryCardGameData }) => ({
     ...state, memoryCard: {
-      ...state,
+      ...state.memoryCardGame,
       isGameLoading: false,
-      isLoadingSuccess: true,
-      memoryCardGame: mapToMemoryCardGameStateInitiilalizer(memoryCardGameData)
+      memoryCardGame: mapToMemoryCardGameStateInitilalizer(memoryCardGameData)
     }
   })),
   on(memoryCardAction.getMemoryCardGameFailedAction, (state) => ({
     ...state, memoryCard : {
-      ...state,
+      ...state.memoryCardGame,
       isGameLoading:false,
       isLoadingSuccess: false
     }
