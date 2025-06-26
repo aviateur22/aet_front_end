@@ -1,8 +1,11 @@
-import { GameTextInformation } from "../../../models/game.model";
-import { CardToFind } from "../../../models/memoryCardGame/card-to-find.model";
-import { Card } from "../../../models/memoryCardGame/card.model";
-import { MemoryCardGame } from "../../../models/memoryCardGame/memory-card-game.model";
-import { ICardState, ICardToFindState, IMemoryCardGameState } from "../model";
+import { GameTextInformation, TextInformationVisibility } from "../models/commonModel/game-text-information.model";
+import { CardToFind } from "../models/memoryCardGame/card-to-find.model";
+import { Card } from "../models/memoryCardGame/card.model";
+import { CardGame } from "../models/memoryCardGame/memory-card-game.model";
+import { IGameTextInformationState } from "../store/gameCommon/game-common.state";
+import { ICardGameState, ICardState, ICardToFindState } from "../store/memoryCardGame/state";
+
+
 
 /**
  * Map un IMemoryCardGameState en MemoryCardGame
@@ -10,10 +13,10 @@ import { ICardState, ICardToFindState, IMemoryCardGameState } from "../model";
  * @param memoryCardState
  * @returns
  */
-export function mapToMemoryCardGame(memoryCardState: IMemoryCardGameState): MemoryCardGame {
+export function mapToCardGame(memoryCardState: ICardGameState): CardGame {
   console.log(memoryCardState);
-  return new MemoryCardGame(
-    mapToGameTextInformation(memoryCardState),
+  return new CardGame(
+    mapToGameTextInformation(memoryCardState.gameTextInformation),
     mapToCardToFind(memoryCardState.cardToFindInGame),
     memoryCardState.numberOfCardColumn,
     memoryCardState.numberOfCardRow,
@@ -27,17 +30,19 @@ export function mapToMemoryCardGame(memoryCardState: IMemoryCardGameState): Memo
 
 /**
  * Renvoie GameTextInformation un à partir d'un  IMemoryCardGameState
- * @param memoryCardState
+ * @param gameTextInformation
  * @returns
  */
-export function mapToGameTextInformation(memoryCardState: IMemoryCardGameState): GameTextInformation {
-  const gameText = memoryCardState.gameTextInformation;
+export function mapToGameTextInformation(gameTextInformation: IGameTextInformationState): GameTextInformation {
+  const gameText = gameTextInformation;
+
   return new GameTextInformation(
     gameText.congratulationWords,
     gameText.loosingWords,
     gameText.gameLostText,
     gameText.gameVictoryText,
-    gameText.presentationText
+    gameText.presentationText,
+    gameText.textVisibility
   )
 }
 

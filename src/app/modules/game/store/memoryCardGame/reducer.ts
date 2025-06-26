@@ -1,18 +1,13 @@
 import { createReducer, on } from "@ngrx/store";
 import * as memoryCardAction from './action';
-import { mapToMemoryCardGameStateInitilalizer } from "./mapper/dto-to-store-object-mapper";
-import { IMemoryCardGameState } from "./model";
 
-export interface  IMemoryCardState {
-    isGameLoading: boolean,
-    isLoadingSuccess: boolean,
-    memoryCardGame: IMemoryCardGameState
-  }
+import { mapToMemoryCardGameStateInitilalizer } from "../../mapper/dto-to-store-object-mapper";
+import { IMemoryCardState } from "./state";
 
 export const initialMemoryCardState: IMemoryCardState = {
   isGameLoading: false,
-  isLoadingSuccess: true,
-  memoryCardGame: {
+  isLoadingSuccess: null,
+  cardGame: {
     cardToFindInGame: {
       cardImages: {
         cardFrontImagePath: "",
@@ -26,84 +21,69 @@ export const initialMemoryCardState: IMemoryCardState = {
     timeToObserveBeforeStart: 0,
     cardToFindQuantity: 0,
     maxErrorQuantity: 0,
-    isCardToFindVisible: false,
+    gameLevel: "",
     gameTextInformation: {
       congratulationWords: [],
       loosingWords: [],
       gameLostText: "",
       gameVictoryText: "",
-      presentationText: ""
-    },
-    gameLevel: "",
-    gameTextVisibility: {
-      isInstructionVisible: false,
-      isEndGameInstructionVisible: false
+      presentationText: "",
+      textVisibility: {
+        isInstructionVisible: true,
+        isEndGameInstructionVisible: false
+      }
     }
   }
 }
 
 export const memoryCardReducers = createReducer(
   initialMemoryCardState,
-  on(memoryCardAction.getMemoryCardGameAction, (state)=>({
-    ...state, memoryCard: {
-      ...state.memoryCardGame,
+  on(memoryCardAction.getMemoryCardGameAction, (state) => ({
+    ...state,
       isGameLoading: true
-    }
+
   })),
   on(memoryCardAction.getMemoryCardGameCompleteAction, (state, { memoryCardGameData }) => ({
-    ...state, memoryCard: {
-      ...state.memoryCardGame,
+    ...state,
       isGameLoading: false,
-      memoryCardGame: mapToMemoryCardGameStateInitilalizer(memoryCardGameData)
-    }
+      isLoadingSuccess: true,
+      cardGame: mapToMemoryCardGameStateInitilalizer(memoryCardGameData)
   })),
   on(memoryCardAction.getMemoryCardGameFailedAction, (state) => ({
-    ...state, memoryCard : {
-      ...state.memoryCardGame,
+    ...state,
       isGameLoading:false,
       isLoadingSuccess: false
-    }
   })),
   on(memoryCardAction.displayFrontOfAllGameCards, (state) => {
-    const returnCards = state.memoryCardGame.cards.map(card => ({
+    const returnCards = state.cardGame.cards.map(card => ({
       ...card,
       isCardReturned: true
     }));
 
     return {
-      ...state, memoryCard: {
       ...state,
       isGameLoading: false,
       isLoadingSuccess: true,
-      memoryCardGame: {
-        ...state.memoryCardGame,
-        gameCards: {
-          ...state.memoryCardGame,
-          cards: returnCards
-        }
+      cardGame: {
+        ...state.cardGame,
+        cards: returnCards
       }
-    }
     }
   }),
    on(memoryCardAction.displayBackOfAllGameCards, (state) => {
-    const returnCards = state.memoryCardGame.cards.map(card => ({
+    const returnCards = state.cardGame.cards.map(card => ({
       ...card,
       isCardReturned: false
     }));
 
     return {
-      ...state, memoryCard: {
       ...state,
       isGameLoading: false,
       isLoadingSuccess: true,
-      memoryCardGame: {
-        ...state.memoryCardGame,
-        gameCards: {
-          ...state.memoryCardGame,
-          cards: returnCards
-        }
+      cardGame: {
+        ...state.cardGame,
+        cards: returnCards
       }
-    }
     }
   })
 )

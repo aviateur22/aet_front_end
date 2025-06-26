@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { MemoryCardGame } from "../../models/memoryCardGame/memory-card-game.model";
+import { CardGame } from "../../models/memoryCardGame/memory-card-game.model";
 import { IMemoryCardGameDataDto } from "../../models/memoryCardGame/memory-card-game-api.dto";
 
 /**

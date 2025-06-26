@@ -1,4 +1,4 @@
-import { IGameTextInformationDto } from "../game-api.dto"
+import { IGameTextInformationDto } from "../commonModel/game-text-information.dtol"
 
 export interface IMemoryCardGameDataDto {
   gameTextInformation: IGameTextInformationDto,

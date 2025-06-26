@@ -1,5 +1,6 @@
 <!--contenu du jeu de carte-->
 <div class="flex flex-column w-full shadow-1">
+
   <!-- Message erreur de chargement-->
   <div class="flex justify-content-center h-3rem">
     <div *ngIf="(isGameLoadingSuccess$ | async) === false">
@@ -7,7 +8,23 @@
     </div>
   </div>
 
+  <!--Text de presentation-->
+  <div *ngIf="isPresentationTextVisible$ | async as isPresentationTextVisible">
+    <div *ngIf="presentationText$ | async as presentationText">
+      <p>{{presentationText}}</p>
+    </div>
+  </div>
 
-  <app-card></app-card>
+  <!-- Carte à trouver -->
+  <div *ngIf="isCardToFindInGameVisible$ | async isCardToFindInGameVisible">
+    <app-card></app-card>
+  </div>
 
+  <!-- Carte du jeu-->
+  <div *ngFor="let card of cards$ | async">
+  <div class="flex">
+    <h3>{{ card.cardImages.cardBackImagePath }}</h3>
+    <h3>{{ card.cardImages.cardFrontImagePath }}</h3>
+  </div>
+</div>
 </div>

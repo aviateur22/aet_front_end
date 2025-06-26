@@ -3,8 +3,8 @@ import {  Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { IMemoryCardGameDataDto } from '../models/memoryCardGame/memory-card-game-api.dto';
 import apiUrl from '../../../../misc/api.url';
-import { environment } from '../../../../environment/environment';
 import { ApiFakeData } from '../../../apiFakeData/api-fake.service';
+import { environment } from '../../../../environment/environment';
 
 @Injectable({
   providedIn: 'root'

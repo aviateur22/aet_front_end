@@ -1,38 +1,12 @@
-import { GameTextInformation } from "../game.model";
+import { GameTextInformation } from "../commonModel/game-text-information.model";
 import { CardToFind } from "./card-to-find.model";
 import { Card } from "./card.model";
 
-export class MemoryCardGame {
-    private _isInstructionVisible: boolean = false;
-    private _isEndGameInstructionVisible: boolean = false;
-    private _isCardToFindVisible: boolean = false;
-    private _activeCard: Card | null = null;
-
-
-  // Getters
-  get isInstructionVisible(): boolean {
-    return this._isInstructionVisible;
-  }
-
-  get isEndGameInstructionVisible(): boolean {
-    return this._isEndGameInstructionVisible;
-  }
-
-  get isCardToFindVisible(): boolean {
-    return this._isCardToFindVisible;
-  }
+export class CardGame {
+  private _activeCard: Card | null = null;
 
   get activeCard(): Card | null {
     return this._activeCard;
-  }
-
-  // Setters or control methods
-  showInstructions() {
-    this._isInstructionVisible = true;
-  }
-
-  hideInstructions() {
-    this._isInstructionVisible = false;
   }
 
   setActiveCard(card: Card | null) {
