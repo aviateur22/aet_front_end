@@ -1,5 +1,5 @@
 <!--contenu du jeu de carte-->
-<div class="flex flex-column w-full shadow-1">
+<div class="flex flex-column w-full">
 
   <!-- Message erreur de chargement-->
   <div class="flex justify-content-center h-3rem">
@@ -20,11 +20,20 @@
     <app-card></app-card>
   </div>
 
-  <!-- Carte du jeu-->
-  <div *ngFor="let card of cards$ | async">
-  <div class="flex">
-    <h3>{{ card.cardImages.cardBackImagePath }}</h3>
-    <h3>{{ card.cardImages.cardFrontImagePath }}</h3>
+  <div class="w-full flex align-items-center" *ngIf="(isGameLoadingSuccess$ | async) === true">
+    <!-- compte a rebour avant debut du jeu-->
+    <div>
+
+    </div>
+
+    <!-- jeux de cartes-->
+    <div class="grid w-full p-5">
+      <app-card class="col-4 md:col-2" [isGameReadyToPlay]="(isGameReadyToPlay$ | async)" [card]=card *ngFor="let card of cards$ | async"></app-card>
+
+    </div>
+
+    <div *ngIf="cardGame$ | async as cardGame">
+      {{cardGame.maxErrorQuantity}}
+    </div>
   </div>
-</div>
 </div>

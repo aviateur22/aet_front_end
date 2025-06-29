@@ -3,6 +3,13 @@
   src: url('./../public/font/Raleway.ttf');
 }
 
+*{
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'raleway', 'arial', sans-serif;
+}
+
+
 :root {
   /* Hauteur navbar*/
   --nav_height: 90px;

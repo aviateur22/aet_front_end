@@ -1,5 +1,5 @@
 import { IGameTextInformationDto } from "../models/commonModel/game-text-information.dtol";
-import { IMemoryCardGameDataDto, ICardDto, ICardImageDto } from "../models/memoryCardGame/memory-card-game-api.dto";
+import { ICardGameDto, ICardDto, ICardImageDto } from "../models/memoryCardGame/memory-card-game-api.dto";
 import { IGameTextInformationState } from "../store/gameCommon/game-common.state";
 import { INITIAL_ARE_CARDS_IN_GAME_RETURN, INITIAL_CARD_TO_FIND_VISIBILITY, INITIAL_IS_MARK_ON_CARDS_IN_GAME_VISIBLE, INITIAL_PRESENTATION_END_TEXT_VISIBILITY, INITIAL_PRESENTATION_TEXT_VISIBILITY } from "../store/memoryCardGame/initial-state-value";
 import { ICardGameState, ICardState, ICardToFindState } from "../store/memoryCardGame/state";
@@ -9,7 +9,7 @@ import { ICardGameState, ICardState, ICardToFindState } from "../store/memoryCar
  * @param dto
  * @returns
  */
-export function mapToMemoryCardGameStateInitilalizer(dto: IMemoryCardGameDataDto): ICardGameState {
+export function mapToMemoryCardGameStateInitilalizer(dto: ICardGameDto): ICardGameState {
   const cardGameState: ICardGameState = {
     gameTextInformation: mapToGameTextInformationStateInitializer(dto.gameTextInformation),
     cardToFindInGame: mapTocardToFindInGameInitilalizer(dto.cardToFindInGame),

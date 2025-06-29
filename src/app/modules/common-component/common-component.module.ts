@@ -11,11 +11,13 @@ import { MainContainerComponent } from './components/main-container/main-contain
 import { ButtonGameSelectionComponent } from './components/button/button-game-selection/button-game-selection.component';
 
 import { ButtonModule } from 'primeng/button';
+import { WindowLoaderComponent } from './components/window-loader/window-loader.component';
 
 @NgModule({
   declarations: [
     MainContainerComponent,
-    ButtonGameSelectionComponent
+    ButtonGameSelectionComponent,
+    WindowLoaderComponent
   ],
   imports: [
     CommonModule,

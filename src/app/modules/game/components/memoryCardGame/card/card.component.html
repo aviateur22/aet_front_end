@@ -1,1 +1,16 @@
-<p>card works!</p>
+<div (click)="returnCard()" class="card__container">
+    <!-- image de face -->
+    <div class="card" [class.show--back--card]="card.isCardReturned"  [class.show--front--card]="!card.isCardReturned && isGameReadyToPlay">
+        <section class="card__face">
+            <div class="image__container">
+              <img src="https://dummyjson.com/image/150" alt="Back Image" />
+            </div>
+        </section>
+        <!-- imge de derriere -->
+        <section class="card__face back">
+            <div class="image__container">
+              <img src="images/aet_back_card.svg" alt="Back Image" />
+            </div>
+        </section>
+    </div>
+</div>

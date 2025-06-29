@@ -4,26 +4,39 @@ import { mapToGameTextInformation, mapToCardGame } from "../../mapper/store-obje
 
 export const selectGameState = createFeatureSelector<IGameSate>('gameState');
 
-// Selector for memoryCardState
+// Selector memoryCardState
 export const selectMemoryCardState = createSelector(
   selectGameState,
   (state: IGameSate) => state.memoryCardState
 );
 
+// Selector les texts du jeu
+export const selectGameTextInformation = createSelector(
+  selectGameState,
+  (state: IGameSate) => state.memoryCardState.cardGame.gameTextInformation
+);
+
+// Selecteur sur la carte qui est à trouver
+export const selectCardToFindInGame = createSelector(
+  selectGameState,
+  (state: IGameSate) => state.memoryCardState.cardGame.cardToFindInGame
+);
+
 export const isGameLoadingSelector = createSelector(selectMemoryCardState, (state) => state.isGameLoading);
 export const isLoadingSuccessSelector = createSelector(selectMemoryCardState, (state) => state.isLoadingSuccess);
-export const presentationTextSelector = createSelector(selectMemoryCardState, (state) => state.cardGame.gameTextInformation.presentationText);
-export const isPresentationTextVisibleSelector = createSelector(selectMemoryCardState, (state) => state.cardGame.gameTextInformation.textVisibility.isInstructionVisible);
+export const returnCardInGameSelector = createSelector(selectMemoryCardState, (state) => state.cardInGame);
+export const isGameReadyToPlaySelector = createSelector(selectMemoryCardState, (state) => state.isGameReadyToPlay);
+
+
+export const presentationTextSelector = createSelector(selectGameTextInformation, (state) => state.presentationText);
+export const isPresentationTextVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isInstructionVisible);
+export const isInstructionVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isInstructionVisible);
+export const isEndGameInstructionVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isEndGameInstructionVisible);
+export const gameTextInformationSelector = createSelector(selectGameTextInformation, (state) => mapToGameTextInformation(state));
 
 export const cardGameSelector = createSelector(selectMemoryCardState, (state) => mapToCardGame(state.cardGame));
 export const cardsSelector = createSelector(selectMemoryCardState, (state) => state.cardGame.cards);
-export const isInstructionVisibleSelector = createSelector(selectMemoryCardState, (state) => state.cardGame.gameTextInformation.textVisibility.isInstructionVisible);
-export const isCardToFindVisibleSelector = createSelector(selectMemoryCardState, (state) => state.cardGame.cardToFindInGame.isCardVisible);
-export const isEndGameInstructionVisibleSelector = createSelector(selectMemoryCardState, (state) => state.cardGame.gameTextInformation.textVisibility.isEndGameInstructionVisible);
-export const gameTextInformationSelector = createSelector(selectMemoryCardState, (state) => {
-  console.log('gameTextInformationSelector');
-return  mapToGameTextInformation(state.cardGame.gameTextInformation)}
-);
 
-export const cardToFindInGameSelector = createSelector(selectMemoryCardState, (state) => state.cardGame.cardToFindInGame.cardImages);
-export const isCardToFindInGameVisible = createSelector(selectMemoryCardState, (state) => state.cardGame.cardToFindInGame.isCardVisible);
+export const isCardToFindVisibleSelector = createSelector(selectCardToFindInGame, (state) => state.isCardVisible);
+export const cardToFindInGameSelector = createSelector(selectCardToFindInGame, (state) => state.cardImages);
+export const isCardToFindInGameVisible = createSelector(selectCardToFindInGame, (state) => state.isCardVisible);

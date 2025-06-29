@@ -2,12 +2,14 @@ import { GameApiService } from "../../services/game-api.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as memoryGameAction from './action';
 import * as commonAction from './../../../common-component/store/action';
-import { catchError, mergeMap, of, switchMap, tap } from "rxjs";
+import { catchError, concatMap, concatWith, from, interval, map, mergeMap, of, switchMap, take, tap, timer, withLatestFrom } from "rxjs";
 import { Injectable } from "@angular/core";
+import { IAppState } from "../../../../store/state";
+import { Store } from "@ngrx/store";
 
 @Injectable()
 export class MemoryCardEffect {
-  constructor(private _action$: Actions, private gameService: GameApiService) {}
+  constructor(private _action$: Actions, private gameService: GameApiService, private _store: Store<IAppState>) {}
 
   getMemoryCardData$ = createEffect(() =>
     this._action$.pipe(
@@ -27,25 +29,22 @@ export class MemoryCardEffect {
     )
   );
 
-  /**
-   * Affichage de log
-   */
-  getMemoryCardGameComplete$ = createEffect(() =>
-    this._action$.pipe(
-      ofType(memoryGameAction.getMemoryCardGameCompleteAction),
-      tap(action => console.log('getMemoryCardGameComplete Effect:', action.memoryCardGameData))
-    ),
-    { dispatch: false }
-  );
-
-  /**
-   * Affichage de log
-   */
-  getMemoryCardGameFailed$ = createEffect(() =>
-    this._action$.pipe(
-      ofType(memoryGameAction.getMemoryCardGameFailedAction),
-      tap(action => console.log('getMemoryCardGameFailed Effect:', action))
-    ),
-    { dispatch: false }
-  );
+  displayBackEffect$ = createEffect(() =>
+  this._action$.pipe(
+    ofType(memoryGameAction.displayBackOfAllGameCardsAction),
+    withLatestFrom(this._store.select(state => state.gameState.memoryCardState.cardGame.cards)),
+    switchMap(([_, cards]) =>
+      from(cards).pipe(                // emits one card at a time
+        concatMap((card) =>
+          timer(200).pipe(    // delay each card by 1 sec
+            map(() => memoryGameAction.turnCardToBackInitialisationAction({ cardId: card.id })
+          )
+        )
+      ),
+      concatWith(
+        of(memoryGameAction.setGameIsReadyToPlayAction())
+      )
+    )
+  ))
+);
 }

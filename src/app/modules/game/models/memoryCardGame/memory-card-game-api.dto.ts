@@ -1,6 +1,6 @@
 import { IGameTextInformationDto } from "../commonModel/game-text-information.dtol"
 
-export interface IMemoryCardGameDataDto {
+export interface ICardGameDto {
   gameTextInformation: IGameTextInformationDto,
   cardToFindInGame: ICardImageDto,
   numberOfCardColumn: number,

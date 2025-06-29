@@ -4,9 +4,11 @@ import * as memoryCardAction from './action';
 import { mapToMemoryCardGameStateInitilalizer } from "../../mapper/dto-to-store-object-mapper";
 import { IMemoryCardState } from "./state";
 
+
 export const initialMemoryCardState: IMemoryCardState = {
   isGameLoading: false,
   isLoadingSuccess: null,
+  isGameReadyToPlay: false,
   cardGame: {
     cardToFindInGame: {
       cardImages: {
@@ -32,8 +34,9 @@ export const initialMemoryCardState: IMemoryCardState = {
         isInstructionVisible: true,
         isEndGameInstructionVisible: false
       }
-    }
-  }
+    },
+  },
+  cardInGame: null
 }
 
 export const memoryCardReducers = createReducer(
@@ -54,36 +57,60 @@ export const memoryCardReducers = createReducer(
       isGameLoading:false,
       isLoadingSuccess: false
   })),
-  on(memoryCardAction.displayFrontOfAllGameCards, (state) => {
-    const returnCards = state.cardGame.cards.map(card => ({
+  on(memoryCardAction.displayFrontOfAllGameCardsAction, (state) => {
+    const returnCards = state.cardGame?.cards.map(card => ({
       ...card,
       isCardReturned: true
-    }));
+    })) ?? [];
 
     return {
       ...state,
-      isGameLoading: false,
-      isLoadingSuccess: true,
       cardGame: {
-        ...state.cardGame,
+        ...state.cardGame!,
         cards: returnCards
       }
     }
   }),
-   on(memoryCardAction.displayBackOfAllGameCards, (state) => {
-    const returnCards = state.cardGame.cards.map(card => ({
-      ...card,
-      isCardReturned: false
-    }));
+  on(memoryCardAction.turnCardToBackInitialisationAction, (state, { cardId }) => {
+  const updatedCards = state.cardGame.cards.map(card =>
+    card.id === cardId ? { ...card, isCardReturned: true } : card
+  );
 
-    return {
-      ...state,
-      isGameLoading: false,
-      isLoadingSuccess: true,
-      cardGame: {
-        ...state.cardGame,
-        cards: returnCards
-      }
+  return {
+    ...state,
+    cardGame: {
+      ...state.cardGame,
+      cards: updatedCards
     }
-  })
+  };
+}),
+on(memoryCardAction.setGameIsReadyToPlayAction, (state) => ({
+  ...state,
+  isGameReadyToPlay: true
+})),
+on(memoryCardAction.finCardInGameAction, (state, { cardId }) => ({
+    ...state, cardInGame: state.cardGame.cards.find(card => card.id === cardId) || state.cardInGame
+  })),
+on(memoryCardAction.showFrontOfCardClickedAction, (state, { cardId }) => ({
+    ...state, cardGame: {
+      ...state.cardGame,
+      cards: state.cardGame.cards.map(card =>
+        card.id === cardId ? { ...card, isCardReturned: !card.isCardReturned } : card
+      )
+    }
+  })),
+on(memoryCardAction.turnBackOfCardClickedAction, (state, { cardId }) => ({
+    ...state, cardGame: {
+      ...state.cardGame,
+      cards: state.cardGame.cards.map(card =>
+        card.id === cardId && card.isCardReturned ? { ...card, isCardReturned: false } : card
+      )
+    }
+  })),
+on(memoryCardAction.countDownBeforeCardReturnAction,(state, { timeToRemove })=>({
+  ...state, cardGame : {
+    ...state.cardGame,
+    timeToObserveBeforeStart: state.cardGame.timeToObserveBeforeStart - timeToRemove
+  }
+}))
 )
