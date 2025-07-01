@@ -15,6 +15,7 @@ import { MemoryColorGamePageComponent } from './pages/memory-color-game-page/mem
 import { CommonComponentModule } from "../common-component/common-component.module";
 
 import { MessageModule } from 'primeng/message';
+import { CardToFindInGameComponent } from './components/memoryCardGame/card-to-find-in-game/card-to-find-in-game.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { MessageModule } from 'primeng/message';
     CardComponent,
     MemoryCardGameComponent,
     MemoryColorGamePageComponent,
+    CardToFindInGameComponent,
   ],
   imports: [
     CommonModule,

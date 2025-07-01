@@ -1,6 +1,6 @@
-<div (click)="returnCard()" class="card__container">
+<div class="card__container">
   <!-- image de face -->
-  <div class="card" [class.show--back--card]="card.isCardReturned"  [class.show--front--card]="!card.isCardReturned && isGameReadyToPlay">
+  <div class="card" >
       <section class="card__face">
           <div class="image__container">
             <img src="https://dummyjson.com/image/150" alt="Back Image" />
@@ -12,9 +12,5 @@
             <img src="images/aet_back_card.svg" alt="Back Image" />
           </div>
       </section>
-  </div>
-  <!-- Icon Valide -->
-  <div *ngIf="!card.isCardReturned && card.isCardToFind && isGameReadyToPlay">
-    <p> Oui  </p>
   </div>
 </div>

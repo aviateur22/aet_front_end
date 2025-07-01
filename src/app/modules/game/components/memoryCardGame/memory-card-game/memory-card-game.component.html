@@ -16,14 +16,15 @@
   </div>
 
   <!-- Carte à trouver -->
-  <div *ngIf="isCardToFindInGameVisible$ | async isCardToFindInGameVisible">
-    <app-card></app-card>
+  <div *ngIf="(isCardToFindInGameVisible$ | async) === false">
+    <app-card-to-find-in-game></app-card-to-find-in-game>
   </div>
 
   <div class="w-full flex align-items-center" *ngIf="(isGameLoadingSuccess$ | async) === true">
-    <!-- compte a rebour avant debut du jeu-->
-    <div>
 
+    <!-- compte a rebour avant debut du jeu-->
+    <div *ngIf="timeToObservBeforeStart$ | async as timeToObservBeforeStart">
+      <span>{{ timeToObservBeforeStart }}</span>
     </div>
 
     <!-- jeux de cartes-->
@@ -32,6 +33,7 @@
 
     </div>
 
+     <!-- Nombre d'erreur autorisé-->
     <div *ngIf="cardGame$ | async as cardGame">
       {{cardGame.maxErrorQuantity}}
     </div>

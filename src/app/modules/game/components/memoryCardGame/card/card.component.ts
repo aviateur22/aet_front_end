@@ -24,6 +24,6 @@ export class CardComponent implements OnInit {
   }
 
   returnCard(): void {
-    this._memoryCardGameRules.cardClick(this.card.id);
+    this._memoryCardGameRules.cardClick(this.card);
   }
 }

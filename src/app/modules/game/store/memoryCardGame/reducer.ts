@@ -7,7 +7,7 @@ import { IMemoryCardState } from "./state";
 
 export const initialMemoryCardState: IMemoryCardState = {
   isGameLoading: false,
-  isLoadingSuccess: null,
+  isLoadingSuccess: false,
   isGameReadyToPlay: false,
   cardGame: {
     cardToFindInGame: {

@@ -17,9 +17,15 @@ export const selectGameTextInformation = createSelector(
 );
 
 // Selecteur sur la carte qui est à trouver
-export const selectCardToFindInGame = createSelector(
+export const selectCardToFindInGameState = createSelector(
   selectGameState,
   (state: IGameSate) => state.memoryCardState.cardGame.cardToFindInGame
+);
+
+// Selecteur sur la carte qui est à trouver
+export const selectCardGameState = createSelector(
+  selectGameState,
+  (state: IGameSate) => state.memoryCardState.cardGame
 );
 
 export const isGameLoadingSelector = createSelector(selectMemoryCardState, (state) => state.isGameLoading);
@@ -34,9 +40,10 @@ export const isInstructionVisibleSelector = createSelector(selectGameTextInforma
 export const isEndGameInstructionVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isEndGameInstructionVisible);
 export const gameTextInformationSelector = createSelector(selectGameTextInformation, (state) => mapToGameTextInformation(state));
 
-export const cardGameSelector = createSelector(selectMemoryCardState, (state) => mapToCardGame(state.cardGame));
-export const cardsSelector = createSelector(selectMemoryCardState, (state) => state.cardGame.cards);
+export const cardGameSelector = createSelector(selectCardGameState, (state) => mapToCardGame(state));
+export const cardsSelector = createSelector(selectCardGameState, (state) => state.cards);
+export const timeToObserveBeforeStartSelector = createSelector(selectCardGameState, (state) => state.timeToObserveBeforeStart)
 
-export const isCardToFindVisibleSelector = createSelector(selectCardToFindInGame, (state) => state.isCardVisible);
-export const cardToFindInGameSelector = createSelector(selectCardToFindInGame, (state) => state.cardImages);
-export const isCardToFindInGameVisible = createSelector(selectCardToFindInGame, (state) => state.isCardVisible);
+export const isCardToFindVisibleSelector = createSelector(selectCardToFindInGameState, (state) => state.isCardVisible);
+export const cardToFindInGameSelector = createSelector(selectCardToFindInGameState, (state) => state.cardImages);
+export const isCardToFindInGameVisible = createSelector(selectCardToFindInGameState, (state) => state.isCardVisible);

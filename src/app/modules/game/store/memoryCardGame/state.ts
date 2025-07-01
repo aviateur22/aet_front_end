@@ -3,7 +3,7 @@ import { IGameTextInformationState } from "../gameCommon/game-common.state"
 export interface  IMemoryCardState {
     isGameReadyToPlay: boolean,
     isGameLoading: boolean,
-    isLoadingSuccess: boolean | null,
+    isLoadingSuccess: boolean,
     cardGame: ICardGameState,
     cardInGame: ICardState | null
   }

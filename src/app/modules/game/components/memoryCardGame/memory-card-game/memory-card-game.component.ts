@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, take, tap } from 'rxjs';
+import { combineLatest, filter, Observable, of, switchMap, take, tap } from 'rxjs';
 import { Card, CardImage } from '../../../models/memoryCardGame/card.model';
 import { CardGame } from '../../../models/memoryCardGame/memory-card-game.model';
 import { Store, select } from '@ngrx/store';
@@ -18,7 +18,7 @@ import { MemoryCardGameRules } from '../../../core/memory-card-game-rule';
 export class MemoryCardGameComponent implements OnInit {
 
     isGameLoading$: Observable<boolean> = of(false);
-    isGameLoadingSuccess$: Observable<boolean | null> = of(true);
+    isGameLoadingSuccess$: Observable<boolean> = of(true);
     cardGame$: Observable<CardGame | null> = of(null);
     gameTextInformation$: Observable<GameTextInformation | null> = of(null);
     presentationText$: Observable<string | null> = of(null);
@@ -27,6 +27,7 @@ export class MemoryCardGameComponent implements OnInit {
     cardToFindInGame$: Observable<CardImage | null> = of(null);
     isCardToFindInGameVisible$: Observable<boolean> = of(false);
     isGameReadyToPlay$: Observable<boolean> = of(false);
+    timeToObservBeforeStart$: Observable<number | null> = of(null);
 
     constructor(private _store: Store<IAppState>, private _memoryCardGameRules: MemoryCardGameRules){}
 
@@ -49,13 +50,23 @@ export class MemoryCardGameComponent implements OnInit {
       this.cardToFindInGame$ = this._store.pipe(select(cardGameSelector.cardToFindInGameSelector));
       this.isCardToFindInGameVisible$ = this._store.pipe(select(cardGameSelector.isCardToFindInGameVisible));
       this.isPresentationTextVisible$ = this._store.pipe(select(cardGameSelector.isPresentationTextVisibleSelector));
+      this.timeToObservBeforeStart$ = this._store.pipe(select(cardGameSelector.timeToObserveBeforeStartSelector));
+
     }
 
     starteGame(): void {
-      this.isGameLoadingSuccess$.pipe(take(2)).subscribe(isloadingSuccess => {
-        if(isloadingSuccess)
-          setTimeout(() => this._memoryCardGameRules.intitializeGame() ,1000);
-    });
+
+      combineLatest([
+        this.timeToObservBeforeStart$,
+        this.isGameLoadingSuccess$
+      ]).pipe(
+        take(3)
+      )
+      .subscribe(([timeToObserve, isGameLoadingSuccess]) => {
+        if(isGameLoadingSuccess && timeToObserve && timeToObserve > 0) {
+          this._memoryCardGameRules.intitializeGame(3);
+        }
+      });
     }
 
 }
