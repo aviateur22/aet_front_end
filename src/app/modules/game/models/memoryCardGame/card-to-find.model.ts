@@ -7,5 +7,6 @@ export class CardToFind {
   constructor(
       public readonly cardImages: CardImage,
       public isCardVisible: boolean,
+      public readonly cardTextExplanation: string
     ) {}
 }

@@ -16,11 +16,17 @@ export const displayBackOfAllGameCardsAction = createAction('[hide All Game Card
 export const turnCardToBackInitialisationAction = createAction('[turn Card To Back Initialisation Action] turn Card To Back Initialisation Action', props<{cardId: number}>());
 export const setGameIsReadyToPlayAction = createAction('[set Game Is Ready To Play Action] set Game Is Ready To Play Action');
 
-export const displayCardToFindAction = createAction('[display Card To Find] display Card To Find');
+export const showCardToFindAction = createAction('[show Card To Find Action] show Card To Find Action');
+export const hideCardToFindAction = createAction('[hide Card To Find Action] hide Card To Find Action');
 
 export const finCardInGameAction = createAction('[get Selected Card Action] get Selected Card Action', props<{cardId: number}>());
 export const showFrontOfCardClickedAction = createAction('[show Front Of Card Clicked Action] show Front Of Card Clicked Action', props<{cardId: number}>());
 export const turnBackOfCardClickedAction = createAction('[turn Back Card In Game Action] turn Back Card In Game Action', props<{cardId: number}>());
 
 export const countDownBeforeCardReturnAction = createAction('[count Down Before Card Return Action] count Down Before Card Return Action', props<{ timeToRemove: number }>());
+export const showPresentationTextAction = createAction('[show Presentation Text Action] show Presentation Text Action');
+export const hidePresentationTextAction = createAction('[hide Presentation Text Action] hide Presentation Text Action');
+
+export const setIsGameFinishAction = createAction('[set is Game Finish Action] set is Game Finish Action', props<{isGameFinish: boolean}>());
+export const setIsGameWinAction = createAction('[set Is Game Win Action] set Is Game Win Action', props<{isGameWin: boolean}>());
 

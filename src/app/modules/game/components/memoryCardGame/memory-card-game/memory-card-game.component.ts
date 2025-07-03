@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest, filter, Observable, of, switchMap, take, tap } from 'rxjs';
+import { Observable, of, switchMap, take, tap } from 'rxjs';
 import { Card, CardImage } from '../../../models/memoryCardGame/card.model';
 import { CardGame } from '../../../models/memoryCardGame/memory-card-game.model';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '../../../../../store/state';
 import * as cardGameSelector from '../../../store/memoryCardGame/selector';
-import * as cardGameAction from '../../../store/memoryCardGame/action';
-import { GameTextInformation } from '../../../models/commonModel/game-text-information.model';
-import { MemoryCardGameRules } from '../../../core/memory-card-game-rule';
+import { CardToFind } from '../../../models/memoryCardGame/card-to-find.model';
+
 
 
 @Component({
@@ -17,56 +16,19 @@ import { MemoryCardGameRules } from '../../../core/memory-card-game-rule';
 })
 export class MemoryCardGameComponent implements OnInit {
 
-    isGameLoading$: Observable<boolean> = of(false);
-    isGameLoadingSuccess$: Observable<boolean> = of(true);
-    cardGame$: Observable<CardGame | null> = of(null);
-    gameTextInformation$: Observable<GameTextInformation | null> = of(null);
-    presentationText$: Observable<string | null> = of(null);
-    isPresentationTextVisible$: Observable<boolean> = of(false);
-    cards$: Observable<Card[]> = of([]);
-    cardToFindInGame$: Observable<CardImage | null> = of(null);
-    isCardToFindInGameVisible$: Observable<boolean> = of(false);
-    isGameReadyToPlay$: Observable<boolean> = of(false);
-    timeToObservBeforeStart$: Observable<number | null> = of(null);
+    isGameLoading$: Observable<boolean> =this._store.pipe(select(cardGameSelector.isGameLoadingSelector));
+    isGameLoadingSuccess$: Observable<boolean> = this._store.pipe(select(cardGameSelector.isLoadingSuccessSelector));
+    cardGame$: Observable<CardGame | null> = this._store.pipe(select(cardGameSelector.cardGameSelector));
+    cards$: Observable<Card[]> =  this._store.pipe(select(cardGameSelector.cardsSelector));
+    cardToFindInGame$: Observable<CardToFind | null> = this._store.pipe(select(cardGameSelector.cardToFindInGameSelector));
+    isCardToFindInGameVisible$: Observable<boolean> = this._store.pipe(select(cardGameSelector.isCardToFindVisibleSelector));
+    isGameReadyToPlay$: Observable<boolean> = this._store.pipe(select(cardGameSelector.isGameReadyToPlaySelector));
+    timeToObservBeforeStart$: Observable<number | null> = this._store.pipe(select(cardGameSelector.timeToObserveBeforeStartSelector));
+    isGameWin$: Observable<boolean> = this._store.pipe(select(cardGameSelector.isGameWinSelector));
 
-    constructor(private _store: Store<IAppState>, private _memoryCardGameRules: MemoryCardGameRules){}
 
-    ngOnInit(): void {
-      this.selector();
-      this.starteGame();
-    }
+    constructor(private _store: Store<IAppState>){}
 
-    /**
-     * Ngrx selecteur
-     */
-    selector(): void {
-      this.isGameReadyToPlay$ = this._store.pipe(select(cardGameSelector.isGameReadyToPlaySelector));
-      this.isGameLoading$ = this._store.pipe(select(cardGameSelector.isGameLoadingSelector), tap(res => console.log(res)));
-      this.isGameLoadingSuccess$ = this._store.pipe(select(cardGameSelector.isLoadingSuccessSelector));
-      this.presentationText$ = this._store.pipe(select(cardGameSelector.presentationTextSelector))
-      this.cards$ = this._store.pipe(select(cardGameSelector.cardsSelector), tap(res=> console.log(res)));
-      this.cardGame$ = this._store.pipe(select(cardGameSelector.cardGameSelector));
-      this.gameTextInformation$ = this._store.pipe(select(cardGameSelector.gameTextInformationSelector), tap(res=> console.log(res)));
-      this.cardToFindInGame$ = this._store.pipe(select(cardGameSelector.cardToFindInGameSelector));
-      this.isCardToFindInGameVisible$ = this._store.pipe(select(cardGameSelector.isCardToFindInGameVisible));
-      this.isPresentationTextVisible$ = this._store.pipe(select(cardGameSelector.isPresentationTextVisibleSelector));
-      this.timeToObservBeforeStart$ = this._store.pipe(select(cardGameSelector.timeToObserveBeforeStartSelector));
-
-    }
-
-    starteGame(): void {
-
-      combineLatest([
-        this.timeToObservBeforeStart$,
-        this.isGameLoadingSuccess$
-      ]).pipe(
-        take(3)
-      )
-      .subscribe(([timeToObserve, isGameLoadingSuccess]) => {
-        if(isGameLoadingSuccess && timeToObserve && timeToObserve > 0) {
-          this._memoryCardGameRules.intitializeGame(3);
-        }
-      });
-    }
+    ngOnInit(): void {}
 
 }

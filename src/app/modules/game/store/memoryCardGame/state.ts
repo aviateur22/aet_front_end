@@ -17,7 +17,9 @@ export interface  IMemoryCardState {
     timeToObserveBeforeStart: number,
     cardToFindQuantity: number,
     maxErrorQuantity: number,
-    gameLevel: string
+    gameLevel: string,
+    isGameFinish: boolean,
+    isGameWin: boolean
   }
 
   export interface ICardState  {
@@ -42,4 +44,5 @@ export interface  IMemoryCardState {
   export interface ICardToFindState {
     cardImages: ICardImageState,
     isCardVisible: boolean,
+    cardTextExplanation: string
   }

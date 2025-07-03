@@ -13,6 +13,8 @@ export class CardGame {
     public readonly gameLevel: string,
     public readonly timeToObserveBeforeStart: number,
     public readonly cardToFindQuantity: number,
-    public readonly maxErrorQuantity: number) {}
+    public readonly maxErrorQuantity: number,
+    public readonly isGameFinish: boolean,
+    public readonly isGameWin: boolean) {}
 
 }

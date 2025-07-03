@@ -16,7 +16,9 @@ import { CommonComponentModule } from "../common-component/common-component.modu
 
 import { MessageModule } from 'primeng/message';
 import { CardToFindInGameComponent } from './components/memoryCardGame/card-to-find-in-game/card-to-find-in-game.component';
-
+import { GameTextPresentationComponent } from './components/memoryCardGame/game-text-presentation/game-text-presentation.component';
+import { ButtonModule } from 'primeng/button';
+import { GameEndTextComponent } from './components/memoryCardGame/game-end-text/game-end-text.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { CardToFindInGameComponent } from './components/memoryCardGame/card-to-f
     MemoryCardGameComponent,
     MemoryColorGamePageComponent,
     CardToFindInGameComponent,
+    GameTextPresentationComponent,
+    GameEndTextComponent,
   ],
   imports: [
     CommonModule,
@@ -36,7 +40,8 @@ import { CardToFindInGameComponent } from './components/memoryCardGame/card-to-f
         MemoryColorEffect
     ]),
     CommonComponentModule,
-    MessageModule
+    MessageModule,
+    ButtonModule
 ]
 })
 export class GameModule { }

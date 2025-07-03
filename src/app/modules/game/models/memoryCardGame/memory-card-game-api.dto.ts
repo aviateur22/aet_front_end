@@ -2,7 +2,7 @@ import { IGameTextInformationDto } from "../commonModel/game-text-information.dt
 
 export interface ICardGameDto {
   gameTextInformation: IGameTextInformationDto,
-  cardToFindInGame: ICardImageDto,
+  cardToFindInGame: ICardToFindDto,
   numberOfCardColumn: number,
   numberOfCardRow: number,
   cards: ICardDto [],
@@ -20,6 +20,14 @@ export interface ICardDto {
   cardPosition: ICardPositionDto,
   cardImages: ICardImageDto,
   isCardToFind: boolean
+}
+
+/**
+ * Données composant une carte du jeu
+ */
+export interface ICardToFindDto {
+  card: ICardImageDto,
+  cardTextExplanation: string
 }
 
 /**

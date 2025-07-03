@@ -1,4 +1,4 @@
-<div class="card__container">
+<div class="card__container" *ngIf="cardToFindInGame$ | async as cardToFindInGame">
   <!-- image de face -->
   <div class="card" >
       <section class="card__face">
@@ -12,5 +12,8 @@
             <img src="images/aet_back_card.svg" alt="Back Image" />
           </div>
       </section>
+  </div>
+  <div>
+    <p>{{cardToFindInGame.cardTextExplanation}}</p>
   </div>
 </div>

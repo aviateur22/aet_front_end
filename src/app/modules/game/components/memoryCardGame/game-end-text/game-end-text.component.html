@@ -1,0 +1,19 @@
+<div *ngIf="isGameFinish$ | async">
+  <!-- Text -->
+  <div>
+    <!-- Text de victoire -->
+    <div *ngIf="isGameWin$ |async; else victoryBlock">
+      <p>{{ endTextVictory }} </p>
+    </div>
+
+    <!-- Text de defaite -->
+    <ng-template #victoryBlock>
+      <p>{{ endTextLost }} </p>
+    </ng-template>
+  </div>
+
+    <!-- Button recommencer -->
+    <div>
+      <p-button (onClick)="restartGame()" label="Recommencer le jeur" severity="help" />
+    </div>
+</div>

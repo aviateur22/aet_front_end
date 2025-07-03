@@ -32,7 +32,7 @@ import { ToastModule } from 'primeng/toast';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(),
     StoreDevtoolsModule.instrument({
-      maxAge: 25, logOnly:! environment.production,
+      maxAge: 1000, logOnly:! environment.production,
       serialize: {replacer: (_key, value) => (typeof value === "bigint" ? value.toString() : value)}
     }),
     ToastModule

@@ -3,20 +3,18 @@
 
   <!-- Message erreur de chargement-->
   <div class="flex justify-content-center h-3rem">
-    <div *ngIf="(isGameLoadingSuccess$ | async) === false">
+    <div *ngIf="(isGameLoadingSuccess$ | async) === false && (isGameReadyToPlay$ | async)">
       <p-message severity="error"> Oups le jeu ne s'est pas chargé correctement. </p-message>
     </div>
   </div>
 
   <!--Text de presentation-->
-  <div *ngIf="isPresentationTextVisible$ | async as isPresentationTextVisible">
-    <div *ngIf="presentationText$ | async as presentationText">
-      <p>{{presentationText}}</p>
-    </div>
-  </div>
+  <app-game-text-presentation></app-game-text-presentation>
 
+  <!-- text de fin de jeu -->
+  <app-game-end-text></app-game-end-text>
   <!-- Carte à trouver -->
-  <div *ngIf="(isCardToFindInGameVisible$ | async) === false">
+  <div *ngIf="(isCardToFindInGameVisible$ | async) === true">
     <app-card-to-find-in-game></app-card-to-find-in-game>
   </div>
 

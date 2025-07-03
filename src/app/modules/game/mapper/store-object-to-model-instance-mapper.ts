@@ -24,7 +24,9 @@ export function mapToCardGame(memoryCardState: ICardGameState): CardGame {
     memoryCardState.gameLevel,
     memoryCardState.timeToObserveBeforeStart,
     memoryCardState.cardToFindQuantity,
-    memoryCardState.maxErrorQuantity
+    memoryCardState.maxErrorQuantity,
+    memoryCardState.isGameFinish,
+    memoryCardState.isGameWin
   )
 }
 
@@ -61,6 +63,7 @@ export function mapToCard(card: ICardState): Card {
 export function mapToCardToFind(cardToFind: ICardToFindState): CardToFind {
   return new CardToFind(
     cardToFind.cardImages,
-    cardToFind.isCardVisible
+    cardToFind.isCardVisible,
+    cardToFind.cardTextExplanation
   );
 }

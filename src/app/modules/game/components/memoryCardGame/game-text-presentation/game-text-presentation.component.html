@@ -1,0 +1,9 @@
+<div *ngIf="(isPresentationTextVisible$ | async) === true && (isGameLoadingSuccess$ | async) === true">
+   <div *ngIf="presentationText$ | async as presentationText">
+      <p>{{presentationText}}</p>
+    </div>
+  <!-- Button valider-->
+  <div>
+    <p-button (onClick)="startGameCard()" label="Commencer la partie" severity="help" />
+  </div>
+</div>

@@ -11,8 +11,11 @@
     "presentationText": "Trouve les bonne cartes."
   },
   "cardToFindInGame": {
-    "cardFrontImagePath": "assets/images/target-front.png",
-    "cardBackImagePath": "assets/images/card-back.png"
+    "card": {
+      "cardFrontImagePath": "assets/images/target-front.png",
+      "cardBackImagePath": "assets/images/card-back.png"
+    },
+    "cardTextExplanation" : "Trouve moi dans le jeu"
   },
   "numberOfCardColumn": 5,
   "numberOfCardRow": 4,

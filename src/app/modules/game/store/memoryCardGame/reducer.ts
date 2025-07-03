@@ -15,7 +15,8 @@ export const initialMemoryCardState: IMemoryCardState = {
         cardFrontImagePath: "",
         cardBackImagePath: ""
       },
-      isCardVisible: false
+      isCardVisible: false,
+      cardTextExplanation: ""
     },
     numberOfCardColumn: 0,
     numberOfCardRow: 0,
@@ -24,6 +25,8 @@ export const initialMemoryCardState: IMemoryCardState = {
     cardToFindQuantity: 0,
     maxErrorQuantity: 0,
     gameLevel: "",
+    isGameFinish: false,
+    isGameWin: false,
     gameTextInformation: {
       congratulationWords: [],
       loosingWords: [],
@@ -112,5 +115,60 @@ on(memoryCardAction.countDownBeforeCardReturnAction,(state, { timeToRemove })=>(
     ...state.cardGame,
     timeToObserveBeforeStart: state.cardGame.timeToObserveBeforeStart - timeToRemove
   }
+})),
+on(memoryCardAction.showPresentationTextAction,(state) => ({
+  ...state, cardGame : {
+    ...state.cardGame,
+    gameTextInformation: {
+      ...state.cardGame.gameTextInformation,
+      textVisibility: {
+        ...state.cardGame.gameTextInformation.textVisibility,
+        isInstructionVisible: true
+      }
+    }
+  }
+})),
+on(memoryCardAction.hidePresentationTextAction,(state) => ({
+  ...state, cardGame : {
+    ...state.cardGame,
+    gameTextInformation: {
+      ...state.cardGame.gameTextInformation,
+      textVisibility: {
+        ...state.cardGame.gameTextInformation.textVisibility,
+        isInstructionVisible: false
+      }
+    }
+  }
+})),
+on(memoryCardAction.showCardToFindAction, (state) =>({
+  ...state, cardGame : {
+    ...state.cardGame,
+    cardToFindInGame : {
+      ...state.cardGame.cardToFindInGame,
+      isCardVisible: true
+    }
+  }
+})),
+on(memoryCardAction.hideCardToFindAction, (state) => ({
+  ...state, cardGame : {
+    ...state.cardGame,
+    cardToFindInGame : {
+      ...state.cardGame.cardToFindInGame,
+      isCardVisible: false
+    }
+  }
+})),
+on(memoryCardAction.setIsGameFinishAction, (state, { isGameFinish }) => ({
+ ...state, cardGame: {
+    ...state.cardGame,
+    isGameFinish: isGameFinish
+  }
+})),
+on(memoryCardAction.setIsGameWinAction, (state,  { isGameWin }) => ({
+  ...state, cardGame: {
+    ...state.cardGame,
+    isGameWin: isGameWin
+  }
 }))
+
 )
