@@ -18,10 +18,7 @@ export const initialMemoryCardState: IMemoryCardState = {
       isCardVisible: false,
       cardTextExplanation: ""
     },
-    numberOfCardColumn: 0,
-    numberOfCardRow: 0,
     cards: [],
-    timeToObserveBeforeStart: 0,
     cardToFindQuantity: 0,
     maxErrorQuantity: 0,
     gameLevel: "",
@@ -38,6 +35,10 @@ export const initialMemoryCardState: IMemoryCardState = {
         isEndGameInstructionVisible: false
       }
     },
+    timeCountDown: {
+      timeToObserveBeforeStart: 0,
+      isCountDownVisible: false
+    }
   },
   cardInGame: null
 }
@@ -113,7 +114,10 @@ on(memoryCardAction.turnBackOfCardClickedAction, (state, { cardId }) => ({
 on(memoryCardAction.countDownBeforeCardReturnAction,(state, { timeToRemove })=>({
   ...state, cardGame : {
     ...state.cardGame,
-    timeToObserveBeforeStart: state.cardGame.timeToObserveBeforeStart - timeToRemove
+    timeCountDown: {
+      ...state.cardGame.timeCountDown,
+      timeToObserveBeforeStart: state.cardGame.timeCountDown.timeToObserveBeforeStart - timeToRemove
+    }
   }
 })),
 on(memoryCardAction.showPresentationTextAction,(state) => ({
@@ -169,6 +173,15 @@ on(memoryCardAction.setIsGameWinAction, (state,  { isGameWin }) => ({
     ...state.cardGame,
     isGameWin: isGameWin
   }
-}))
+})),
+on(memoryCardAction.countDownVisibilityAction, (state, { isVisible }) => ({
+  ...state, cardGame: {
+    ...state.cardGame, timeCountDown : {
+      ...state.cardGame.timeCountDown,
+      isCountDownVisible: isVisible
+    }
+  }
+})),
+on(memoryCardAction.resetGameAction, () => initialMemoryCardState)
 
 )

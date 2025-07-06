@@ -3,8 +3,6 @@ import { IGameTextInformationDto } from "../commonModel/game-text-information.dt
 export interface ICardGameDto {
   gameTextInformation: IGameTextInformationDto,
   cardToFindInGame: ICardToFindDto,
-  numberOfCardColumn: number,
-  numberOfCardRow: number,
   cards: ICardDto [],
   gameLevel: string,
   timeToObserveBeforeStart: number
@@ -17,7 +15,6 @@ export interface ICardGameDto {
  */
 export interface ICardDto {
   id: number,
-  cardPosition: ICardPositionDto,
   cardImages: ICardImageDto,
   isCardToFind: boolean
 }
@@ -28,14 +25,6 @@ export interface ICardDto {
 export interface ICardToFindDto {
   card: ICardImageDto,
   cardTextExplanation: string
-}
-
-/**
- * Position en X et Y d'une carte
- */
-export interface ICardPositionDto {
-  positionX: number,
-  positionY: number,
 }
 
 /**

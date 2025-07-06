@@ -1,10 +1,8 @@
 import { select, Store } from "@ngrx/store";
 import { IAppState } from "../../../store/state";
-import { CardGame } from "../models/memoryCardGame/memory-card-game.model";
 import { Card } from "../models/memoryCardGame/card.model";
 import * as actions from '../../../modules/game/store/memoryCardGame/action';
-import { Inject, Injectable } from "@angular/core";
-import * as selectors from '../../../modules/game/store/memoryCardGame/selector'
+import { Injectable } from "@angular/core";
 import { filter, Observable, of, take } from "rxjs";
 import * as cardGameSelector from '../../game/store/memoryCardGame/selector';
 
@@ -16,13 +14,15 @@ export class MemoryCardGameRules {
 
   private _pointToWinGame: number = 0;
   private _actualPoint: number = 0;
-  private _isGameWin = false;
 
-  cardToFindQuantity$: Observable<number | null> = of(null);
+  cardToFindQuantity$ = this._store.pipe(select(cardGameSelector.cardToFindQuantitySelector));
 
   constructor(private _store: Store<IAppState>) {
-    this.cardToFindQuantity$ = this._store.pipe(select(cardGameSelector.cardToFindQuantitySelector));
+    this.getCardToFindQuantity();
+  }
 
+
+  private getCardToFindQuantity(): void {
     this.cardToFindQuantity$
     .pipe(
       filter((val): val is number => val !== null),
@@ -33,29 +33,20 @@ export class MemoryCardGameRules {
     });
   }
 
-
-  intitializeGame(timeToObserveBeforeStart: number) {
+  beginGame(timeToObserveBeforeStart: number) {
     // Masque le text de présentation
     this.hidePresentationText();
 
     // Affichage du chrono avant début jeu
     this.displayCountDownBeforeCardReturn(timeToObserveBeforeStart);
-
-    // Affichage de la carte a trouver
-    this.showCardToFindInGame();
   }
 
   showCardToFindInGame() {
     this._store.dispatch(actions.showCardToFindAction());
   }
 
-  hideCardToFindInGame(timeBeforeHideCard: number) {
-    const timeBeforeHideCardInMs = timeBeforeHideCard * 1000;
-
-    setTimeout(() => {
+  hideCardToFindInGame() {
       this._store.dispatch(actions.hideCardToFindAction());
-    }, timeBeforeHideCardInMs);
-
   }
 
   hidePresentationText() {
@@ -68,9 +59,13 @@ export class MemoryCardGameRules {
   displayCountDownBeforeCardReturn(timeToObserveBeforeStart: number) {
 
     const timeToObserveInMs = timeToObserveBeforeStart * 1000;
+    this._store.dispatch(actions.countDownVisibilityAction({ isVisible: true }));
 
-    const displayCountDownInterval = setInterval(() =>
-      this._store.dispatch(actions.countDownBeforeCardReturnAction({ timeToRemove: 1 })),
+    const displayCountDownInterval = setInterval(() => {
+
+      this._store.dispatch(actions.countDownBeforeCardReturnAction({ timeToRemove: 1 }));
+
+    },
     1000);
 
     setTimeout(() => {
@@ -79,8 +74,9 @@ export class MemoryCardGameRules {
       // Retournes les cartes pour commencer a jouer
       this.returnAllCardsToPlay();
 
-      // Masque la carte a trouver
-      this.hideCardToFindInGame(timeToObserveBeforeStart);
+        // Affichage de la carte a trouver
+        this.showCardToFindInGame();
+
     }, timeToObserveInMs);
   }
 
@@ -121,10 +117,10 @@ export class MemoryCardGameRules {
 
   isGameWin(): void {
     if(this._actualPoint === this._pointToWinGame) {
-      this._store.dispatch(actions.setIsGameWinAction({isGameWin : true}));
-      this._store.dispatch(actions.setIsGameFinishAction({isGameFinish : true}));
-
-
+      setTimeout(()=>{
+        this._store.dispatch(actions.setIsGameWinAction({isGameWin : true}));
+        this._store.dispatch(actions.setIsGameFinishAction({isGameFinish : true}));
+      }, 1000);
     }
   }
 
@@ -132,5 +128,10 @@ export class MemoryCardGameRules {
     return false;
   }
 
+  initializeGame() : void {
+    this._actualPoint = 0;
+    this._store.dispatch(actions.resetGameAction());
+    this._store.dispatch(actions.getMemoryCardGameAction({playerId: '1'}));
+  }
 
 }

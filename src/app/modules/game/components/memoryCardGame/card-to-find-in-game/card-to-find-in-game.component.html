@@ -1,19 +1,20 @@
-<div class="card__container" *ngIf="cardToFindInGame$ | async as cardToFindInGame">
-  <!-- image de face -->
-  <div class="card" >
-      <section class="card__face">
-          <div class="image__container">
-            <img src="https://dummyjson.com/image/150" alt="Back Image" />
+<div class="flex w-full fixed flex-1 h-full z-2 overlay--background justify-content-center align-items-center flex-column" *ngIf="(isCardToFindInGameVisible$ | async) === true" @slideFadeIn>
+
+    <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center m--w--1024">
+       <div class="card__container" *ngIf="cardToFindInGame$ | async as cardToFindInGame">
+          <!-- image de face -->
+          <div class="card" >
+            <div class="image__container">
+              <img src="https://dummyjson.com/image/150" alt="Back Image" />
+            </div>
           </div>
-      </section>
-      <!-- imge de derriere -->
-      <section class="card__face back">
-          <div class="image__container">
-            <img src="images/aet_back_card.svg" alt="Back Image" />
-          </div>
-      </section>
-  </div>
-  <div>
-    <p>{{cardToFindInGame.cardTextExplanation}}</p>
-  </div>
+        </div>
+              <!-- Text + button-->
+      <div class="w-30rem" *ngIf="cardToFindInGame$ | async as cardToFindInGame">
+        <div class="w-30rem flex text-center m-2 surface-0 justify-content-center border-round-sm shadow-7 flex-column">
+          <p class="p-2 text-center">{{cardToFindInGame.cardTextExplanation}}</p>
+          <p-button class="p-3" (onClick)="hideCard()" label="Ok" severity="help" />
+        </div>
+      </div>
+    </div>
 </div>

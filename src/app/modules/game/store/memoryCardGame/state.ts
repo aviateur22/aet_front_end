@@ -11,10 +11,8 @@ export interface  IMemoryCardState {
   export interface ICardGameState {
     gameTextInformation: IGameTextInformationState,
     cardToFindInGame: ICardToFindState,
-    numberOfCardColumn: number,
-    numberOfCardRow: number,
     cards: ICardState[],
-    timeToObserveBeforeStart: number,
+    timeCountDown: ITimeCountDownSate,
     cardToFindQuantity: number,
     maxErrorQuantity: number,
     gameLevel: string,
@@ -24,16 +22,10 @@ export interface  IMemoryCardState {
 
   export interface ICardState  {
     id: number,
-    cardPosition: ICardPositionState,
     cardImages: ICardImageState,
     isCardToFind: boolean,
     isCardReturned: boolean,
     isMarkToShow: boolean
-  }
-
-  export interface ICardPositionState {
-    positionX: number,
-    positionY: number,
   }
 
   export interface ICardImageState {
@@ -45,4 +37,9 @@ export interface  IMemoryCardState {
     cardImages: ICardImageState,
     isCardVisible: boolean,
     cardTextExplanation: string
+  }
+
+  export interface ITimeCountDownSate {
+    timeToObserveBeforeStart: number,
+    isCountDownVisible: boolean
   }

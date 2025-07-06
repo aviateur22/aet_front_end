@@ -1,0 +1,9 @@
+<!-- compte a rebour avant debut du jeu-->
+<div *ngIf="isTimeCountDownVisible$ | async">
+  <div class="flex w-full fixed flex-1 h-full z-3 justify-content-center" *ngIf="timeToObservBeforeStart$ | async as timeToObservBeforeStart">
+      <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center m--w--1024">
+        <span  [@popAnimation]="timeToObservBeforeStart" class="countdown">{{ timeToObservBeforeStart }}</span>
+    </div>
+  <div>
+</div>
+

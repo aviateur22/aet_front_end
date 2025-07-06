@@ -202,7 +202,7 @@
     }
   ],
   "gameLevel": "Medium",
-  "timeToObserveBeforeStart": 3,
+  "timeToObserveBeforeStart": 10,
   "cardToFindQuantity": 7,
   "maxErrorQuantity": 5
 }

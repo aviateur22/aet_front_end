@@ -1,19 +1,22 @@
-<div *ngIf="isGameFinish$ | async">
-  <!-- Text -->
-  <div>
-    <!-- Text de victoire -->
-    <div *ngIf="isGameWin$ |async; else victoryBlock">
-      <p>{{ endTextVictory }} </p>
-    </div>
-
-    <!-- Text de defaite -->
-    <ng-template #victoryBlock>
-      <p>{{ endTextLost }} </p>
-    </ng-template>
-  </div>
-
-    <!-- Button recommencer -->
+<div class="flex w-full fixed flex-1 h-full z-2 overlay--background justify-content-center" *ngIf="isGameFinish$ | async" @fadeInOut>
+  <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center surface-0 m--w--1024">
+    <!-- Text -->
     <div>
-      <p-button (onClick)="restartGame()" label="Recommencer le jeur" severity="help" />
+      <!-- Text de victoire -->
+      <div *ngIf="isGameWin$ |async; else victoryBlock">
+        <p>{{ endTextVictory }} </p>
+      </div>
+
+      <!-- Text de defaite -->
+      <ng-template #victoryBlock>
+        <p>{{ endTextLost }} </p>
+      </ng-template>
     </div>
+
+      <!-- Button recommencer -->
+      <div class="flex flex-column">
+        <p-button class="m-2 full--width--btn" (onClick)="backToMenu()" label="Arreter" variant="outlined" severity="help" />
+        <p-button class="m-2 full--width--btn" (onClick)="restartGame()" label="Recommencer le jeur" severity="help" />
+      </div>
+  </div>
 </div>

@@ -1,9 +1,11 @@
-<div *ngIf="(isPresentationTextVisible$ | async) === true && (isGameLoadingSuccess$ | async) === true">
-   <div *ngIf="presentationText$ | async as presentationText">
-      <p>{{presentationText}}</p>
+<div class="flex p-2 w-full fixed flex-1 h-full z-2 overlay--background justify-content-center" *ngIf="(isPresentationTextVisible$ | async) === true && (isGameLoadingSuccess$ | async) === true" @fadeInOut>
+  <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center surface-0 m--w--1024">
+    <div *ngIf="presentationText$ | async as presentationText">
+      <p class="p-5">{{presentationText}}</p>
     </div>
-  <!-- Button valider-->
-  <div>
-    <p-button (onClick)="startGameCard()" label="Commencer la partie" severity="help" />
+    <!-- Button valider-->
+    <div>
+      <p-button size="large" (onClick)="startGameCard()" label="Commencer la partie" severity="help" />
+    </div>
   </div>
 </div>

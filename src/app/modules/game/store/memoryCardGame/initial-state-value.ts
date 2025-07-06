@@ -5,3 +5,4 @@ export const INITIAL_ARE_CARDS_IN_GAME_RETURN: boolean = false;
 export const INITIAL_IS_MARK_ON_CARDS_IN_GAME_VISIBLE = false;
 export const INITIAL_IS_GAME_FINISH = false;
 export const INITIAL_IS_GAME_WIN = false;
+export const INITIAL_IS_COUNT_DOWN_VISIBLE = false;

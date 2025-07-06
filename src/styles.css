@@ -9,6 +9,14 @@
   font-family: 'raleway', 'arial', sans-serif;
 }
 
+.overlay--background {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.m--w--1024 {
+  max-width: 1024px;
+}
 
 :root {
   /* Hauteur navbar*/

@@ -1,7 +1,7 @@
 import { IGameTextInformationDto } from "../models/commonModel/game-text-information.dtol";
 import { ICardGameDto, ICardDto, ICardImageDto, ICardToFindDto } from "../models/memoryCardGame/memory-card-game-api.dto";
 import { IGameTextInformationState } from "../store/gameCommon/game-common.state";
-import { INITIAL_ARE_CARDS_IN_GAME_RETURN, INITIAL_CARD_TO_FIND_VISIBILITY, INITIAL_IS_GAME_FINISH, INITIAL_IS_GAME_WIN, INITIAL_IS_MARK_ON_CARDS_IN_GAME_VISIBLE, INITIAL_PRESENTATION_END_TEXT_VISIBILITY, INITIAL_PRESENTATION_TEXT_VISIBILITY } from "../store/memoryCardGame/initial-state-value";
+import { INITIAL_ARE_CARDS_IN_GAME_RETURN, INITIAL_CARD_TO_FIND_VISIBILITY, INITIAL_IS_COUNT_DOWN_VISIBLE, INITIAL_IS_GAME_FINISH, INITIAL_IS_GAME_WIN, INITIAL_IS_MARK_ON_CARDS_IN_GAME_VISIBLE, INITIAL_PRESENTATION_END_TEXT_VISIBILITY, INITIAL_PRESENTATION_TEXT_VISIBILITY } from "../store/memoryCardGame/initial-state-value";
 import { ICardGameState, ICardState, ICardToFindState } from "../store/memoryCardGame/state";
 
 /**
@@ -13,15 +13,16 @@ export function mapToMemoryCardGameStateInitilalizer(dto: ICardGameDto): ICardGa
   const cardGameState: ICardGameState = {
     gameTextInformation: mapToGameTextInformationStateInitializer(dto.gameTextInformation),
     cardToFindInGame: mapTocardToFindInGameInitilalizer(dto.cardToFindInGame),
-    numberOfCardColumn: dto.numberOfCardColumn,
-    numberOfCardRow: dto.numberOfCardRow,
     cards: dto.cards.map(card => mapTopCardStateInitilalizer(card)),
     gameLevel: dto.gameLevel,
-    timeToObserveBeforeStart: dto.timeToObserveBeforeStart,
     cardToFindQuantity: dto.cardToFindQuantity,
     maxErrorQuantity: dto.maxErrorQuantity,
     isGameFinish: INITIAL_IS_GAME_FINISH,
-    isGameWin: INITIAL_IS_GAME_WIN
+    isGameWin: INITIAL_IS_GAME_WIN,
+    timeCountDown: {
+      timeToObserveBeforeStart: dto.timeToObserveBeforeStart,
+      isCountDownVisible: INITIAL_IS_COUNT_DOWN_VISIBLE
+    }
   };
   return cardGameState;
 }
@@ -44,7 +45,6 @@ export function mapTopCardStateInitilalizer(card: ICardDto): ICardState {
   return {
     id: card.id,
     isCardToFind: card.isCardToFind,
-    cardPosition: card.cardPosition,
     cardImages: card.cardImages,
     isCardReturned: INITIAL_ARE_CARDS_IN_GAME_RETURN,
     isMarkToShow: INITIAL_IS_MARK_ON_CARDS_IN_GAME_VISIBLE

@@ -2,8 +2,9 @@ import { GameTextInformation, TextInformationVisibility } from "../models/common
 import { CardToFind } from "../models/memoryCardGame/card-to-find.model";
 import { Card } from "../models/memoryCardGame/card.model";
 import { CardGame } from "../models/memoryCardGame/memory-card-game.model";
+import { TimeCountDown } from "../models/memoryCardGame/time-count-down.model";
 import { IGameTextInformationState } from "../store/gameCommon/game-common.state";
-import { ICardGameState, ICardState, ICardToFindState } from "../store/memoryCardGame/state";
+import { ICardGameState, ICardState, ICardToFindState, ITimeCountDownSate } from "../store/memoryCardGame/state";
 
 
 
@@ -18,11 +19,9 @@ export function mapToCardGame(memoryCardState: ICardGameState): CardGame {
   return new CardGame(
     mapToGameTextInformation(memoryCardState.gameTextInformation),
     mapToCardToFind(memoryCardState.cardToFindInGame),
-    memoryCardState.numberOfCardColumn,
-    memoryCardState.numberOfCardRow,
     memoryCardState.cards.map(card => mapToCard(card)),
     memoryCardState.gameLevel,
-    memoryCardState.timeToObserveBeforeStart,
+    mapTotimeCountDown(memoryCardState.timeCountDown),
     memoryCardState.cardToFindQuantity,
     memoryCardState.maxErrorQuantity,
     memoryCardState.isGameFinish,
@@ -51,7 +50,6 @@ export function mapToGameTextInformation(gameTextInformation: IGameTextInformati
 export function mapToCard(card: ICardState): Card {
   return new Card(
     card.id,
-    card.cardPosition,
     card.cardImages,
     card.isCardToFind,
     card.isCardReturned,
@@ -65,5 +63,12 @@ export function mapToCardToFind(cardToFind: ICardToFindState): CardToFind {
     cardToFind.cardImages,
     cardToFind.isCardVisible,
     cardToFind.cardTextExplanation
+  );
+
+}
+export function mapTotimeCountDown(timeCountDown: ITimeCountDownSate): TimeCountDown {
+  return new TimeCountDown(
+    timeCountDown.timeToObserveBeforeStart,
+    timeCountDown.isCountDownVisible
   );
 }

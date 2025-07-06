@@ -44,7 +44,8 @@ export const gameTextInformationSelector = createSelector(selectGameTextInformat
 
 export const cardGameSelector = createSelector(selectCardGameState, (state) => mapToCardGame(state));
 export const cardsSelector = createSelector(selectCardGameState, (state) => state.cards);
-export const timeToObserveBeforeStartSelector = createSelector(selectCardGameState, (state) => state.timeToObserveBeforeStart);
+export const timeToObserveBeforeStartSelector = createSelector(selectCardGameState, (state) => state.timeCountDown.timeToObserveBeforeStart);
+export const isTimeCountDownVisibleSelector = createSelector(selectCardGameState, (state) => state.timeCountDown.isCountDownVisible);
 export const cardToFindQuantitySelector = createSelector(selectCardGameState, (state) => state.cardToFindQuantity);
 export const isGameFinishSelector = createSelector(selectCardGameState, (state) => state.isGameFinish);
 export const isGameWinSelector = createSelector(selectCardGameState, (state) => state.isGameWin);
