@@ -15,7 +15,7 @@ export interface ICardGameDto {
  */
 export interface ICardDto {
   id: number,
-  cardImages: ICardImageDto,
+  cardImage: ICardImageDto,
   isCardToFind: boolean
 }
 
@@ -23,7 +23,7 @@ export interface ICardDto {
  * Données composant une carte du jeu
  */
 export interface ICardToFindDto {
-  card: ICardImageDto,
+  cardImage: ICardImageDto,
   cardTextExplanation: string
 }
 
@@ -31,6 +31,6 @@ export interface ICardToFindDto {
  * Path image recto et verso d'une carte
  */
 export interface ICardImageDto {
-  cardFrontImagePath: string,
-  cardBackImagePath: string
+  cardFrontImageName: string,
+  cardBackImageName: string
 }

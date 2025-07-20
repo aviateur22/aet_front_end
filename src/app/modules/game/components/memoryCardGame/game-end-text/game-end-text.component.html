@@ -1,9 +1,10 @@
-<div class="flex w-full fixed flex-1 h-full z-2 overlay--background justify-content-center" *ngIf="isGameFinish$ | async" @fadeInOut>
-  <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center surface-0 m--w--1024">
+<div class="flex p-2 w-full fixed flex-1 h-full z-4 overlay--background justify-content-center" *ngIf="isGameFinish$ | async" @fadeInOut>
+  <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center surface-0 m--w--1024 text-center">
     <!-- Text -->
     <div>
       <!-- Text de victoire -->
-      <div *ngIf="isGameWin$ |async; else victoryBlock">
+      <div class="p-5" *ngIf="isGameWin$ |async; else victoryBlock">
+        <p class="p-5"> Tu as eu {{ badResponseQuantity }} mauvaise{{ badResponseQuantity > 1 ? 's' : ''}}  réponse{{ badResponseQuantity > 1 ? 's' : ''}} </p>
         <p>{{ endTextVictory }} </p>
       </div>
 

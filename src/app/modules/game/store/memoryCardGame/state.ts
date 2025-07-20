@@ -29,8 +29,8 @@ export interface  IMemoryCardState {
   }
 
   export interface ICardImageState {
-    cardFrontImagePath: string,
-    cardBackImagePath: string
+    cardFrontImageName: string,
+    cardBackImageName: string
   }
 
   export interface ICardToFindState {

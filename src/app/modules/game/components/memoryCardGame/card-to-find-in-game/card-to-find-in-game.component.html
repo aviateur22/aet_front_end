@@ -3,9 +3,9 @@
     <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center m--w--1024">
        <div class="card__container" *ngIf="cardToFindInGame$ | async as cardToFindInGame">
           <!-- image de face -->
-          <div class="card" >
+          <div class="card p-5" >
             <div class="image__container">
-              <img src="https://dummyjson.com/image/150" alt="Back Image" />
+              <img [src]="frontImageNameUrl" alt="Back Image" />
             </div>
           </div>
         </div>

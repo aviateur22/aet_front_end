@@ -3,6 +3,7 @@ import * as memoryCardAction from './action';
 
 import { mapToMemoryCardGameStateInitilalizer } from "../../mapper/dto-to-store-object-mapper";
 import { IMemoryCardState } from "./state";
+import { state } from "@angular/animations";
 
 
 export const initialMemoryCardState: IMemoryCardState = {
@@ -12,8 +13,8 @@ export const initialMemoryCardState: IMemoryCardState = {
   cardGame: {
     cardToFindInGame: {
       cardImages: {
-        cardFrontImagePath: "",
-        cardBackImagePath: ""
+        cardFrontImageName: "",
+        cardBackImageName: ""
       },
       isCardVisible: false,
       cardTextExplanation: ""
@@ -30,9 +31,13 @@ export const initialMemoryCardState: IMemoryCardState = {
       gameLostText: "",
       gameVictoryText: "",
       presentationText: "",
+      gameTitle: "",
+      selectWord: "",
+      badResponseCumultated: 0,
       textVisibility: {
         isInstructionVisible: true,
-        isEndGameInstructionVisible: false
+        isEndGameInstructionVisible: false,
+        isWordingVisible: false
       }
     },
     timeCountDown: {
@@ -182,6 +187,32 @@ on(memoryCardAction.countDownVisibilityAction, (state, { isVisible }) => ({
     }
   }
 })),
-on(memoryCardAction.resetGameAction, () => initialMemoryCardState)
+on(memoryCardAction.resetGameAction, () => initialMemoryCardState),
+on(memoryCardAction.updateWordToDisplayAction, (state, { wordToDisplay }) => ({
+  ...state, cardGame : {
+    ...state.cardGame, gameTextInformation: {
+      ...state.cardGame.gameTextInformation,
+        selectWord: wordToDisplay
+    }
+  }
+})),
+on(memoryCardAction.updateWordVisibilityAction, (state, { isVisible }) => ({
+  ...state, cardGame: {
+    ...state.cardGame, gameTextInformation: {
+      ...state.cardGame.gameTextInformation, textVisibility: {
+        ...state.cardGame.gameTextInformation.textVisibility,
+          isWordingVisible: isVisible
+      }
+    }
+  }
+})),
+on(memoryCardAction.updateBadResponseCumulatedAction, (state, { badResponseQuantity }) => ({
+  ...state, cardGame: {
+    ...state.cardGame, gameTextInformation: {
+      ...state.cardGame.gameTextInformation,
+      badResponseCumultated: badResponseQuantity
+    }
+  }
+}))
 
 )

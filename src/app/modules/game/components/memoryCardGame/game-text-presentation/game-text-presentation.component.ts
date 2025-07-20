@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { combineLatest, Observable, of, Subscription, take } from 'rxjs';
+import {  map, Subscription } from 'rxjs';
 import { IAppState } from '../../../../../store/state';
 import * as cardGameSelector from '../../../store/memoryCardGame/selector';
 import { MemoryCardGameRules } from '../../../core/memory-card-game-rule';
@@ -28,6 +28,7 @@ export class GameTextPresentationComponent implements OnInit, OnDestroy {
   private _subscription = new Subscription();
 
   isPresentationTextVisible$ = this._store.pipe(select(cardGameSelector.isInstructionVisibleSelector));
+  gameTitle$ = this._store.pipe(select(cardGameSelector.gameTitleSelector))
   presentationText$ = this._store.pipe(select(cardGameSelector.presentationTextSelector));
   isGameLoadingSuccess$ = this._store.pipe(select(cardGameSelector.isLoadingSuccessSelector));
 
@@ -46,13 +47,8 @@ export class GameTextPresentationComponent implements OnInit, OnDestroy {
   }
 
   startGameCard(): void {
-
-    console.log(this._timeToObserve);
-    console.log(this._isLoadingSuccess);
-
     if( this._timeToObserve > 0 && this._isLoadingSuccess)
       this._memoryCardGameRules.beginGame(this._timeToObserve);
-
   }
 
 

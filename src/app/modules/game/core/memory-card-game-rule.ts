@@ -3,7 +3,7 @@ import { IAppState } from "../../../store/state";
 import { Card } from "../models/memoryCardGame/card.model";
 import * as actions from '../../../modules/game/store/memoryCardGame/action';
 import { Injectable } from "@angular/core";
-import { filter, Observable, of, take } from "rxjs";
+import { filter, Subject, takeUntil } from "rxjs";
 import * as cardGameSelector from '../../game/store/memoryCardGame/selector';
 
 @Injectable({
@@ -14,23 +14,37 @@ export class MemoryCardGameRules {
 
   private _pointToWinGame: number = 0;
   private _actualPoint: number = 0;
-
-  cardToFindQuantity$ = this._store.pipe(select(cardGameSelector.cardToFindQuantitySelector));
-
-  constructor(private _store: Store<IAppState>) {
-    this.getCardToFindQuantity();
-  }
+  private _actualBadResponse: number = 0;
+  private _destroy$ = new Subject<void>();
+  private _losingWords: string[] = [];
+  private _congratulationWords: string[] = [];
 
 
-  private getCardToFindQuantity(): void {
-    this.cardToFindQuantity$
-    .pipe(
-      filter((val): val is number => val !== null),
-      take(2)
-    )
-    .subscribe(value => {
-      this._pointToWinGame = value;
-    });
+  cardToFindQuantity$ = this._store.pipe(select(cardGameSelector.cardToFindQuantitySelector),
+  filter((val): val is number => val !== null),
+    takeUntil(this._destroy$)
+  ).subscribe(value => {
+    this._pointToWinGame = value;
+  });
+
+
+losingWording$ = this._store.pipe(select(cardGameSelector.loosingWordsSelector),
+    takeUntil(this._destroy$)
+  ).subscribe(loosingWords => {
+    this._losingWords = loosingWords
+  });
+
+  congratulationWords$ = this._store.pipe(select(cardGameSelector.congratulationWordsSelector),
+    takeUntil(this._destroy$)
+  ).subscribe(congratilations => {
+    this._congratulationWords = congratilations
+  });
+
+  constructor(private _store: Store<IAppState>) {}
+
+  ngOnDestroy() {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   beginGame(timeToObserveBeforeStart: number) {
@@ -39,6 +53,13 @@ export class MemoryCardGameRules {
 
     // Affichage du chrono avant début jeu
     this.displayCountDownBeforeCardReturn(timeToObserveBeforeStart);
+  }
+
+  initializeGame() : void {
+    this._actualPoint = 0;
+    this._actualBadResponse = 0;
+    this._store.dispatch(actions.resetGameAction());
+    this._store.dispatch(actions.getMemoryCardGameAction({playerId: '1'}));
   }
 
   showCardToFindInGame() {
@@ -85,7 +106,6 @@ export class MemoryCardGameRules {
   }
 
   cardClick(card: Card) {
-
     if(!card.isCardReturned)
       return;
 
@@ -93,15 +113,18 @@ export class MemoryCardGameRules {
 
     this._store.dispatch(actions.showFrontOfCardClickedAction({ cardId: cardId }));
 
+    // Selection d'un message a afficher
+    setTimeout(() => this.selectRandomWord(card.isCardToFind), 500);
+
     if(!card.isCardToFind) {
+      // Ajout de mauvais point
+      this.addPointToLose();
+
       setTimeout(() => this.returnBackCard(cardId), 2000);
       return;
     }
-
     this.addPointToWin();
     this.isGameWin();
-
-
   }
 
   returnBackCard(cardId: number) {
@@ -113,6 +136,30 @@ export class MemoryCardGameRules {
   }
 
   addPointToLose(): void {
+    this._actualBadResponse ++;
+    this._store.dispatch(actions.updateBadResponseCumulatedAction({ badResponseQuantity: this._actualBadResponse }));
+  }
+
+  selectRandomWord(isCardValid: boolean): void {
+    const looseIndex = Math.floor(Math.random() * this._losingWords.length);
+    const congratIndex = Math.floor(Math.random() * this._losingWords.length);
+
+    const word = isCardValid ? this._congratulationWords[congratIndex] : this._losingWords[looseIndex];
+
+    this.updateWord(word);
+  }
+
+  updateWord(word: string) {
+    this._store.dispatch(actions.updateWordToDisplayAction({ wordToDisplay: word }));
+    this._store.dispatch(actions.updateWordVisibilityAction({ isVisible: true }));
+
+    // Masque le mot
+    setTimeout(()=> this.hideWord(), 700);
+  }
+
+  hideWord() {
+    this._store.dispatch(actions.updateWordToDisplayAction({ wordToDisplay: "" }));
+    this._store.dispatch(actions.updateWordVisibilityAction({ isVisible: false }));
   }
 
   isGameWin(): void {
@@ -127,11 +174,4 @@ export class MemoryCardGameRules {
   isGameLoose(): boolean {
     return false;
   }
-
-  initializeGame() : void {
-    this._actualPoint = 0;
-    this._store.dispatch(actions.resetGameAction());
-    this._store.dispatch(actions.getMemoryCardGameAction({playerId: '1'}));
-  }
-
 }

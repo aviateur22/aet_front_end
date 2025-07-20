@@ -1,22 +1,18 @@
-<div (click)="returnCard()" class="card__container">
-  <!-- image de face -->
-  <div class="card" [class.show--back--card]="card.isCardReturned" [class.show--front--card]="!card.isCardReturned && isGameReadyToPlay" @fadeInOut>
-      <section class="card__face">
-        <div class="inner__card">
-          <!-- Icon Valide -->
-         <div class="absolute z-1 hide--icon" [class.show--icon]="!card.isCardReturned && card.isCardToFind" *ngIf="card.isCardToFind && isGameReadyToPlay">
-           <img src="images/memoryCardGame/validIcon.svg">
-         </div>
-          <div class="image__container relative">
-            <img src="https://dummyjson.com/image/150" alt="Back Image" />
-          </div>
-        </div>
-      </section>
-      <!-- imge de derriere -->
-      <section class="card__face back">
-          <div class="image__container">
-            <img src="images/memoryCardGame/aet_back_card.svg" alt="Back Image" />
-          </div>
-      </section>
+<div class="flip-card" [ngClass]="flipForward ? 'forward' : 'backward'" (click)="returnCard()">
+  <div class="flip-card-inner">
+    <!-- image de face -->
+    <div class="flip-card-front">
+       <!-- Icon Valide -->
+      <div class="absolute top-0 left-0 z-1 hide--icon" [class.show--icon]="!card.isCardReturned && card.isCardToFind" *ngIf="card.isCardToFind && isGameReadyToPlay">
+        <img src="images/memoryCardGame/validIcon.svg">
+      </div>
+      <div class="image__container relative">
+        <img [src]="frontImageNameUrl">
+      </div>
+    </div>
+    <!-- imge de derriere -->
+    <div class="flip-card-back">
+      <img [src]="backImageNameUrl">
+    </div>
   </div>
 </div>

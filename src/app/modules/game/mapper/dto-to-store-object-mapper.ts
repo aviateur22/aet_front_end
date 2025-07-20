@@ -1,8 +1,8 @@
 import { IGameTextInformationDto } from "../models/commonModel/game-text-information.dtol";
 import { ICardGameDto, ICardDto, ICardImageDto, ICardToFindDto } from "../models/memoryCardGame/memory-card-game-api.dto";
 import { IGameTextInformationState } from "../store/gameCommon/game-common.state";
-import { INITIAL_ARE_CARDS_IN_GAME_RETURN, INITIAL_CARD_TO_FIND_VISIBILITY, INITIAL_IS_COUNT_DOWN_VISIBLE, INITIAL_IS_GAME_FINISH, INITIAL_IS_GAME_WIN, INITIAL_IS_MARK_ON_CARDS_IN_GAME_VISIBLE, INITIAL_PRESENTATION_END_TEXT_VISIBILITY, INITIAL_PRESENTATION_TEXT_VISIBILITY } from "../store/memoryCardGame/initial-state-value";
-import { ICardGameState, ICardState, ICardToFindState } from "../store/memoryCardGame/state";
+import { INITIAL_ARE_CARDS_IN_GAME_RETURN, INITIAL_BAD_RESPONSE_CUMULATED, INITIAL_CARD_TO_FIND_VISIBILITY, INITIAL_IS_COUNT_DOWN_VISIBLE, INITIAL_IS_GAME_FINISH, INITIAL_IS_GAME_WIN, INITIAL_IS_MARK_ON_CARDS_IN_GAME_VISIBLE, INITIAL_PRESENTATION_END_TEXT_VISIBILITY, INITIAL_PRESENTATION_TEXT_VISIBILITY, INITIAL_WORDING_VISIBILITY } from "../store/memoryCardGame/initial-state-value";
+import { ICardGameState, ICardImageState, ICardState, ICardToFindState } from "../store/memoryCardGame/state";
 
 /**
  * Permets l'initialisation du state au démarrage du Memory Card Game
@@ -28,24 +28,29 @@ export function mapToMemoryCardGameStateInitilalizer(dto: ICardGameDto): ICardGa
 }
 
 export function mapToGameTextInformationStateInitializer(textInformationDto: IGameTextInformationDto): IGameTextInformationState {
+  console.log(textInformationDto.gamePresentation.gameTitle)
   return {
-    congratulationWords: textInformationDto.congratulationWords,
-    loosingWords: textInformationDto.loosingWords,
-    gameLostText: textInformationDto.gameLostText,
-    gameVictoryText: textInformationDto.gameVictoryText,
-    presentationText: textInformationDto.presentationText,
-    textVisibility: {
-      isInstructionVisible: INITIAL_PRESENTATION_TEXT_VISIBILITY,
-      isEndGameInstructionVisible: INITIAL_PRESENTATION_END_TEXT_VISIBILITY
-    }
-  }
+  congratulationWords: textInformationDto.congratulationWords,
+  loosingWords: textInformationDto.loosingWords,
+  gameLostText: textInformationDto.gameLostText,
+  gameVictoryText: textInformationDto.gameVictoryText,
+  presentationText: textInformationDto.gamePresentation.presentationText,
+  gameTitle: textInformationDto.gamePresentation.gameTitle,
+  selectWord: "",
+  badResponseCumultated: INITIAL_BAD_RESPONSE_CUMULATED,
+  textVisibility: {
+    isInstructionVisible: INITIAL_PRESENTATION_TEXT_VISIBILITY,
+    isEndGameInstructionVisible: INITIAL_PRESENTATION_END_TEXT_VISIBILITY,
+    isWordingVisible: INITIAL_WORDING_VISIBILITY
+  },
+}
 }
 
 export function mapTopCardStateInitilalizer(card: ICardDto): ICardState {
   return {
     id: card.id,
     isCardToFind: card.isCardToFind,
-    cardImages: card.cardImages,
+    cardImages: mapToCardImage(card.cardImage),
     isCardReturned: INITIAL_ARE_CARDS_IN_GAME_RETURN,
     isMarkToShow: INITIAL_IS_MARK_ON_CARDS_IN_GAME_VISIBLE
   };
@@ -53,8 +58,15 @@ export function mapTopCardStateInitilalizer(card: ICardDto): ICardState {
 
 export function mapTocardToFindInGameInitilalizer(cardToFind: ICardToFindDto): ICardToFindState {
   return {
-    cardImages: cardToFind.card,
+    cardImages: mapToCardImage(cardToFind.cardImage),
     isCardVisible: INITIAL_CARD_TO_FIND_VISIBILITY,
     cardTextExplanation: cardToFind.cardTextExplanation
+  }
+}
+
+export function mapToCardImage(cardImage: ICardImageDto): ICardImageState {
+  return {
+    cardFrontImageName: cardImage.cardFrontImageName,
+    cardBackImageName: cardImage.cardBackImageName
   }
 }

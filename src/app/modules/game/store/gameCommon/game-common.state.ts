@@ -7,12 +7,15 @@ export interface IGameTextInformationState {
   gameLostText: string,
   gameVictoryText:string,
   presentationText: string,
-  textVisibility: gameTextVisibilityState
+  textVisibility: IGameTextVisibilityState;
+  gameTitle: string,
+  selectWord: string,
+  badResponseCumultated: number
 }
 
 
-export interface gameTextVisibilityState {
+export interface IGameTextVisibilityState {
   isInstructionVisible: boolean,
-  isEndGameInstructionVisible: boolean
+  isEndGameInstructionVisible: boolean,
+  isWordingVisible: boolean
 }
-

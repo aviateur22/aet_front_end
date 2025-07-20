@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../../../../store/state';
-import { Observable, take } from 'rxjs';
+import { Observable, Subject, take, takeUntil } from 'rxjs';
 import * as selectors from '../../../store/memoryCardGame/selector';
 import { MemoryCardGameRules } from '../../../core/memory-card-game-rule';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -24,19 +24,28 @@ import frontPage from '../../../../../../misc/front-page';
       ])
     ]
 })
-export class GameEndTextComponent implements OnInit {
+export class GameEndTextComponent implements OnInit, OnDestroy {
+
+  private _destroyed$ = new Subject<void>();
 
   isGameFinish$: Observable<boolean> = this._store.pipe(select(selectors.isGameFinishSelector));
   isGameWin$: Observable<boolean> = this._store.pipe(select(selectors.isGameWinSelector));
 
   endTextVictory: string = '';
   endTextLost: string = '';
+  badResponseQuantity: number = 0;
 
   constructor(private _store: Store<IAppState>, private _gameRules: MemoryCardGameRules, private _router: Router){}
 
+  ngOnDestroy(): void {
+   this._destroyed$.next();
+   this._destroyed$.complete();
+  }
+
   ngOnInit(): void {
-    this._store.pipe(select(selectors.endTextVictorySelector)).pipe(take(2)).subscribe(res => this.endTextVictory = res);
-    this._store.pipe(select(selectors.endTextLostSelector)).pipe(take(2)).subscribe(res => this.endTextLost = res);
+    this._store.pipe(select(selectors.endTextVictorySelector)).pipe(takeUntil(this._destroyed$)).subscribe(res => this.endTextVictory = res);
+    this._store.pipe(select(selectors.endTextLostSelector)).pipe(takeUntil(this._destroyed$)).subscribe(res => this.endTextLost = res);
+    this._store.pipe(select(selectors.badResponseCumulatedSelector)).pipe(takeUntil(this._destroyed$)).subscribe(res => this.badResponseQuantity = res);
   }
 
   restartGame() {

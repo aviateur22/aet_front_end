@@ -6,6 +6,7 @@ import { catchError, concatMap, concatWith, from, interval, map, mergeMap, of, s
 import { Injectable } from "@angular/core";
 import { IAppState } from "../../../../store/state";
 import { Store } from "@ngrx/store";
+import { GameLevel } from "../../models/memoryCardGame/game-level.model";
 
 @Injectable()
 export class MemoryCardEffect {
@@ -15,7 +16,7 @@ export class MemoryCardEffect {
     this._action$.pipe(
       ofType(memoryGameAction.getMemoryCardGameAction),
       mergeMap(({ playerId }) =>
-        this.gameService.getMemoryCardGameData(playerId).pipe(
+        this.gameService.getMemoryCardGameData(playerId, GameLevel.EASY).pipe(
           switchMap(res => [memoryGameAction.getMemoryCardGameCompleteAction({memoryCardGameData: res})])
         )
       ),

@@ -1,0 +1,9 @@
+<!-- compte a rebour avant debut du jeu-->
+<div *ngIf="isWordingVisible$ | async">
+  <div class="flex w-full fixed flex-1 h-full z-3 justify-content-center" *ngIf="selectWord$ | async as selectWord">
+      <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center text-center m--w--1024">
+        <span  [@popAnimation]="selectWord" class="word">{{ selectWord }}</span>
+    </div>
+  <div>
+</div>
+

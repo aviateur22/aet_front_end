@@ -13,8 +13,8 @@ export class Card {
  */
 export class CardImage {
   constructor(
-    public readonly cardFrontImagePath: string,
-    public readonly cardBackImagePath: string
+    public readonly cardFrontImageName: string,
+    public readonly cardBackImageName: string
   ) {}
 }
 

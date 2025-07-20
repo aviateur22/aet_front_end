@@ -19,6 +19,7 @@ import { GameTextPresentationComponent } from './components/memoryCardGame/game-
 import { ButtonModule } from 'primeng/button';
 import { GameEndTextComponent } from './components/memoryCardGame/game-end-text/game-end-text.component';
 import { CountDownComponent } from './components/memoryCardGame/count-down/count-down.component';
+import { WordActionComponent } from './components/memoryCardGame/word-action/word-action.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CountDownComponent } from './components/memoryCardGame/count-down/count
     GameTextPresentationComponent,
     GameEndTextComponent,
     CountDownComponent,
+    WordActionComponent,
   ],
   imports: [
     CommonModule,

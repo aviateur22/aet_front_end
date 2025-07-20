@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../../../../store/state';
 import * as selectors from '../../../store/memoryCardGame/selector';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { MemoryCardGameRules } from '../../../core/memory-card-game-rule';
+import apiUrl from '../../../../../../misc/api.url';
+import { Subject, takeUntil, tap } from 'rxjs';
 
 
 @Component({
@@ -19,12 +21,29 @@ import { MemoryCardGameRules } from '../../../core/memory-card-game-rule';
     ])
   ]
 })
-export class CardToFindInGameComponent {
+export class CardToFindInGameComponent implements OnInit, OnDestroy{
 
-  cardToFindInGame$ = this._store.pipe(select(selectors.cardToFindInGameSelector));
+  private _destroy$ = new Subject<void>();
+
+  cardToFindInGame$ = this._store.pipe(select(selectors.cardToFindInGameSelector),
+  tap(image => {
+    this.frontImageNameUrl = apiUrl.streamImage.url.replace('{imageName}', image.cardImages.cardFrontImageName);
+  }),
+  takeUntil(this._destroy$)
+  );
+
   isCardToFindInGameVisible$ = this._store.pipe(select(selectors.isCardToFindVisibleSelector));
 
+  frontImageNameUrl: string = '';
+
   constructor(private _store: Store<IAppState>, private _gameRules: MemoryCardGameRules){}
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
+  ngOnInit(): void {}
 
   hideCard(): void {
     this._gameRules.hideCardToFindInGame();

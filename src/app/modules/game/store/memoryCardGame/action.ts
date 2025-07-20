@@ -26,7 +26,10 @@ export const turnBackOfCardClickedAction = createAction('[turn Back Card In Game
 export const countDownBeforeCardReturnAction = createAction('[count Down Before Card Return Action] count Down Before Card Return Action', props<{ timeToRemove: number }>());
 export const showPresentationTextAction = createAction('[show Presentation Text Action] show Presentation Text Action');
 export const hidePresentationTextAction = createAction('[hide Presentation Text Action] hide Presentation Text Action');
-export const countDownVisibilityAction = createAction('[count Down Visibility Action] count Down Visibility Action', props<{isVisible: boolean}>())
+export const countDownVisibilityAction = createAction('[count Down Visibility Action] count Down Visibility Action', props<{isVisible: boolean}>());
+export const updateWordToDisplayAction = createAction('[update Word To Display Action] update Word To Display Action', props<{ wordToDisplay: string }>());
+export const updateWordVisibilityAction = createAction('[update Word Visibility Action] update Word Visibility Action', props<{ isVisible: boolean }>());
+export const updateBadResponseCumulatedAction = createAction('[update Bad Response Cumulated Action] update Bad Response Cumulated Action', props<{ badResponseQuantity: number }>());
 
 export const setIsGameFinishAction = createAction('[set is Game Finish Action] set is Game Finish Action', props<{isGameFinish: boolean}>());
 export const setIsGameWinAction = createAction('[set Is Game Win Action] set Is Game Win Action', props<{isGameWin: boolean}>());

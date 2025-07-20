@@ -23,6 +23,17 @@ export class MemoryCardGamePageComponent implements OnInit {
     isGameReadyToPlay$: Observable<boolean> = this._store.pipe(select(cardGameSelector.isGameReadyToPlaySelector));
     isGameWin$: Observable<boolean> = this._store.pipe(select(cardGameSelector.isGameWinSelector));
 
+  /**
+   * Stabilise la liste des carte dans le DOM.
+   * Cela permet de réutilisé la liste présentz dans le DOM et evite un rechargement des carte lors dun click event
+   * @param { number } index - Index de la liste
+   * @param { Card } card  - Carte
+   * @returns
+   */
+  trackByCardId(index: number, card: Card): number {
+    return card.id;
+  }
+
   constructor(private _store: Store<IAppState>, private _gameRules: MemoryCardGameRules){}
 
   ngOnInit(): void {

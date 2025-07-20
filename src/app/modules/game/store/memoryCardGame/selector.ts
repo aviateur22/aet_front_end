@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { IGameSate } from "../state";
 import { mapToGameTextInformation, mapToCardGame } from "../../mapper/store-object-to-model-instance-mapper";
+import { state } from "@angular/animations";
 
 export const selectGameState = createFeatureSelector<IGameSate>('gameState');
 
@@ -35,10 +36,16 @@ export const isGameReadyToPlaySelector = createSelector(selectMemoryCardState, (
 
 
 export const presentationTextSelector = createSelector(selectGameTextInformation, (state) => state.presentationText);
+export const gameTitleSelector = createSelector(selectGameTextInformation, (state) => state.gameTitle);
 export const isInstructionVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isInstructionVisible);
 export const isEndGameInstructionVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isEndGameInstructionVisible);
 export const endTextVictorySelector = createSelector(selectGameTextInformation, state => state.gameVictoryText);
 export const endTextLostSelector = createSelector(selectGameTextInformation, state => state.gameLostText);
+export const isWordingVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isWordingVisible);
+export const loosingWordsSelector = createSelector(selectGameTextInformation, (state) => state.loosingWords);
+export const selectWordSelector = createSelector(selectGameTextInformation, (state) => state.selectWord);
+export const congratulationWordsSelector = createSelector(selectGameTextInformation, (state) => state.congratulationWords);
+export const badResponseCumulatedSelector = createSelector(selectGameTextInformation, (state) => state.badResponseCumultated);
 
 export const gameTextInformationSelector = createSelector(selectGameTextInformation, (state) => mapToGameTextInformation(state));
 
@@ -52,3 +59,6 @@ export const isGameWinSelector = createSelector(selectCardGameState, (state) => 
 
 export const isCardToFindVisibleSelector = createSelector(selectCardToFindInGameState, (state) => state.isCardVisible);
 export const cardToFindInGameSelector = createSelector(selectCardToFindInGameState, (state) => state);
+
+export const selectCardById = (id: number) =>
+  createSelector(selectCardGameState, (state) => state.cards.find(card => card.id === id));

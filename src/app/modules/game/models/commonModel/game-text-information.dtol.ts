@@ -1,8 +1,8 @@
 /**
  * Text à afficher pour le déroulement d'un jeu
  */
-export interface IGameTextInformationDto extends IWiningOrLosingWordsDto, IIntroAndConclusionTextDto, IGamePresentationTextDto {
-
+export interface IGameTextInformationDto extends IWiningOrLosingWordsDto, IIntroAndConclusionTextDto {
+  gamePresentation: IGamePresentation
 }
 
 /**
@@ -24,7 +24,8 @@ interface IIntroAndConclusionTextDto {
 /**
  * Text présentation DTO
  */
-interface IGamePresentationTextDto {
-  presentationText: string
+interface IGamePresentation {
+  gameTitle: string,
+  presentationText : string
 }
 

@@ -15,7 +15,6 @@ import { trigger, transition, style, animate } from '@angular/animations';
         ])
       ]),
   ]
-
 })
 export class CountDownComponent {
   timeToObservBeforeStart$ = this._store.pipe(select(cardGameSelector.timeToObserveBeforeStartSelector));
