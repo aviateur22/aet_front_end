@@ -1,16 +1,17 @@
 import { select, Store } from "@ngrx/store";
 import { IAppState } from "../../../store/state";
 import { Card } from "../models/memoryCardGame/card.model";
-import * as actions from '../../../modules/game/store/memoryCardGame/action';
+import * as actions from '../store/memoryCardGame/action';
 import { Injectable } from "@angular/core";
 import { filter, Subject, takeUntil } from "rxjs";
-import * as cardGameSelector from '../../game/store/memoryCardGame/selector';
+import * as cardGameSelector from '../store/memoryCardGame/selector';
+import { GameTextInformationService } from "../services/game-text-information.service";
+import { IGameEndParameterByLevelDto } from "../models/commonModel/game-text-information.dto"
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemoryCardGameRules {
-
 
   private _pointToWinGame: number = 0;
   private _actualPoint: number = 0;
@@ -18,7 +19,7 @@ export class MemoryCardGameRules {
   private _destroy$ = new Subject<void>();
   private _losingWords: string[] = [];
   private _congratulationWords: string[] = [];
-
+  private _gameEndParameterByLevels: IGameEndParameterByLevelDto[] = [];
 
   cardToFindQuantity$ = this._store.pipe(select(cardGameSelector.cardToFindQuantitySelector),
   filter((val): val is number => val !== null),
@@ -27,20 +28,18 @@ export class MemoryCardGameRules {
     this._pointToWinGame = value;
   });
 
+  constructor(private _store: Store<IAppState>, private _gameTextInformationService: GameTextInformationService) {
+    this._gameTextInformationService.getGameTextInformation()
+    .pipe(takeUntil(this._destroy$))
+    .subscribe(gametext=>{
+      if(!gametext)
+        return;
 
-losingWording$ = this._store.pipe(select(cardGameSelector.loosingWordsSelector),
-    takeUntil(this._destroy$)
-  ).subscribe(loosingWords => {
-    this._losingWords = loosingWords
-  });
-
-  congratulationWords$ = this._store.pipe(select(cardGameSelector.congratulationWordsSelector),
-    takeUntil(this._destroy$)
-  ).subscribe(congratilations => {
-    this._congratulationWords = congratilations
-  });
-
-  constructor(private _store: Store<IAppState>) {}
+      this._losingWords = gametext.loosingWords;
+      this._congratulationWords = gametext.congratulationWords;
+      this._gameEndParameterByLevels = gametext.gameEndParameterByLevels;
+    })
+  }
 
   ngOnDestroy() {
     this._destroy$.next();
@@ -59,7 +58,7 @@ losingWording$ = this._store.pipe(select(cardGameSelector.loosingWordsSelector),
     this._actualPoint = 0;
     this._actualBadResponse = 0;
     this._store.dispatch(actions.resetGameAction());
-    this._store.dispatch(actions.getMemoryCardGameAction({playerId: '1'}));
+    this._store.dispatch(actions.getGenerateMemoryCardGameAction({playerId: '1'}));
   }
 
   showCardToFindInGame() {
@@ -165,6 +164,7 @@ losingWording$ = this._store.pipe(select(cardGameSelector.loosingWordsSelector),
   isGameWin(): void {
     if(this._actualPoint === this._pointToWinGame) {
       setTimeout(()=>{
+        this.selectEndGameTitleAndText()
         this._store.dispatch(actions.setIsGameWinAction({isGameWin : true}));
         this._store.dispatch(actions.setIsGameFinishAction({isGameFinish : true}));
       }, 1000);
@@ -173,5 +173,18 @@ losingWording$ = this._store.pipe(select(cardGameSelector.loosingWordsSelector),
 
   isGameLoose(): boolean {
     return false;
+  }
+
+  selectEndGameTitleAndText(): void {
+    console.log(this._actualBadResponse);
+    console.log(this._gameEndParameterByLevels);
+    let selectEndParameter: IGameEndParameterByLevelDto | undefined = this._gameEndParameterByLevels.find(endParam => {
+      console.log(endParam.minError <= this._actualBadResponse && endParam.maxError >= this._actualBadResponse)
+      return endParam.minError <= this._actualBadResponse && endParam.maxError >= this._actualBadResponse
+    });
+    console.log(selectEndParameter);
+    if(selectEndParameter)
+      this._store.dispatch(actions.setEndTextAction({ endTitle: selectEndParameter.endGameText.endTitle, endText: selectEndParameter.endGameText.endText }))
+
   }
 }

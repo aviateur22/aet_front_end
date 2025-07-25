@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { IGameSate } from "../state";
-import { mapToGameTextInformation, mapToCardGame } from "../../mapper/store-object-to-model-instance-mapper";
-import { state } from "@angular/animations";
+ import { mapToCardGame } from "../../mapper/store-object-to-model-instance-mapper";
 
 export const selectGameState = createFeatureSelector<IGameSate>('gameState');
 
@@ -34,20 +33,14 @@ export const isLoadingSuccessSelector = createSelector(selectMemoryCardState, (s
 export const returnCardInGameSelector = createSelector(selectMemoryCardState, (state) => state.cardInGame);
 export const isGameReadyToPlaySelector = createSelector(selectMemoryCardState, (state) => state.isGameReadyToPlay);
 
-
 export const presentationTextSelector = createSelector(selectGameTextInformation, (state) => state.presentationText);
 export const gameTitleSelector = createSelector(selectGameTextInformation, (state) => state.gameTitle);
 export const isInstructionVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isInstructionVisible);
 export const isEndGameInstructionVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isEndGameInstructionVisible);
-export const endTextVictorySelector = createSelector(selectGameTextInformation, state => state.gameVictoryText);
-export const endTextLostSelector = createSelector(selectGameTextInformation, state => state.gameLostText);
+export const endTextTitleSelector = createSelector(selectGameTextInformation, state => state.selectedEndTitle);
+export const endTextSelector = createSelector(selectGameTextInformation, state => state.selectedEndText);
 export const isWordingVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isWordingVisible);
-export const loosingWordsSelector = createSelector(selectGameTextInformation, (state) => state.loosingWords);
 export const selectWordSelector = createSelector(selectGameTextInformation, (state) => state.selectWord);
-export const congratulationWordsSelector = createSelector(selectGameTextInformation, (state) => state.congratulationWords);
-export const badResponseCumulatedSelector = createSelector(selectGameTextInformation, (state) => state.badResponseCumultated);
-
-export const gameTextInformationSelector = createSelector(selectGameTextInformation, (state) => mapToGameTextInformation(state));
 
 export const cardGameSelector = createSelector(selectCardGameState, (state) => mapToCardGame(state));
 export const cardsSelector = createSelector(selectCardGameState, (state) => state.cards);
@@ -56,6 +49,7 @@ export const isTimeCountDownVisibleSelector = createSelector(selectCardGameState
 export const cardToFindQuantitySelector = createSelector(selectCardGameState, (state) => state.cardToFindQuantity);
 export const isGameFinishSelector = createSelector(selectCardGameState, (state) => state.isGameFinish);
 export const isGameWinSelector = createSelector(selectCardGameState, (state) => state.isGameWin);
+export const badResponseCumulatedSelector = createSelector(selectCardGameState, (state) => state.badResponseCumultated);
 
 export const isCardToFindVisibleSelector = createSelector(selectCardToFindInGameState, (state) => state.isCardVisible);
 export const cardToFindInGameSelector = createSelector(selectCardToFindInGameState, (state) => state);

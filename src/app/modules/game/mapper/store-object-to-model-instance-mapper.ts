@@ -17,7 +17,6 @@ import { ICardGameState, ICardState, ICardToFindState, ITimeCountDownSate } from
 export function mapToCardGame(memoryCardState: ICardGameState): CardGame {
   console.log(memoryCardState);
   return new CardGame(
-    mapToGameTextInformation(memoryCardState.gameTextInformation),
     mapToCardToFind(memoryCardState.cardToFindInGame),
     memoryCardState.cards.map(card => mapToCard(card)),
     memoryCardState.gameLevel,
@@ -26,24 +25,6 @@ export function mapToCardGame(memoryCardState: ICardGameState): CardGame {
     memoryCardState.maxErrorQuantity,
     memoryCardState.isGameFinish,
     memoryCardState.isGameWin
-  )
-}
-
-/**
- * Renvoie GameTextInformation un à partir d'un  IMemoryCardGameState
- * @param gameTextInformation
- * @returns
- */
-export function mapToGameTextInformation(gameTextInformation: IGameTextInformationState): GameTextInformation {
-  const gameText = gameTextInformation;
-
-  return new GameTextInformation(
-    gameText.congratulationWords,
-    gameText.loosingWords,
-    gameText.gameLostText,
-    gameText.gameVictoryText,
-    gameText.presentationText,
-    gameText.textVisibility
   )
 }
 

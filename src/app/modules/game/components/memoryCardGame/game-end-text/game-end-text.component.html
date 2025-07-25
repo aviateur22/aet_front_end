@@ -5,12 +5,13 @@
       <!-- Text de victoire -->
       <div class="p-5" *ngIf="isGameWin$ |async; else victoryBlock">
         <p class="p-5"> Tu as eu {{ badResponseQuantity }} mauvaise{{ badResponseQuantity > 1 ? 's' : ''}}  réponse{{ badResponseQuantity > 1 ? 's' : ''}} </p>
-        <p>{{ endTextVictory }} </p>
+        <p class="text-lg font-bold color__primary">{{ endGameTitle }} </p>
+        <p class="p-2">{{ endGameText }} </p>
       </div>
 
       <!-- Text de defaite -->
       <ng-template #victoryBlock>
-        <p>{{ endTextLost }} </p>
+        <p>{{ endGameText }} </p>
       </ng-template>
     </div>
 

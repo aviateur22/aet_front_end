@@ -14,7 +14,7 @@ export class MemoryCardEffect {
 
   getMemoryCardData$ = createEffect(() =>
     this._action$.pipe(
-      ofType(memoryGameAction.getMemoryCardGameAction),
+      ofType(memoryGameAction.getGenerateMemoryCardGameAction),
       mergeMap(({ playerId }) =>
         this.gameService.getMemoryCardGameData(playerId, GameLevel.EASY).pipe(
           switchMap(res => [memoryGameAction.getMemoryCardGameCompleteAction({memoryCardGameData: res})])

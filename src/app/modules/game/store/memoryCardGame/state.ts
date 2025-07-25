@@ -17,7 +17,8 @@ export interface  IMemoryCardState {
     maxErrorQuantity: number,
     gameLevel: string,
     isGameFinish: boolean,
-    isGameWin: boolean
+    isGameWin: boolean,
+    badResponseCumultated: number
   }
 
   export interface ICardState  {

@@ -1,5 +1,4 @@
 import { createAction, props } from "@ngrx/store";
-import { CardGame } from "../../models/memoryCardGame/memory-card-game.model";
 import { ICardGameDto } from "../../models/memoryCardGame/memory-card-game-api.dto";
 
 /**
@@ -7,7 +6,7 @@ import { ICardGameDto } from "../../models/memoryCardGame/memory-card-game-api.d
  */
 
 // Téléchargement des données du jeux Memory card
-export const getMemoryCardGameAction = createAction('[Get Memory Card Game] Get Memory Card Game', props<{ playerId: string }>());
+export const getGenerateMemoryCardGameAction = createAction('[get Generate Memory Card Game Action] get Generate Memory Card Game Action', props<{ playerId: string }>());
 export const getMemoryCardGameCompleteAction = createAction('[get Memory Card Game Complete Action] get Memory Card Game Complete Action', props<{ memoryCardGameData: ICardGameDto}>() );
 export const getMemoryCardGameFailedAction = createAction('[ge tMemory Card Game Failed Action] get Memory Card Game Faile dAction');
 
@@ -30,6 +29,7 @@ export const countDownVisibilityAction = createAction('[count Down Visibility Ac
 export const updateWordToDisplayAction = createAction('[update Word To Display Action] update Word To Display Action', props<{ wordToDisplay: string }>());
 export const updateWordVisibilityAction = createAction('[update Word Visibility Action] update Word Visibility Action', props<{ isVisible: boolean }>());
 export const updateBadResponseCumulatedAction = createAction('[update Bad Response Cumulated Action] update Bad Response Cumulated Action', props<{ badResponseQuantity: number }>());
+export const setEndTextAction = createAction('[set End Text Action] set End Text Action', props<{ endTitle: string, endText : string }>());
 
 export const setIsGameFinishAction = createAction('[set is Game Finish Action] set is Game Finish Action', props<{isGameFinish: boolean}>());
 export const setIsGameWinAction = createAction('[set Is Game Win Action] set Is Game Win Action', props<{isGameWin: boolean}>());

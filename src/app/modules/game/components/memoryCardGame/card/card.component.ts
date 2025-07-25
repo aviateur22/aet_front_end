@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Card } from '../../../models/memoryCardGame/card.model';
-import { MemoryCardGameRules } from '../../../core/memory-card-game-rule';
+import { MemoryCardGameRules } from '../../../business/memory-card-game-rule';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import apiUrl from '../../../../../../misc/api.url';
 import * as cardGameSelector from '../../../store/memoryCardGame/selector';

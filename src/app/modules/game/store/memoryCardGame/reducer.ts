@@ -25,15 +25,13 @@ export const initialMemoryCardState: IMemoryCardState = {
     gameLevel: "",
     isGameFinish: false,
     isGameWin: false,
+    badResponseCumultated: 0,
     gameTextInformation: {
-      congratulationWords: [],
-      loosingWords: [],
-      gameLostText: "",
-      gameVictoryText: "",
       presentationText: "",
       gameTitle: "",
       selectWord: "",
-      badResponseCumultated: 0,
+      selectedEndTitle: "",
+      selectedEndText: "",
       textVisibility: {
         isInstructionVisible: true,
         isEndGameInstructionVisible: false,
@@ -50,7 +48,7 @@ export const initialMemoryCardState: IMemoryCardState = {
 
 export const memoryCardReducers = createReducer(
   initialMemoryCardState,
-  on(memoryCardAction.getMemoryCardGameAction, (state) => ({
+  on(memoryCardAction.getGenerateMemoryCardGameAction, (state) => ({
     ...state,
       isGameLoading: true
 
@@ -208,11 +206,19 @@ on(memoryCardAction.updateWordVisibilityAction, (state, { isVisible }) => ({
 })),
 on(memoryCardAction.updateBadResponseCumulatedAction, (state, { badResponseQuantity }) => ({
   ...state, cardGame: {
+    ...state.cardGame,
+      badResponseCumultated: badResponseQuantity
+    }
+})),
+on(memoryCardAction.setEndTextAction, (state, { endText, endTitle }) => ({
+  ...state, cardGame: {
     ...state.cardGame, gameTextInformation: {
       ...state.cardGame.gameTextInformation,
-      badResponseCumultated: badResponseQuantity
+        selectedEndText: endText,
+        selectedEndTitle: endTitle
     }
   }
 }))
+
 
 )

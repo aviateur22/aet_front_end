@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../../../../store/state';
 import { Observable, Subject, take, takeUntil } from 'rxjs';
 import * as selectors from '../../../store/memoryCardGame/selector';
-import { MemoryCardGameRules } from '../../../core/memory-card-game-rule';
+import { MemoryCardGameRules } from '../../../business/memory-card-game-rule';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Router } from '@angular/router';
 import frontPage from '../../../../../../misc/front-page';
@@ -31,8 +31,8 @@ export class GameEndTextComponent implements OnInit, OnDestroy {
   isGameFinish$: Observable<boolean> = this._store.pipe(select(selectors.isGameFinishSelector));
   isGameWin$: Observable<boolean> = this._store.pipe(select(selectors.isGameWinSelector));
 
-  endTextVictory: string = '';
-  endTextLost: string = '';
+  endGameText: string = '';
+  endGameTitle: string = '';
   badResponseQuantity: number = 0;
 
   constructor(private _store: Store<IAppState>, private _gameRules: MemoryCardGameRules, private _router: Router){}
@@ -43,8 +43,8 @@ export class GameEndTextComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._store.pipe(select(selectors.endTextVictorySelector)).pipe(takeUntil(this._destroyed$)).subscribe(res => this.endTextVictory = res);
-    this._store.pipe(select(selectors.endTextLostSelector)).pipe(takeUntil(this._destroyed$)).subscribe(res => this.endTextLost = res);
+    this._store.pipe(select(selectors.endTextSelector)).pipe(takeUntil(this._destroyed$)).subscribe(res => this.endGameText = res);
+    this._store.pipe(select(selectors.endTextTitleSelector)).pipe(takeUntil(this._destroyed$)).subscribe(res => this.endGameTitle = res);
     this._store.pipe(select(selectors.badResponseCumulatedSelector)).pipe(takeUntil(this._destroyed$)).subscribe(res => this.badResponseQuantity = res);
   }
 

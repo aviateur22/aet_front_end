@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { CardToFind } from '../../models/memoryCardGame/card-to-find.model';
 import { Card } from '../../models/memoryCardGame/card.model';
 import { CardGame } from '../../models/memoryCardGame/memory-card-game.model';
-import { MemoryCardGameRules } from '../../core/memory-card-game-rule';
+import { MemoryCardGameRules } from '../../business/memory-card-game-rule';
 
 
 @Component({

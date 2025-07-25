@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../../../../store/state';
 import * as selectors from '../../../store/memoryCardGame/selector';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { MemoryCardGameRules } from '../../../core/memory-card-game-rule';
+import { MemoryCardGameRules } from '../../../business/memory-card-game-rule';
 import apiUrl from '../../../../../../misc/api.url';
 import { Subject, takeUntil, tap } from 'rxjs';
 

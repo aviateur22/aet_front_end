@@ -1,4 +1,4 @@
-import { IGameTextInformationDto } from "../models/commonModel/game-text-information.dtol";
+import { IGameTextInformationDto } from "../models/commonModel/game-text-information.dto";
 import { ICardGameDto, ICardDto, ICardImageDto, ICardToFindDto } from "../models/memoryCardGame/memory-card-game-api.dto";
 import { IGameTextInformationState } from "../store/gameCommon/game-common.state";
 import { INITIAL_ARE_CARDS_IN_GAME_RETURN, INITIAL_BAD_RESPONSE_CUMULATED, INITIAL_CARD_TO_FIND_VISIBILITY, INITIAL_IS_COUNT_DOWN_VISIBLE, INITIAL_IS_GAME_FINISH, INITIAL_IS_GAME_WIN, INITIAL_IS_MARK_ON_CARDS_IN_GAME_VISIBLE, INITIAL_PRESENTATION_END_TEXT_VISIBILITY, INITIAL_PRESENTATION_TEXT_VISIBILITY, INITIAL_WORDING_VISIBILITY } from "../store/memoryCardGame/initial-state-value";
@@ -19,6 +19,7 @@ export function mapToMemoryCardGameStateInitilalizer(dto: ICardGameDto): ICardGa
     maxErrorQuantity: dto.maxErrorQuantity,
     isGameFinish: INITIAL_IS_GAME_FINISH,
     isGameWin: INITIAL_IS_GAME_WIN,
+    badResponseCumultated: INITIAL_BAD_RESPONSE_CUMULATED,
     timeCountDown: {
       timeToObserveBeforeStart: dto.timeToObserveBeforeStart,
       isCountDownVisible: INITIAL_IS_COUNT_DOWN_VISIBLE
@@ -30,14 +31,11 @@ export function mapToMemoryCardGameStateInitilalizer(dto: ICardGameDto): ICardGa
 export function mapToGameTextInformationStateInitializer(textInformationDto: IGameTextInformationDto): IGameTextInformationState {
   console.log(textInformationDto.gamePresentation.gameTitle)
   return {
-  congratulationWords: textInformationDto.congratulationWords,
-  loosingWords: textInformationDto.loosingWords,
-  gameLostText: textInformationDto.gameLostText,
-  gameVictoryText: textInformationDto.gameVictoryText,
   presentationText: textInformationDto.gamePresentation.presentationText,
   gameTitle: textInformationDto.gamePresentation.gameTitle,
   selectWord: "",
-  badResponseCumultated: INITIAL_BAD_RESPONSE_CUMULATED,
+  selectedEndTitle: "",
+  selectedEndText: "",
   textVisibility: {
     isInstructionVisible: INITIAL_PRESENTATION_TEXT_VISIBILITY,
     isEndGameInstructionVisible: INITIAL_PRESENTATION_END_TEXT_VISIBILITY,
