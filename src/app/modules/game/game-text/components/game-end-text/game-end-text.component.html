@@ -1,0 +1,28 @@
+<div class="flex p-2 w-full fixed flex-1 h-full z-4 overlay--background justify-content-center" *ngIf="isGameFinish$ | async" @fadeInOut>
+  <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center surface-0 m--w--1024 text-center">
+    <!-- Text -->
+    <div>
+      <!-- Text de victoire -->
+      <div class="p-5" *ngIf="isGameWin$ |async; else victoryBlock">
+        <p class="p-5"> Tu as eu
+          <span class="font-semibold text-lg" [ngClass]="actualErrorLevel! | errorLevel">
+           {{ badResponseQuantity }}
+          </span>
+          mauvaise{{ badResponseQuantity > 1 ? 's' : ''}}  réponse{{ badResponseQuantity > 1 ? 's' : ''}} </p>
+        <p  class="text-lg font-bold" [ngClass]="actualErrorLevel! | errorLevel"> {{ endGameTitle }} </p>
+        <p class="p-2">{{ endGameText }} </p>
+      </div>
+
+      <!-- Text de defaite -->
+      <ng-template #victoryBlock>
+        <p>{{ endGameText }} </p>
+      </ng-template>
+    </div>
+
+      <!-- Button recommencer -->
+      <div class="flex flex-column">
+        <p-button class="m-2 full--width--btn" (onClick)="backToMenu()" label="Arreter" variant="outlined" severity="help" />
+        <p-button class="m-2 full--width--btn" (onClick)="restartGame()" label="Recommencer le jeur" severity="help" />
+      </div>
+  </div>
+</div>

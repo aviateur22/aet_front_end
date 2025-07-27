@@ -1,12 +1,13 @@
 import { select, Store } from "@ngrx/store";
 import { IAppState } from "../../../store/state";
-import { Card } from "../models/memoryCardGame/card.model";
+import { Card } from "../memory-game-card/models/card.model";
 import * as actions from '../store/memoryCardGame/action';
+import * as gameTextActions from '../store/gameText/action';
 import { Injectable } from "@angular/core";
 import { filter, Subject, takeUntil } from "rxjs";
 import * as cardGameSelector from '../store/memoryCardGame/selector';
-import { GameTextInformationService } from "../services/game-text-information.service";
-import { IGameEndParameterByLevelDto } from "../models/commonModel/game-text-information.dto"
+import { GameTextInformationService } from "../game-text/services/game-text-information.service";
+import { IGameEndParameterByLevelDto } from "../game-text/models/game-text-information.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -31,10 +32,9 @@ export class MemoryCardGameRules {
   constructor(private _store: Store<IAppState>, private _gameTextInformationService: GameTextInformationService) {
     this._gameTextInformationService.getGameTextInformation()
     .pipe(takeUntil(this._destroy$))
-    .subscribe(gametext=>{
+    .subscribe(gametext => {
       if(!gametext)
         return;
-
       this._losingWords = gametext.loosingWords;
       this._congratulationWords = gametext.congratulationWords;
       this._gameEndParameterByLevels = gametext.gameEndParameterByLevels;
@@ -57,8 +57,10 @@ export class MemoryCardGameRules {
   initializeGame() : void {
     this._actualPoint = 0;
     this._actualBadResponse = 0;
+    this._store.dispatch(gameTextActions.resetGameText());
+    this._store.dispatch(gameTextActions.resetGameText());
     this._store.dispatch(actions.resetGameAction());
-    this._store.dispatch(actions.getGenerateMemoryCardGameAction({playerId: '1'}));
+    this._store.dispatch(actions.generateNewGameAction({playerId: '1'}));
   }
 
   showCardToFindInGame() {
@@ -70,7 +72,7 @@ export class MemoryCardGameRules {
   }
 
   hidePresentationText() {
-    this._store.dispatch(actions.hidePresentationTextAction());
+    this._store.dispatch(gameTextActions.hidePresentationTextAction());
   }
   /**
    *
@@ -149,16 +151,16 @@ export class MemoryCardGameRules {
   }
 
   updateWord(word: string) {
-    this._store.dispatch(actions.updateWordToDisplayAction({ wordToDisplay: word }));
-    this._store.dispatch(actions.updateWordVisibilityAction({ isVisible: true }));
+    this._store.dispatch(gameTextActions.updateWordToDisplayAction({ wordToDisplay: word }));
+    this._store.dispatch(gameTextActions.updateWordVisibilityAction({ isVisible: true }));
 
     // Masque le mot
     setTimeout(()=> this.hideWord(), 700);
   }
 
   hideWord() {
-    this._store.dispatch(actions.updateWordToDisplayAction({ wordToDisplay: "" }));
-    this._store.dispatch(actions.updateWordVisibilityAction({ isVisible: false }));
+    this._store.dispatch(gameTextActions.updateWordToDisplayAction({ wordToDisplay: "" }));
+    this._store.dispatch(gameTextActions.updateWordVisibilityAction({ isVisible: false }));
   }
 
   isGameWin(): void {
@@ -184,7 +186,9 @@ export class MemoryCardGameRules {
     });
     console.log(selectEndParameter);
     if(selectEndParameter)
-      this._store.dispatch(actions.setEndTextAction({ endTitle: selectEndParameter.endGameText.endTitle, endText: selectEndParameter.endGameText.endText }))
-
+      this._store.dispatch(gameTextActions.setEndTextAction({
+        endTitle: selectEndParameter.endGameText.endTitle,
+        endText: selectEndParameter.endGameText.endText ,
+        endErrorLevel: selectEndParameter.endResultLevel }))
   }
 }

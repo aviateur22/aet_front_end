@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { IGameSate } from "../state";
- import { mapToCardGame } from "../../mapper/store-object-to-model-instance-mapper";
+ import { mapToCardGame } from "../../memory-game-card/mapper/store-object-to-model-instance-mapper";
 
 export const selectGameState = createFeatureSelector<IGameSate>('gameState');
 
@@ -8,12 +8,6 @@ export const selectGameState = createFeatureSelector<IGameSate>('gameState');
 export const selectMemoryCardState = createSelector(
   selectGameState,
   (state: IGameSate) => state.memoryCardState
-);
-
-// Selector les texts du jeu
-export const selectGameTextInformation = createSelector(
-  selectGameState,
-  (state: IGameSate) => state.memoryCardState.cardGame.gameTextInformation
 );
 
 // Selecteur sur la carte qui est à trouver
@@ -32,15 +26,6 @@ export const isGameLoadingSelector = createSelector(selectMemoryCardState, (stat
 export const isLoadingSuccessSelector = createSelector(selectMemoryCardState, (state) => state.isLoadingSuccess);
 export const returnCardInGameSelector = createSelector(selectMemoryCardState, (state) => state.cardInGame);
 export const isGameReadyToPlaySelector = createSelector(selectMemoryCardState, (state) => state.isGameReadyToPlay);
-
-export const presentationTextSelector = createSelector(selectGameTextInformation, (state) => state.presentationText);
-export const gameTitleSelector = createSelector(selectGameTextInformation, (state) => state.gameTitle);
-export const isInstructionVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isInstructionVisible);
-export const isEndGameInstructionVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isEndGameInstructionVisible);
-export const endTextTitleSelector = createSelector(selectGameTextInformation, state => state.selectedEndTitle);
-export const endTextSelector = createSelector(selectGameTextInformation, state => state.selectedEndText);
-export const isWordingVisibleSelector = createSelector(selectGameTextInformation, (state) => state.textVisibility.isWordingVisible);
-export const selectWordSelector = createSelector(selectGameTextInformation, (state) => state.selectWord);
 
 export const cardGameSelector = createSelector(selectCardGameState, (state) => mapToCardGame(state));
 export const cardsSelector = createSelector(selectCardGameState, (state) => state.cards);

@@ -8,4 +8,5 @@ import frontPage from '../../../../../misc/front-page';
 })
 export class HomePageComponent {
     memoryGameUrl: string = frontPage.gameSelection.url;
+    mathGameUrl: string = frontPage.mathSelection.url;
 }

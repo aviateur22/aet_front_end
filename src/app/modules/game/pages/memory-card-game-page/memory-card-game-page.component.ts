@@ -3,10 +3,12 @@ import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../../../store/state';
 import * as cardGameSelector from '../../store/memoryCardGame/selector';
 import { Observable } from 'rxjs';
-import { CardToFind } from '../../models/memoryCardGame/card-to-find.model';
-import { Card } from '../../models/memoryCardGame/card.model';
-import { CardGame } from '../../models/memoryCardGame/memory-card-game.model';
+import { CardToFind } from '../../memory-game-card/models/card-to-find.model';
+import { Card } from '../../memory-game-card/models/card.model';
+import { CardGame } from '../../memory-game-card/models/memory-card-game.model';
 import { MemoryCardGameRules } from '../../business/memory-card-game-rule';
+import { selectGameAction } from '../../store/gameSelected/action'
+import { GameSelection } from '../../game-selected/models/game-selected.model';
 
 
 @Component({
@@ -23,6 +25,7 @@ export class MemoryCardGamePageComponent implements OnInit {
     isGameReadyToPlay$: Observable<boolean> = this._store.pipe(select(cardGameSelector.isGameReadyToPlaySelector));
     isGameWin$: Observable<boolean> = this._store.pipe(select(cardGameSelector.isGameWinSelector));
 
+
   /**
    * Stabilise la liste des carte dans le DOM.
    * Cela permet de réutilisé la liste présentz dans le DOM et evite un rechargement des carte lors dun click event
@@ -37,9 +40,7 @@ export class MemoryCardGamePageComponent implements OnInit {
   constructor(private _store: Store<IAppState>, private _gameRules: MemoryCardGameRules){}
 
   ngOnInit(): void {
+    this._store.dispatch(selectGameAction({gameSelected: GameSelection.MEMORY_CARD_GAME }));
     this._gameRules.initializeGame();
   }
-
-
-
 }

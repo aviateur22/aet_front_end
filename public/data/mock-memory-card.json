@@ -1,208 +1,198 @@
 {
-  "gameTextInformation": {
-    "congratulationWords": [
-      "bravo", "très bien", "excellent"
-    ],
-    "loosingWords": [
-      "dommage", "pas de chance", "zut" ,"rhoooo"
-    ],
-    "gameLostText": "C'est perdu",
-    "gameVictoryText": "Bravo, tu as as gagné",
-    "presentationText": "Trouve les bonne cartes."
-  },
-  "cardToFindInGame": {
-    "card": {
-      "cardFrontImagePath": "assets/images/target-front.png",
-      "cardBackImagePath": "assets/images/card-back.png"
+ "gameTextInformation": {
+        "congratulationWords": [
+            "Bravo",
+            "Continue",
+            "Génial",
+            "Au top",
+            "Champion"
+        ],
+        "loosingWords": [
+            "Dommage",
+            "Bouuuuu",
+            "T'es mauvais",
+            "Ouille",
+            "Concentre toi"
+        ],
+        "gamePresentation": {
+            "gameTitle": "Les cartes mémoires",
+            "presentationText": "Observe et retien les cartes. Tu devra être capable de retrouver toutes les cartes qui te sont demandé. Tu es prêts à jouer ?"
+        },
+        "gameEndParameterByLevels": [
+            {
+                "minError": 0,
+                "maxError": 0,
+                "endResultLevel": "EXCELLENT",
+                "endGameText": {
+                    "endTitle": "Houaaaaa Excellent",
+                    "endText": "Tu as fais une excellente partie. Continue comme ça"
+                }
+            },
+            {
+                "minError": 1,
+                "maxError": 1,
+                "endResultLevel": "VERY_GOOD",
+                "endGameText": {
+                    "endTitle": "Bravooooo",
+                    "endText": "Tu as fais une trés bonne partie. ne t'arrète pas"
+                }
+            },
+            {
+                "minError": 2,
+                "maxError": 3,
+                "endResultLevel": "GOOD",
+                "endGameText": {
+                    "endTitle": "C'est bien",
+                    "endText": "Tu as fais une belle partie. Continue comme ça"
+                }
+            },
+            {
+                "minError": 4,
+                "maxError": 5,
+                "endResultLevel": "MEDUIM",
+                "endGameText": {
+                    "endTitle": "Pas mal",
+                    "endText": "Tu t'en sors bien. Ne baisse pas les bras"
+                }
+            },
+            {
+                "minError": 6,
+                "maxError": 7,
+                "endResultLevel": "BAD",
+                "endGameText": {
+                    "endTitle": "Ouchhhh",
+                    "endText": "C'est dur on dirait. Continue à te concentrer"
+                }
+            },
+            {
+                "minError": 8,
+                "maxError": 9999999,
+                "endResultLevel": "VERY_BAD",
+                "endGameText": {
+                    "endTitle": "Ouilleeeeee",
+                    "endText": "Tu as souffert j'ai l'impression. Concentre toi, tu y arriveras"
+                }
+            },
+            {
+                "minError": -1,
+                "maxError": -1,
+                "endResultLevel": "LOOSE",
+                "endGameText": {
+                    "endTitle": "Dommageeee",
+                    "endText": "Alors c'est pas dur de perdre?"
+                }
+            }
+        ]
     },
-    "cardTextExplanation" : "Trouve moi dans le jeu"
+  "cardToFindInGame": {
+      "cardTextExplanation": "Retrouve cette carte dans le jeu",
+      "cardImage": {
+          "cardFrontImageName": "abcdegfd1236572",
+          "cardBackImageName": "abcdegfd12365710"
+      }
   },
   "numberOfCardColumn": 5,
   "numberOfCardRow": 4,
   "cards": [
-    {
-      "id": 1,
-      "cardPosition": { "positionX": 0, "positionY": 0 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-1.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": true
-    },
-    {
-      "id": 2,
-      "cardPosition": { "positionX": 1, "positionY": 0 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-2.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 3,
-      "cardPosition": { "positionX": 2, "positionY": 0 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-3.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 4,
-      "cardPosition": { "positionX": 3, "positionY": 0 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-4.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": true
-    },
-    {
-      "id": 5,
-      "cardPosition": { "positionX": 4, "positionY": 0 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-5.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 6,
-      "cardPosition": { "positionX": 0, "positionY": 1 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-6.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 7,
-      "cardPosition": { "positionX": 1, "positionY": 1 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-7.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": true
-    },
-    {
-      "id": 8,
-      "cardPosition": { "positionX": 2, "positionY": 1 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-8.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 9,
-      "cardPosition": { "positionX": 3, "positionY": 1 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-9.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 10,
-      "cardPosition": { "positionX": 4, "positionY": 1 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-10.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": true
-    },
-    {
-      "id": 11,
-      "cardPosition": { "positionX": 0, "positionY": 2 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-1.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 12,
-      "cardPosition": { "positionX": 1, "positionY": 2 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-2.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 13,
-      "cardPosition": { "positionX": 2, "positionY": 2 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-3.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": true
-    },
-    {
-      "id": 14,
-      "cardPosition": { "positionX": 3, "positionY": 2 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-4.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 15,
-      "cardPosition": { "positionX": 4, "positionY": 2 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-5.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 16,
-      "cardPosition": { "positionX": 0, "positionY": 3 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-6.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": true
-    },
-    {
-      "id": 17,
-      "cardPosition": { "positionX": 1, "positionY": 3 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-7.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 18,
-      "cardPosition": { "positionX": 2, "positionY": 3 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-8.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    },
-    {
-      "id": 19,
-      "cardPosition": { "positionX": 3, "positionY": 3 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-9.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": true
-    },
-    {
-      "id": 20,
-      "cardPosition": { "positionX": 4, "positionY": 3 },
-      "cardImages": {
-        "cardFrontImagePath": "assets/images/card-front-10.png",
-        "cardBackImagePath": "assets/images/card-back.png"
-      },
-      "isCardToFind": false
-    }
-  ],
+        {
+            "id": 9,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236571",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": false
+        },
+        {
+            "id": 8,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236579",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": false
+        },
+        {
+            "id": 5,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236579",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": false
+        },
+        {
+            "id": 7,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236575",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": false
+        },
+        {
+            "id": 2,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236572",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": true
+        },
+        {
+            "id": 4,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236574",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": false
+        },
+        {
+            "id": 6,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236579",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": false
+        },
+        {
+            "id": 1,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236572",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": true
+        },
+        {
+            "id": 10,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236575",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": false
+        },
+        {
+            "id": 11,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236574",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": false
+        },
+        {
+            "id": 3,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236572",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": true
+        },
+        {
+            "id": 12,
+            "cardImage": {
+                "cardFrontImageName": "abcdegfd1236579",
+                "cardBackImageName": "abcdegfd12365710"
+            },
+            "isCardToFind": false
+        }
+    ],
   "gameLevel": "Medium",
   "timeToObserveBeforeStart": 10,
-  "cardToFindQuantity": 7,
+  "cardToFindQuantity": 3,
   "maxErrorQuantity": 5
 }

@@ -9,17 +9,25 @@ import { gameReducers } from './store/state'
 import { EffectsModule } from '@ngrx/effects';
 import { MemoryCardEffect } from './store/memoryCardGame/effect';
 import { MemoryColorEffect } from './store/memoryColorGame/effect';
-import { CardComponent } from './components/memoryCardGame/card/card.component';
+import { MentalMathematicEffect } from './store/mentalMathematic/effect';
+import { CardComponent } from './memory-game-card/components/card/card.component';
 import { MemoryColorGamePageComponent } from './pages/memory-color-game-page/memory-color-game-page.component';
 import { CommonComponentModule } from "../common-component/common-component.module";
 
 import { MessageModule } from 'primeng/message';
-import { CardToFindInGameComponent } from './components/memoryCardGame/card-to-find-in-game/card-to-find-in-game.component';
-import { GameTextPresentationComponent } from './components/memoryCardGame/game-text-presentation/game-text-presentation.component';
+import { CardToFindInGameComponent } from './memory-game-card/components/card-to-find-in-game/card-to-find-in-game.component';
+import { GameTextPresentationComponent } from './game-text/components/game-text-presentation/game-text-presentation.component';
 import { ButtonModule } from 'primeng/button';
-import { GameEndTextComponent } from './components/memoryCardGame/game-end-text/game-end-text.component';
-import { CountDownComponent } from './components/memoryCardGame/count-down/count-down.component';
-import { WordActionComponent } from './components/memoryCardGame/word-action/word-action.component';
+import { GameEndTextComponent } from './game-text/components/game-end-text/game-end-text.component';
+import { CountDownComponent } from './memory-game-card/components/count-down/count-down.component';
+import { WordActionComponent } from './game-text/components/word-action/word-action.component';
+import { ErrorLevelPipe } from './memory-game-card/pipe/error-level.pipe';
+import { MentalMathematicPageComponent } from './pages/mental-mathematic-page/mental-mathematic-page.component';
+import { MathSelectionPageComponent } from './pages/math-selection-page/math-selection-page.component';
+import { CardMentalComponent } from './mental-mathematic/components/card/app-mental.component';
+import { OperationComponent } from './mental-mathematic/components/operation/operation.component';
+import { ProposalResponseComponent } from './mental-mathematic/components/proposal-response/proposal-response.component';
+import { TimeRemainingComponent } from './mental-mathematic/components/time-remaining/time-remaining.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +40,13 @@ import { WordActionComponent } from './components/memoryCardGame/word-action/wor
     GameEndTextComponent,
     CountDownComponent,
     WordActionComponent,
+    ErrorLevelPipe,
+    MentalMathematicPageComponent,
+    MathSelectionPageComponent,
+    CardMentalComponent,
+    OperationComponent,
+    ProposalResponseComponent,
+    TimeRemainingComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +54,8 @@ import { WordActionComponent } from './components/memoryCardGame/word-action/wor
     StoreModule.forFeature('gameState', gameReducers),
     EffectsModule.forFeature([
         MemoryCardEffect,
-        MemoryColorEffect
+        MemoryColorEffect,
+        MentalMathematicEffect
     ]),
     CommonComponentModule,
     MessageModule,

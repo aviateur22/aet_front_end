@@ -1,0 +1,38 @@
+.flip-card {
+  perspective: 1000px;
+  padding: 1px;
+  width: 100%;
+  max-width: 80px;
+  aspect-ratio: 16 /22;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  max-width: 100px;
+  aspect-ratio: 16 /22;
+  cursor: pointer;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  border: 4px solid white;
+  box-shadow: rgba(222, 222, 247, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: all 0.3s ease-in-out;
+  transform: scale(1);
+}
+
+.flip-card-front {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  background-color: var(--primary_color);
+  color: rgb(255, 255, 255);
+}
+
+.is--selected  {
+  transform: scale(1.5);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}

@@ -1,0 +1,5 @@
+export enum GameSelection {
+  MEMORY_COLOR_GAME,
+  MEMORY_CARD_GAME,
+  MENTAL_MATHEMATIC_GAME
+}

@@ -1,4 +1,4 @@
-import { GameApiService } from "../../services/game-api.service";
+import { GameApiService } from "../../memory-game-card/services/game-api.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as memoryGameAction from './action';
 import * as commonAction from './../../../common-component/store/action';
@@ -6,7 +6,8 @@ import { catchError, concatMap, concatWith, from, interval, map, mergeMap, of, s
 import { Injectable } from "@angular/core";
 import { IAppState } from "../../../../store/state";
 import { Store } from "@ngrx/store";
-import { GameLevel } from "../../models/memoryCardGame/game-level.model";
+import { GameLevel } from "../../memory-game-card/models/game-level.model";
+import * as gameTextAction from '../gameText/action';
 
 @Injectable()
 export class MemoryCardEffect {
@@ -14,10 +15,16 @@ export class MemoryCardEffect {
 
   getMemoryCardData$ = createEffect(() =>
     this._action$.pipe(
-      ofType(memoryGameAction.getGenerateMemoryCardGameAction),
+      ofType(memoryGameAction.generateNewGameAction),
       mergeMap(({ playerId }) =>
         this.gameService.getMemoryCardGameData(playerId, GameLevel.EASY).pipe(
-          switchMap(res => [memoryGameAction.getMemoryCardGameCompleteAction({memoryCardGameData: res})])
+          switchMap(res => [
+            memoryGameAction.generateNewGameActionCompleteAction({memoryCardGameData: res}),
+            gameTextAction.setTextIntroductionAction({
+              gameTitle: res.gameTextInformation.gamePresentation.gameTitle,
+              presentationText: res.gameTextInformation.gamePresentation.presentationText
+            }),
+          ])
         )
       ),
       catchError(error=> {
@@ -29,6 +36,15 @@ export class MemoryCardEffect {
       })
     )
   );
+
+generateNewGameActionCompleteAction$ = createEffect(() =>
+  this._action$.pipe(
+    ofType(memoryGameAction.generateNewGameActionCompleteAction),
+    map(action => {
+      return gameTextAction.showPresentationTextAction();
+    })
+  )
+)
 
   displayBackEffect$ = createEffect(() =>
   this._action$.pipe(

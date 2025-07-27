@@ -1,5 +1,3 @@
-import { IGameTextInformationState } from "../gameCommon/game-common.state"
-
 export interface  IMemoryCardState {
     isGameReadyToPlay: boolean,
     isGameLoading: boolean,
@@ -9,7 +7,6 @@ export interface  IMemoryCardState {
   }
 
   export interface ICardGameState {
-    gameTextInformation: IGameTextInformationState,
     cardToFindInGame: ICardToFindState,
     cards: ICardState[],
     timeCountDown: ITimeCountDownSate,

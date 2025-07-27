@@ -1,0 +1,10 @@
+<div (click)="selectProposalResponse()" class="flip-card p-2">
+  <div [class.is--selected]="proposalResponse.isProposalSelected" class="flip-card-inner shadow-5">
+    <!-- image de face -->
+    <div class="flip-card-front">
+      <div class="image__container relative">
+        <p class="text-xl font-bold"> {{ proposalResponse.proposalResponse }} </p>
+      </div>
+    </div>
+</div>
+

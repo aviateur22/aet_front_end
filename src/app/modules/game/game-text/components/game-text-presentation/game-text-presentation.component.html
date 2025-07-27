@@ -1,0 +1,16 @@
+<div class="flex p-2 w-full fixed flex-1 h-full z-2 overlay--background justify-content-center"
+  *ngIf="(isPresentationVisible$ | async) === true" @fadeInOut>
+
+  <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center surface-0 m--w--1024">
+    <div *ngIf="gameTitle$ | async as gameTitle">
+      <h2>{{ gameTitle }}</h2>
+    </div>
+    <div class="text-center" *ngIf="presentationText$ | async as presentationText">
+      <p class="p-5">{{ presentationText }}</p>
+    </div>
+    <!-- Button valider-->
+    <div>
+      <p-button size="large" (onClick)="startGame()" label="Commencer la partie" severity="help" />
+    </div>
+  </div>
+</div>

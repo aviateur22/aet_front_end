@@ -1,11 +1,11 @@
-export interface ResponsiblePlayer extends player{
+export interface IResponsiblePlayer extends IPlayer{
   email: string,
   role: string,
   jwt: string
-  players: player[]
+  familyPlayers: IPlayer[]
 }
 
-export interface player {
-  id: string,
+export interface IPlayer {
+  playerId: string,
   name: string
 }

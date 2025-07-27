@@ -1,9 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
 import * as memoryCardAction from './action';
 
-import { mapToMemoryCardGameStateInitilalizer } from "../../mapper/dto-to-store-object-mapper";
+import { mapToMemoryCardGameStateInitilalizer } from "../../memory-game-card/mapper/dto-to-store-object-mapper";
 import { IMemoryCardState } from "./state";
-import { state } from "@angular/animations";
 
 
 export const initialMemoryCardState: IMemoryCardState = {
@@ -26,18 +25,6 @@ export const initialMemoryCardState: IMemoryCardState = {
     isGameFinish: false,
     isGameWin: false,
     badResponseCumultated: 0,
-    gameTextInformation: {
-      presentationText: "",
-      gameTitle: "",
-      selectWord: "",
-      selectedEndTitle: "",
-      selectedEndText: "",
-      textVisibility: {
-        isInstructionVisible: true,
-        isEndGameInstructionVisible: false,
-        isWordingVisible: false
-      }
-    },
     timeCountDown: {
       timeToObserveBeforeStart: 0,
       isCountDownVisible: false
@@ -48,12 +35,20 @@ export const initialMemoryCardState: IMemoryCardState = {
 
 export const memoryCardReducers = createReducer(
   initialMemoryCardState,
-  on(memoryCardAction.getGenerateMemoryCardGameAction, (state) => ({
+  on(memoryCardAction.generateNewGameAction, (state) => ({
     ...state,
       isGameLoading: true
 
   })),
-  on(memoryCardAction.getMemoryCardGameCompleteAction, (state, { memoryCardGameData }) => ({
+    on(memoryCardAction.countDownVisibilityAction, (state, { isVisible }) => ({
+    ...state, cardGame: {
+      ...state.cardGame, timeCountDown : {
+        ...state.cardGame.timeCountDown,
+        isCountDownVisible: isVisible
+      }
+    }
+  })),
+  on(memoryCardAction.generateNewGameActionCompleteAction, (state, { memoryCardGameData }) => ({
     ...state,
       isGameLoading: false,
       isLoadingSuccess: true,
@@ -123,30 +118,6 @@ on(memoryCardAction.countDownBeforeCardReturnAction,(state, { timeToRemove })=>(
     }
   }
 })),
-on(memoryCardAction.showPresentationTextAction,(state) => ({
-  ...state, cardGame : {
-    ...state.cardGame,
-    gameTextInformation: {
-      ...state.cardGame.gameTextInformation,
-      textVisibility: {
-        ...state.cardGame.gameTextInformation.textVisibility,
-        isInstructionVisible: true
-      }
-    }
-  }
-})),
-on(memoryCardAction.hidePresentationTextAction,(state) => ({
-  ...state, cardGame : {
-    ...state.cardGame,
-    gameTextInformation: {
-      ...state.cardGame.gameTextInformation,
-      textVisibility: {
-        ...state.cardGame.gameTextInformation.textVisibility,
-        isInstructionVisible: false
-      }
-    }
-  }
-})),
 on(memoryCardAction.showCardToFindAction, (state) =>({
   ...state, cardGame : {
     ...state.cardGame,
@@ -177,48 +148,11 @@ on(memoryCardAction.setIsGameWinAction, (state,  { isGameWin }) => ({
     isGameWin: isGameWin
   }
 })),
-on(memoryCardAction.countDownVisibilityAction, (state, { isVisible }) => ({
-  ...state, cardGame: {
-    ...state.cardGame, timeCountDown : {
-      ...state.cardGame.timeCountDown,
-      isCountDownVisible: isVisible
-    }
-  }
-})),
 on(memoryCardAction.resetGameAction, () => initialMemoryCardState),
-on(memoryCardAction.updateWordToDisplayAction, (state, { wordToDisplay }) => ({
-  ...state, cardGame : {
-    ...state.cardGame, gameTextInformation: {
-      ...state.cardGame.gameTextInformation,
-        selectWord: wordToDisplay
-    }
-  }
-})),
-on(memoryCardAction.updateWordVisibilityAction, (state, { isVisible }) => ({
-  ...state, cardGame: {
-    ...state.cardGame, gameTextInformation: {
-      ...state.cardGame.gameTextInformation, textVisibility: {
-        ...state.cardGame.gameTextInformation.textVisibility,
-          isWordingVisible: isVisible
-      }
-    }
-  }
-})),
 on(memoryCardAction.updateBadResponseCumulatedAction, (state, { badResponseQuantity }) => ({
   ...state, cardGame: {
     ...state.cardGame,
       badResponseCumultated: badResponseQuantity
     }
-})),
-on(memoryCardAction.setEndTextAction, (state, { endText, endTitle }) => ({
-  ...state, cardGame: {
-    ...state.cardGame, gameTextInformation: {
-      ...state.cardGame.gameTextInformation,
-        selectedEndText: endText,
-        selectedEndTitle: endTitle
-    }
-  }
 }))
-
-
 )

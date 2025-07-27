@@ -1,0 +1,289 @@
+{
+   "gameTextInformation": {
+        "congratulationWords": [
+            "Bravo",
+            "Continue",
+            "Génial",
+            "Au top",
+            "Champion"
+        ],
+        "loosingWords": [
+            "Dommage",
+            "Bouuuuu",
+            "T'es mauvais",
+            "Ouille",
+            "Concentre toi"
+        ],
+        "gamePresentation": {
+            "gameTitle": "Les calculs mentaux",
+            "presentationText": "Observe bien les chiffres et calcul de tête le bon résultat. Tu es prêts ?"
+        },
+        "gameEndParameterByLevels": [
+            {
+                "minError": 0,
+                "maxError": 0,
+                "endResultLevel": "EXCELLENT",
+                "endGameText": {
+                    "endTitle": "Houaaaaa Excellent",
+                    "endText": "Tu as fais une excellente partie. Continue comme ça"
+                }
+            },
+            {
+                "minError": 1,
+                "maxError": 1,
+                "endResultLevel": "VERY_GOOD",
+                "endGameText": {
+                    "endTitle": "Bravooooo",
+                    "endText": "Tu as fais une trés bonne partie. ne t'arrète pas"
+                }
+            },
+            {
+                "minError": 2,
+                "maxError": 3,
+                "endResultLevel": "GOOD",
+                "endGameText": {
+                    "endTitle": "C'est bien",
+                    "endText": "Tu as fais une belle partie. Continue comme ça"
+                }
+            },
+            {
+                "minError": 4,
+                "maxError": 5,
+                "endResultLevel": "MEDUIM",
+                "endGameText": {
+                    "endTitle": "Pas mal",
+                    "endText": "Tu t'en sors bien. Ne baisse pas les bras"
+                }
+            },
+            {
+                "minError": 6,
+                "maxError": 7,
+                "endResultLevel": "BAD",
+                "endGameText": {
+                    "endTitle": "Ouchhhh",
+                    "endText": "C'est dur on dirait. Continue à te concentrer"
+                }
+            },
+            {
+                "minError": 8,
+                "maxError": 9999999,
+                "endResultLevel": "VERY_BAD",
+                "endGameText": {
+                    "endTitle": "Ouilleeeeee",
+                    "endText": "Tu as souffert j'ai l'impression. Concentre toi, tu y arriveras"
+                }
+            },
+            {
+                "minError": -1,
+                "maxError": -1,
+                "endResultLevel": "LOOSE",
+                "endGameText": {
+                    "endTitle": "Dommageeee",
+                    "endText": "Alors c'est pas dur de perdre?"
+                }
+            }
+        ]
+    },
+  "option" : {
+   "gameLevel": "EASY",
+   "isMultipleChoiceVisible": true
+  },
+  "operations" : [
+    {
+      "id": 1,
+      "timeToCalculate": {
+        "unit": "sec",
+        "time": 10
+      },
+      "mentalNumbers": [
+        {
+          "id": 1,
+          "number": 30,
+          "cardBackImageName": "abcdegfd12365710"
+
+        },
+        {"id": 2,
+          "number": 20,
+          "cardBackImageName": "abcdegfd12365710"
+        },
+        {
+          "id": 3,
+          "number": 45,
+          "cardBackImageName": "abcdegfd12365710"
+        }
+      ],
+      "mathOperations": [
+        "+",
+        "-"
+      ],
+      "proposalResponse": [
+        {
+          "id": 1,
+          "proposalResponse": 5
+        },
+        {
+          "id": 2,
+          "proposalResponse": 10
+        },
+        {
+          "id": 3,
+          "proposalResponse": 20
+        },
+        {
+          "id": 4,
+          "proposalResponse": 30
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "timeToCalculate": {
+        "unit": "sec",
+        "time": 10
+      },
+      "mentalNumbers": [
+        {
+          "id": 1,
+          "number": 5,
+          "cardBackImageName": "abcdegfd12365710"
+
+        },
+        {"id": 2,
+          "number": 40,
+          "cardBackImageName": "abcdegfd12365710"
+        },
+        {
+          "id": 3,
+          "number": 25,
+          "cardBackImageName": "abcdegfd12365710"
+        }
+      ],
+      "mathOperations": [
+        "+",
+        "+"
+      ],
+      "proposalResponse": [
+        {
+          "id": 1,
+          "proposalResponse": 65
+        },
+        {
+          "id": 2,
+          "proposalResponse": 70
+        },
+        {
+          "id": 3,
+          "proposalResponse": 45
+        },
+        {
+          "id": 4,
+          "proposalResponse": 75
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "timeToCalculate": {
+        "unit": "sec",
+        "time": 10
+      },
+      "mentalNumbers": [
+        {
+          "id": 1,
+          "number": 10,
+          "cardBackImageName": "abcdegfd12365710"
+
+        },
+        {"id": 2,
+          "number": 5,
+          "cardBackImageName": "abcdegfd12365710"
+        },
+        {
+          "id": 3,
+          "number": 15,
+          "cardBackImageName": "abcdegfd12365710"
+        }
+      ],
+      "mathOperations": [
+        "-",
+        "+"
+      ],
+      "proposalResponse": [
+        {
+          "id": 1,
+          "proposalResponse": 20
+        },
+        {
+          "id": 2,
+          "proposalResponse": 30
+        },
+        {
+          "id": 3,
+          "proposalResponse": 10
+        },
+        {
+          "id": 4,
+          "proposalResponse": 15
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "timeToCalculate": {
+        "unit": "sec",
+        "time": 10
+      },
+      "mentalNumbers": [
+        {
+          "id": 1,
+          "number": 5,
+          "cardBackImageName": "abcdegfd12365710"
+
+        },
+        {"id": 2,
+          "number": 7,
+          "cardBackImageName": "abcdegfd12365710"
+        }
+      ],
+      "mathOperations": [
+        "*"
+      ],
+      "proposalResponse": [
+        {
+          "id": 1,
+          "proposalResponse": 30
+        },
+        {
+          "id": 2,
+          "proposalResponse": 35
+        },
+        {
+          "id": 3,
+          "proposalResponse": 40
+        },
+        {
+          "id": 4,
+          "proposalResponse": 45
+        }
+      ]
+    }
+  ],
+  "corrections": [
+    {
+      "operationId": 1,
+      "operationResult": 5
+    },
+    {
+      "operationId": 2,
+      "operationResult": 70
+    },
+    {
+      "operationId": 3,
+      "operationResult": 20
+    },
+    {
+      "operationId": 4,
+      "operationResult": 35
+    }
+  ]
+}

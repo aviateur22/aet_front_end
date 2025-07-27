@@ -18,11 +18,31 @@
   max-width: 1024px;
 }
 
+.color__good {
+  color: var(--color_good);
+}
+
+.color__meduim {
+  color: var(--color_meduim);
+}
+
+.color__bad {
+  color: var(--color_bad);
+}
+
 :root {
   /* Hauteur navbar*/
   --nav_height: 90px;
 
+  --primary_color: #8b0fff;
 
   /* Couleur */
-  --color-back-ground:  #fffdfd
+  --color-back-ground:  #fffdfd;
+
+  --color_good: #34a300;
+
+  --color_meduim: #ff7b00;
+
+  --color_bad: #ff0000;
+
 }

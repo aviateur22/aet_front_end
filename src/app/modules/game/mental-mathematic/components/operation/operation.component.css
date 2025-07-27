@@ -1,0 +1,7 @@
+.main--color {
+  color: var(--primary_color);
+}
+
+.min--width {
+  min-width: 15px;
+}
