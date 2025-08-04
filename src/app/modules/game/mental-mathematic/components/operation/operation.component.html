@@ -1,38 +1,44 @@
-<div>
-  <!-- Operation -->
-  <div *ngIf="isOperationVisible$ | async">
-    <!-- compteur de temps-->
-    <app-time-remaining [duration]="activeOperation!.timeToCalculate "></app-time-remaining>
-    <div>
-      <!-- Données sue le calcul -->
-      <div class="w-full flex flex-column align-items-center justify-content-center">
-        <!-- Card avec le chiffre du calcul-->
-        <div class="flex justify-content-center w-full md:p-5">
-          <app-mental-card class="col-4 p-1 md:col-2" [mentalCard]="mentalcard" *ngFor="let mentalcard of activeOperation?.mentalCards; let i = index; trackBy: trackByCardId">
-            <!-- Operateur arithmétique-->
-            <span class="text-4xl text-indigo-600 font-semibold min--width">
-              <span *ngIf="activeOperation && i < activeOperation.mathOperations.length">
-                {{ activeOperation.mathOperations[i] }}
-              </span>
+<!-- Operation -->
+<div *ngIf="isOperationVisible$ | async" @fadeScale>
+  <!-- compteur de temps-->
+  <app-time-remaining class="absolute"></app-time-remaining>
+  <div>
+    <!-- Données sue le calcul -->
+    <div class="w-full flex flex-column align-items-center justify-content-center">
+      <!-- Card avec le chiffre du calcul-->
+      <div class="flex justify-content-center w-full md:p-5">
+        <app-mental-card class="col-4 p-1 md:col-2" [mentalCard]="mentalcard" *ngFor="let mentalcard of activeOperation?.mentalCards; let i = index; trackBy: trackByCardId">
+          <!-- Operateur arithmétique-->
+          <span class="text-4xl text-indigo-600 font-semibold min--width">
+            <span *ngIf="activeOperation && i < activeOperation.mathOperations.length">
+              {{ activeOperation.mathOperations[i] }}
             </span>
-          </app-mental-card>
-        </div>
-        <!-- Proposition choix multiple -->
-        <div class="w-full flex flex-column" *ngIf="areProposalResponseVisible$ | async">
-          <div class="w-full flex flex-column align-items-center justify-content-center">
-            <p class="text-2xl main--color"> Choisie la bonne réponse </p>
-          </div>
-          <div class="flex justify-content-center w-full md:p-5">
-            <app-proposal-response class="col-4 p-1 md:col-2" [proposalResponse]="response" *ngFor="let response of activeOperation?.propsalResponses; trackBy: trackByPorposalResponseId">
-            </app-proposal-response>
-          </div>
-        </div>
+          </span>
+        </app-mental-card>
       </div>
+      <!-- Proposition choix multiple -->
+      <div class="w-full p-5">
+        <p-panel class="w-full m-5 main--color" header="Choisie la bonne réponse" [toggleable]="false">
+          <div class="w-full flex flex-column" *ngIf="areProposalResponseVisible$ | async">
+            <!--
+            <div class="w-full flex flex-column align-items-center justify-content-center">
+              <p class="text-2xl main--color"> Choisie la bonne réponse </p>
+            </div>
+          -->
+            <div class="flex justify-content-center w-full md:p-5">
+              <app-proposal-response class="col-4 p-1 md:col-2" [proposalResponse]="response" *ngFor="let response of activeOperation?.propsalResponses; trackBy: trackByPorposalResponseId">
+              </app-proposal-response>
+            </div>
+          </div>
 
+        </p-panel>
+
+      </div>
     </div>
-    <!-- container bouton -->
-    <div>
-      <button>suivant</button>
-    </div>
+
+  </div>
+  <!-- container bouton -->
+  <div class="flex w-full justify-content-center md:p-5">
+    <p-button  label="Question suivante" variant="outlined" (onClick)="nextOperation()" severity="help" />
   </div>
 </div>

@@ -16,17 +16,10 @@ import { IOperationState } from "../store/mentalMathematic/state";
 export class MentalMathematicGameRule {
 
   private _destroy$ = new Subject<void>();
-  private _gameEndParameterByLevels: IGameEndParameterByLevelDto[] = [];
   private _actualBadResponse: number = 0;
-  private _operationPosition = 0;
-  private _activeOperationId = 0;
-  private _reamainingTimeToCalculate = 0;
-  private _operationList : IOperationState[] = [];
-  private _initialTimeToCalculate: number = 0;
-
   constructor(
     private _store: Store<IAppState>,
-    private _gameTextInformationService: GameTextInformationService
+ //   private _gameTextInformationService: GameTextInformationService
   ) {
    this.onInit()
   }
@@ -37,36 +30,30 @@ export class MentalMathematicGameRule {
   }
 
   onInit()  {
-    this._gameTextInformationService.getGameTextInformation()
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(gametext=>{
-        if(!gametext)
-          return;
 
-        this._gameEndParameterByLevels = gametext.gameEndParameterByLevels;
-    });
+    /**
+     * Selecteur sur les informations de text
+     */
+    // this._gameTextInformationService.getGameTextInformation()
+    //   .pipe(takeUntil(this._destroy$))
+    //   .subscribe(gametext=>{
+    //     if(!gametext)
+    //       return;
 
-    this._store.pipe(select(mentalMathematicSelectors.operationListSelector))
-    .pipe(takeUntil(this._destroy$))
-    .subscribe(res => this._operationList = res);
+    //     this._gameEndParameterByLevels = gametext.gameEndParameterByLevels;
+    // });
 
-     this._store.pipe(select(mentalMathematicSelectors.activeOperationIdSelector))
-    .pipe(takeUntil(this._destroy$))
-    .subscribe(res => {
-      if(!res)
-        return;
+    /**
+     * Selecteur identifiant de calcul qui est encours
+     */
+    //  this._store.pipe(select(mentalMathematicSelectors.activeOperationIndexSelector))
+    // .pipe(takeUntil(this._destroy$))
+    // .subscribe(activeOperationIndex => {
+    //   if(activeOperationIndex === null || activeOperationIndex === undefined)
+    //     return;
 
-      return this._activeOperationId = res
-    });
-
-    this._store.pipe(select(mentalMathematicSelectors.activeTimeToCalculateSelector))
-    .pipe(takeUntil(this._destroy$))
-    .subscribe(res => {
-      if(!res)
-        return;
-
-      return this._reamainingTimeToCalculate = res
-    });
+    //   return this._activeOperationIndex = activeOperationIndex;
+    // });
   }
 
   /**
@@ -75,9 +62,9 @@ export class MentalMathematicGameRule {
    */
   loadGame(gameLevel: GameLevel): void {
     this._actualBadResponse = 0;
-    this._operationPosition = 0;
-    this._store.dispatch(gameTextActions.resetGameText());
+    //this._activeOperationIndex = 0;
     this._store.dispatch(mentalMathematicActions.resetMentalMathematicGameAction());
+    this._store.dispatch(gameTextActions.resetGameText());
     this._store.dispatch(mentalMathematicActions.loadNewMentalMathematicGameAction({ gameLevel: gameLevel }));
   }
 
@@ -85,54 +72,51 @@ export class MentalMathematicGameRule {
    * Commence la partie
    */
   beginGame(): void {
-    const operationId = this._operationList[this._operationPosition].id;
-    this._store.dispatch(mentalMathematicActions.nextOperationIdAction({ operationId }));
+    //this._store.dispatch(mentalMathematicActions.nextOperationIndexAction({ activeOperationIndex: this._activeOperationIndex }));
     this._store.dispatch(mentalMathematicActions.isActiveOperationVisibleAction({ isVisible: true}))
     this._store.dispatch(gameTextActions.hidePresentationTextAction());
-    this.startTimeDecount();
+    this._store.dispatch(mentalMathematicActions.prepareOperationTimer());
   }
 
   /**
    * Décompte du temps
    */
-  startTimeDecount(): void {
-    this._initialTimeToCalculate = this._reamainingTimeToCalculate;
+  // startTimeDecount(): void {
 
-    setTimeout(() => {
-      const decountTime = setInterval(()=>
-        this._store.dispatch(mentalMathematicActions.decountRemainingTimeAction({ remainingTime:  this._reamainingTimeToCalculate  - 1, operationId: this._activeOperationId })) ,
-        1000);
+  // }
 
-        setTimeout(() => {
-          clearInterval(decountTime);
-          this.mentalCalculatedTimeTerminated();
-        },  this._initialTimeToCalculate * 1000);
-    }, 2000);
+
+  /**
+   * Passe au calcul suivant en clicquant sur le button suivant
+   */
+  manualyEndRemainingCalculationTime() {
+    this._store.dispatch(mentalMathematicActions.prepareNextOperationAcion());
   }
 
+  /**
+   * Passe au calcul suivant si le temps de calcul est écoulé
+   */
+  // remainigCalcultionTimeFinish(): void {
 
-  mentalCalculatedTimeTerminated(): void {
-    this._store.dispatch(mentalMathematicActions.isActiveOperationVisibleAction({ isVisible: false}));
+  // }
 
-    if(this._operationPosition >= this._operationList.length)
-      return;
+  /**
+   * Initialisation de la prochaine question
+   */
+  // nextOperation(): void {
+  //   this._store.dispatch(mentalMathematicActions.nextOperationAction());
+  //   this._store.dispatch(mentalMathematicActions.isActiveOperationVisibleAction({ isVisible: true}));
 
-    this._operationPosition++
-    setTimeout(() => this.nextOperation(), 1000);
-  }
+  //   this.startTimeDecount();
+  // }
 
-  nextOperation(): void {
-    const operationId = this._operationList[this._operationPosition].id;
-    this._store.dispatch(mentalMathematicActions.nextOperationIdAction({ operationId }));
-    this._store.dispatch(mentalMathematicActions.isActiveOperationVisibleAction({ isVisible: true}));
-
-    this.startTimeDecount();
-  }
-
-  selectPropsalResponse(proposalResponseId: number) {
-    this._store.dispatch(mentalMathematicActions.selectProposalResponse({
-      proposalResponseId,
-      operationId: this._activeOperationId
+  /**
+   * Quand la liste au choix multiple est proposée
+   * Selection de la réponse du joeur
+   */
+  selectPropsalResponse(proposalResponseId: number): void {
+    this._store.dispatch(mentalMathematicActions.selectProposalResponseAction({
+      proposalResponseId
     }));
   }
 

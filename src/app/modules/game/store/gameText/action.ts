@@ -6,4 +6,5 @@ export const showPresentationTextAction = createAction('[show Presentation Text 
 export const hidePresentationTextAction = createAction('[hide Presentation Text Action] hide Presentation Text Action');
 export const updateWordToDisplayAction = createAction('[update Word To Display Action] update Word To Display Action', props<{ wordToDisplay: string }>());
 export const updateWordVisibilityAction = createAction('[update Word Visibility Action] update Word Visibility Action', props<{ isVisible: boolean }>());
+export const showEndTextAction = createAction('[show End Text Action] show End Text Action');
 export const resetGameText = createAction('[reset Game Text] reset Game Text');

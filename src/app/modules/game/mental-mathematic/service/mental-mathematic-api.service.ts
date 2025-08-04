@@ -29,7 +29,9 @@ export class MentalMathematicApiService {
       throw new Error("Désolé vous n'étes pas reconnu");
 
     if(environment.isFakeData) {
-      let data = this._apiFakeData.getMentalMathematicGameData();
+      let data = this._apiFakeData.getMentalMathematicGameData().pipe(
+        tap(data=> this._gameTextInformationService.setGameTextInformation(data.gameTextInformation))
+      );
       return data;
     }
 

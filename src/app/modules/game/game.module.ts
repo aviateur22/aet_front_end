@@ -18,6 +18,8 @@ import { MessageModule } from 'primeng/message';
 import { CardToFindInGameComponent } from './memory-game-card/components/card-to-find-in-game/card-to-find-in-game.component';
 import { GameTextPresentationComponent } from './game-text/components/game-text-presentation/game-text-presentation.component';
 import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+
 import { GameEndTextComponent } from './game-text/components/game-end-text/game-end-text.component';
 import { CountDownComponent } from './memory-game-card/components/count-down/count-down.component';
 import { WordActionComponent } from './game-text/components/word-action/word-action.component';
@@ -28,6 +30,7 @@ import { CardMentalComponent } from './mental-mathematic/components/card/app-men
 import { OperationComponent } from './mental-mathematic/components/operation/operation.component';
 import { ProposalResponseComponent } from './mental-mathematic/components/proposal-response/proposal-response.component';
 import { TimeRemainingComponent } from './mental-mathematic/components/time-remaining/time-remaining.component';
+
 
 @NgModule({
   declarations: [
@@ -59,7 +62,8 @@ import { TimeRemainingComponent } from './mental-mathematic/components/time-rema
     ]),
     CommonComponentModule,
     MessageModule,
-    ButtonModule
+    ButtonModule,
+    PanelModule
 ]
 })
 export class GameModule { }

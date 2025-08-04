@@ -50,6 +50,12 @@ on(gameTextAction.setEndTextAction, (state, { endText, endTitle, endErrorLevel }
   selectedEndTitle: endTitle,
   selectedEndText: endText,
   endErrorLevel: endErrorLevel
+})),
+on(gameTextAction.showEndTextAction, (state) => ({
+  ...state, textVisibility: {
+    ...state.textVisibility,
+    isEndGameTextVisible: true
+  }
 }))
 
 )

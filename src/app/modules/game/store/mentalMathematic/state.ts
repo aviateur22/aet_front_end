@@ -5,31 +5,46 @@ export interface IMentalMathDataState {
   mentalMathGame: IMentalMathState
 }
 
+/**
+ * Contenu du jeu
+ */
 export interface IMentalMathState {
+  mentalMathStartTime: Date,
+  mentalMathEndTime: Date,
   arePropoalResponseVisible: boolean,
   operations: IOperationState[],
-  corrections: IOperationCorrectionState[],
   badResponseCumultated: number,
   isGameFinish: boolean,
   isGameWin: boolean,
-  activeOperationId: number,
-  isActiveOperationVisible: boolean,
+  activeOperationIndex: number,
+  isActiveOperationVisible: boolean
 
 }
 
+/**
+ * Contenu pour un calcul
+ */
 export interface IOperationState {
   id: number,
   timeToCalculate: ITimeToCalculateState,
   mentalCards: IMentalCardState[],
   mathOperations: string[],
-  proposalResponse: IPropsalResponseState[]
+  proposalResponse: IPropsalResponseState[],
+  playerResponse: IPlayerAnswerState,
+  validOperationResponse: number
 }
 
+/**
+ * Temps pour calculer
+ */
 export interface ITimeToCalculateState {
   unit: string,
   time: number
 }
 
+/**
+ * Carte contenant la donnée visuelle
+ */
 export interface IMentalCardState {
   id: number,
   number: number,
@@ -37,20 +52,28 @@ export interface IMentalCardState {
   cardBackImageName: string,
 }
 
+/**
+ * Réponse du joueur
+ */
 export interface IPlayerAnswerState {
-  operationId: number,
   playerAnswer: number,
   isAnswerValid: boolean
 }
 
+/**
+ * Réponse a choix multiple
+ */
 export interface IPropsalResponseState {
   id: number,
   proposalResponse: number,
   isProposalSelected: boolean
 }
 
+/**
+ * Defilement des réponses du joueur
+ * avec les corrections associées
+ */
 export interface IOperationCorrectionState {
   operationId: number,
-  operationResult: number,
-  playerAnswer: IPlayerAnswerState
+  validOperationAnswer: number
 }

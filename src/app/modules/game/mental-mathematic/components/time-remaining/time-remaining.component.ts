@@ -1,35 +1,65 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { IAppState } from '../../../../../store/state';
+import * as mentalMathematicSelectors from '../../../store/mentalMathematic/selector';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-time-remaining',
   templateUrl: './time-remaining.component.html',
   styleUrl: './time-remaining.component.css'
 })
-export class TimeRemainingComponent {
- @Input() duration: number = 0; // remaining time passed from parent
- totalDuration: number = 0;
- percentage: number = 100;
- colorClass = "#3ce000";
+export class TimeRemainingComponent implements OnInit, OnDestroy {
 
-  ngOnChanges(changes: SimpleChanges) {
-      if (changes['duration']) {
-        // on first non-zero input, store totalDuration
-        if (!this.totalDuration && this.duration > 0) {
-          this.totalDuration = this.duration;
-        }
-        this.updatePercentage();
-        this.updateColor();
-      }
+  private _destroyed$ = new Subject<void>();
+  private _duration: number = 0;
+
+  get duration() {
+    return this._duration
+  }
+
+  set duration(value: number) {
+    this._duration = value;
+
+    if (!this.totalDuration && this._duration > 0) {
+      this.totalDuration = this.duration;
     }
+    this.updatePercentage();
+    this.updateColor();
+  }
 
-    updatePercentage() {
+  totalDuration: number = 0;
+  percentage: number = 100;
+  colorClass = "#3ce000";
+
+  constructor(private _store: Store<IAppState>) {
+  }
+
+  ngOnDestroy(): void {
+   this._destroyed$.next();
+   this._destroyed$.complete();
+  }
+
+  ngOnInit(): void {
+    this._store.pipe(select(mentalMathematicSelectors.activeTimeToCalculateSelector))
+        .pipe(takeUntil(this._destroyed$))
+        .subscribe(res => {
+          if(!res)
+            return;
+
+          this.duration = res;
+        });
+  }
+
+  updatePercentage() {
     if (this.totalDuration > 0) {
         this.percentage = (this.duration / this.totalDuration) * 100;
       } else {
         this.percentage = 0;
       }
     }
-    updateColor() {
+
+  updateColor() {
       if (this.percentage > 60) {
         this.colorClass = '#3ce000';
       } else if (this.percentage > 30) {
@@ -37,6 +67,7 @@ export class TimeRemainingComponent {
       } else {
         this.colorClass = "#f73434";
       }
-    }
+  }
 
 }
+

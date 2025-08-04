@@ -16,10 +16,10 @@ export const isGameReadyToPlaySelector = createSelector(mentalMathematicGameStat
 export const areProposalResponseVisibleSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.arePropoalResponseVisible);
 export const operationListSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.operations);
 
-export const activeOperationIdSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.activeOperationId);
+export const activeOperationIndexSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.activeOperationIndex);
 export const activeOperationSelector = createSelector(
-  operationListSelector, activeOperationIdSelector,
-  (operations, activeOperationId) => operations.find(operation => operation.id === activeOperationId) ?? null
+  operationListSelector, activeOperationIndexSelector,
+  (operations, activeOperationIndexId) => operations.at(activeOperationIndexId) ?? null
 );
 export const isActiveOperationVisibleSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.isActiveOperationVisible);
 export const activeTimeToCalculateSelector = createSelector(activeOperationSelector, (state) => state?.timeToCalculate.time);
@@ -31,6 +31,13 @@ export const activeOperationModelSelector = createSelector(
     return mapToOperationModel(operation, isOperationVisible)
 });
 export const selectMentalCardSelector = (mentalCardId: number, activeOperationId: number) =>
-  createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.operations[activeOperationId].mentalCards.find(mentalCard => mentalCard.id === mentalCardId)?.isCardReturn)
+  createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.operations[activeOperationId].mentalCards.find(mentalCard => mentalCard.id === mentalCardId)?.isCardReturn);
+
+export const getValidCalculResponseOnActiveOperationSelector = (activeOperationId: number) =>
+  createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.operations[activeOperationId].validOperationResponse);
+
+export const remainingTimeSelector = () => createSelector(activeOperationSelector, (state) => state?.timeToCalculate.time);
+export const badResponseSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.badResponseCumultated);
+
 
 

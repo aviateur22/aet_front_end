@@ -1,5 +1,5 @@
 import { IMentalCardState, IMentalMathState, IOperationCorrectionState, IOperationState, IPropsalResponseState } from "../../store/mentalMathematic/state";
-import { IMentalMathDataDto, IMentalNumberDto, IOperationCorrectionDto, IOperationDto, IProposalResponseDto } from "../models/mental-math.dto";
+import { IMentalMathDataDto, IMentalNumberDto, IOperationDto, IProposalResponseDto } from "../models/mental-math.dto";
 
 /**
  * Map le données du WS vers IMentalMathState
@@ -11,12 +11,13 @@ export function mapToMentalMathState(dto: IMentalMathDataDto): IMentalMathState 
   const mentalMathState: IMentalMathState = {
     arePropoalResponseVisible: false,
     operations: mapToOperationstate(dto.operations),
-    corrections: mapToOperationCorrectionState(dto.corrections),
     badResponseCumultated: 0,
     isGameFinish: false,
     isGameWin: false,
-    activeOperationId: 0,
-    isActiveOperationVisible: false
+    activeOperationIndex: 0,
+    isActiveOperationVisible: false,
+    mentalMathStartTime: new Date(),
+    mentalMathEndTime: new Date()
   }
 
   return mentalMathState;
@@ -30,7 +31,12 @@ export function mapToOperationstate(dtos: IOperationDto[]): IOperationState[] {
       timeToCalculate: dto.timeToCalculate,
       mentalCards: mapToMentalCardState(dto.mentalNumbers),
       mathOperations: dto.mathOperations,
-      proposalResponse: mapToPropsalResponseState(dto.proposalResponse)
+      proposalResponse: mapToPropsalResponseState(dto.proposalResponse),
+      playerResponse: {
+        playerAnswer: 0,
+        isAnswerValid: false
+      },
+      validOperationResponse: dto.validOperationResponse
     }
     return operationState;
   })
@@ -46,22 +52,6 @@ export function mapToMentalCardState(dtos: IMentalNumberDto[]): IMentalCardState
     }
     return mentalCardSate;
   });
-}
-
-export function mapToOperationCorrectionState(dtos: IOperationCorrectionDto[]): IOperationCorrectionState[] {
-  return dtos.map(dto => {
-    let correction : IOperationCorrectionState = {
-      operationId: dto.operationId,
-      operationResult: dto.operationResult,
-      playerAnswer: {
-        operationId: dto.operationId,
-        playerAnswer: 0,
-        isAnswerValid: false
-      }
-    }
-
-    return correction;
-  })
 }
 
 export function mapToPropsalResponseState(dtos: IProposalResponseDto[]): IPropsalResponseState[] {

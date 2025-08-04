@@ -3,8 +3,7 @@ import { IGameTextInformationDto } from "../../game-text/models/game-text-inform
 export interface IMentalMathDataDto {
   gameTextInformation: IGameTextInformationDto,
   option: IOptionDto,
-  operations: IOperationDto[],
-  corrections: IOperationCorrectionDto[]
+  operations: IOperationDto[]
 }
 
 export interface IOptionDto {
@@ -18,7 +17,8 @@ export interface IOperationDto {
   timeToCalculate: ITimeToCalculateDto,
   mentalNumbers: IMentalNumberDto[],
   mathOperations: string[],
-  proposalResponse: IProposalResponseDto[]
+  proposalResponse: IProposalResponseDto[],
+  validOperationResponse: number
 }
 
 export interface IMentalNumberDto {
@@ -35,10 +35,5 @@ export interface ITimeToCalculateDto {
 export interface IProposalResponseDto {
   id: number,
   proposalResponse: number
-}
-
-export interface IOperationCorrectionDto {
-  operationId: number,
-  operationResult: number
 }
 

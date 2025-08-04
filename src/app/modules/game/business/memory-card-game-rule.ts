@@ -58,7 +58,6 @@ export class MemoryCardGameRules {
     this._actualPoint = 0;
     this._actualBadResponse = 0;
     this._store.dispatch(gameTextActions.resetGameText());
-    this._store.dispatch(gameTextActions.resetGameText());
     this._store.dispatch(actions.resetGameAction());
     this._store.dispatch(actions.generateNewGameAction({playerId: '1'}));
   }
@@ -169,6 +168,7 @@ export class MemoryCardGameRules {
         this.selectEndGameTitleAndText()
         this._store.dispatch(actions.setIsGameWinAction({isGameWin : true}));
         this._store.dispatch(actions.setIsGameFinishAction({isGameFinish : true}));
+        this._store.dispatch(gameTextActions.showEndTextAction());
       }, 1000);
     }
   }

@@ -1,4 +1,5 @@
 {
+  "mentalMathematicalId": 1,
    "gameTextInformation": {
         "congratulationWords": [
             "Bravo",
@@ -133,7 +134,8 @@
           "id": 4,
           "proposalResponse": 30
         }
-      ]
+      ],
+      "validOperationResponse" : 5
     },
     {
       "id": 2,
@@ -179,7 +181,8 @@
           "id": 4,
           "proposalResponse": 75
         }
-      ]
+      ],
+      "validOperationResponse" : 70
     },
     {
       "id": 3,
@@ -225,7 +228,8 @@
           "id": 4,
           "proposalResponse": 15
         }
-      ]
+      ],
+      "validOperationResponse" : 20
     },
     {
       "id": 4,
@@ -246,7 +250,7 @@
         }
       ],
       "mathOperations": [
-        "*"
+        "x"
       ],
       "proposalResponse": [
         {
@@ -265,25 +269,8 @@
           "id": 4,
           "proposalResponse": 45
         }
-      ]
-    }
-  ],
-  "corrections": [
-    {
-      "operationId": 1,
-      "operationResult": 5
-    },
-    {
-      "operationId": 2,
-      "operationResult": 70
-    },
-    {
-      "operationId": 3,
-      "operationResult": 20
-    },
-    {
-      "operationId": 4,
-      "operationResult": 35
+      ],
+      "validOperationResponse" : 35
     }
   ]
 }
