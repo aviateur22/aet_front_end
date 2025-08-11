@@ -30,6 +30,8 @@ import { CardMentalComponent } from './mental-mathematic/components/card/app-men
 import { OperationComponent } from './mental-mathematic/components/operation/operation.component';
 import { ProposalResponseComponent } from './mental-mathematic/components/proposal-response/proposal-response.component';
 import { TimeRemainingComponent } from './mental-mathematic/components/time-remaining/time-remaining.component';
+import { UnselectedAnswerComponent } from './mental-mathematic/components/unselected-answer/unselected-answer.component';
+import { ErrorMessageComponent } from './mental-mathematic/components/error-message/error-message.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { TimeRemainingComponent } from './mental-mathematic/components/time-rema
     CardMentalComponent,
     OperationComponent,
     ProposalResponseComponent,
-    TimeRemainingComponent
+    TimeRemainingComponent,
+    UnselectedAnswerComponent,
+    ErrorMessageComponent
   ],
   imports: [
     CommonModule,

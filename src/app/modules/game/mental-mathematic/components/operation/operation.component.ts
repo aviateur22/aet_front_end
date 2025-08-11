@@ -31,6 +31,7 @@ export class OperationComponent implements OnInit, OnDestroy {
   isOperationVisible$: Observable<boolean> = this._store.pipe(select(mentalMathSelector.isActiveOperationVisibleSelector));
   areProposalResponseVisible$: Observable<boolean> = this._store.pipe(select(mentalMathSelector.areProposalResponseVisibleSelector));
 
+
   /**
    * Stabilise la liste des carte dans le DOM.
    * Cela permet de réutilisé la liste présentz dans le DOM et evite un rechargement des carte lors dun click event

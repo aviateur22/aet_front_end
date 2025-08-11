@@ -85,6 +85,25 @@ export class MentalMathematicEffect {
       ))
   ));
 
+  manualyEndRemainingCalculationTime$ = createEffect(() =>
+    this._action$.pipe(
+      ofType(mentalMathAction.manualyGoToNextOperationAction),
+      withLatestFrom(this._store.select(selectors.activePlayerAnswerSelector)),
+      switchMap(([_, playerAnswer]) => {
+        console.log('playerAnswer:', playerAnswer);
+
+        if (playerAnswer === undefined || playerAnswer === null) {
+          return of(
+            mentalMathAction.isUnselectedAnswerTextVisibleAction({ isVisible: true })
+          );
+        }
+
+        return of(mentalMathAction.prepareNextOperationAcion());
+      })
+    )
+  );
+
+
   prepareNextOperation$ = createEffect(() =>
      this._action$.pipe(
     ofType(mentalMathAction.prepareNextOperationAcion),
@@ -92,8 +111,8 @@ export class MentalMathematicEffect {
       this._store.select(selectors.activeOperationIndexSelector),
       this._store.select(selectors.operationListSelector)
     ),
-    switchMap(([_, index, list]) => {
-      if(index < list.length - 1)
+    switchMap(([_, _index, _operationList]) => {
+      if(_index < _operationList.length - 1)
         return concat(
           of(
             mentalMathAction.stopOperationTimer(),

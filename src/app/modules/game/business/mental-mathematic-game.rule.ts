@@ -90,7 +90,7 @@ export class MentalMathematicGameRule {
    * Passe au calcul suivant en clicquant sur le button suivant
    */
   manualyEndRemainingCalculationTime() {
-    this._store.dispatch(mentalMathematicActions.prepareNextOperationAcion());
+    this._store.dispatch(mentalMathematicActions.manualyGoToNextOperationAction());
   }
 
   /**

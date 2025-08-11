@@ -34,14 +34,6 @@ export const mentalMathReducers = createReducer (
       operations: mapToOperationstate(mentalMathData.operations),
     }
   })),
-  // on(mentalMathAction.nextOperationIndexAction, (state, { activeOperationIndex }) => {
-  //   return {
-  //     ...state, mentalMathGame: {
-  //       ...state.mentalMathGame,
-  //       activeOperationIndex: activeOperationIndex
-  //     }
-  //   }
-  // }),
   on(mentalMathAction.isActiveOperationVisibleAction, (state, { isVisible }) => ({
     ...state, mentalMathGame: {
       ...state.mentalMathGame,
@@ -80,7 +72,7 @@ export const mentalMathReducers = createReducer (
         return operation;
 
       const playerAnswerFromSelection = operation.proposalResponse.find(proposalResponse => proposalResponseId === proposalResponse.id)?.proposalResponse ?? 0;
-      console.log(proposalResponseId);
+
 
       const updatedProposalResponses = operation.proposalResponse.map(response => ({
         ...response, isProposalSelected: response.id === proposalResponseId
@@ -94,7 +86,8 @@ export const mentalMathReducers = createReducer (
           isAnswerValid: operation.validOperationResponse === playerAnswerFromSelection,
           playerAnswer: playerAnswerFromSelection
         },
-        proposalResponse: updatedProposalResponses
+        proposalResponse: updatedProposalResponses,
+        isUnselectedAnswerTextVisible: false
       }
     });
 
@@ -114,7 +107,9 @@ export const mentalMathReducers = createReducer (
         return operation;
 
         return {
-          ...operation, playerResponse
+          ...operation,
+          isUnselectedAnswerTextVisible: false,
+          playerResponse
         }
       });
 
@@ -151,6 +146,28 @@ export const mentalMathReducers = createReducer (
       isGameWin: state.mentalMathGame.badResponseCumultated === 0 ? true : false,
 
     }
-  }))
+  })),
+  on(mentalMathAction.isUnselectedAnswerTextVisibleAction, (state, { isVisible }) => {
+    // Index de l'operation qui est actif
+    const activeOperationIndex = state.mentalMathGame.activeOperationIndex;
+
+    const updatedOperations = state.mentalMathGame.operations.map((operation, index) => {
+
+      if(index != activeOperationIndex)
+        return operation;
+
+      return {
+        ...operation,
+        isUnselectedAnswerTextVisible: isVisible
+      }
+    });
+
+    return {
+      ...state, mentalMathGame : {
+        ...state.mentalMathGame,
+        operations: updatedOperations
+      }
+    }
+  })
 );
 

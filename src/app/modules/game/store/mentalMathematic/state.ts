@@ -18,7 +18,6 @@ export interface IMentalMathState {
   isGameWin: boolean,
   activeOperationIndex: number,
   isActiveOperationVisible: boolean
-
 }
 
 /**
@@ -31,7 +30,8 @@ export interface IOperationState {
   mathOperations: string[],
   proposalResponse: IPropsalResponseState[],
   playerResponse: IPlayerAnswerState,
-  validOperationResponse: number
+  validOperationResponse: number,
+  isUnselectedAnswerTextVisible: boolean
 }
 
 /**
@@ -56,7 +56,7 @@ export interface IMentalCardState {
  * Réponse du joueur
  */
 export interface IPlayerAnswerState {
-  playerAnswer: number,
+  playerAnswer: number | undefined,
   isAnswerValid: boolean
 }
 

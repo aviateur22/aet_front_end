@@ -9,7 +9,9 @@ export class ActiveOperation {
     public isOperationVisible: boolean,
     public readonly mentalCards: MentalCard[],
     public readonly mathOperations: string[],
-    public readonly propsalResponses: ProposalResponse[]){}
+    public readonly propsalResponses: ProposalResponse[],
+    public readonly isUnselectedAnswerTextVisible: boolean,
+    public readonly playerAnswer: number | undefined){}
 
 }
 

@@ -1,0 +1,6 @@
+ <!-- Message erreur de chargement-->
+ <div class="flex justify-content-center h-3rem">
+  <div *ngIf="(isGameLoadingSuccess$ | async) === false && (isGameReadyToPlay$ | async)">
+    <p-message severity="error"> Oups le jeu ne s'est pas chargé correctement. </p-message>
+  </div>
+</div>

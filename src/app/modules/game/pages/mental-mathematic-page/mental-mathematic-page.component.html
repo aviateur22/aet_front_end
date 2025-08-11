@@ -4,16 +4,12 @@
 <!-- text de fin de jeu -->
 <app-game-end-text class="absolute"></app-game-end-text>
 
+<!-- Message erreur de chargement -->
+<app-error-message class="absolute"></app-error-message>
+
 <app-main-container>
 
   <div class="flex flex-column w-full over">
-    <!-- Message erreur de chargement-->
-   <div class="flex justify-content-center h-3rem">
-     <div *ngIf="(isGameLoadingSuccess$ | async) === false && (isGameReadyToPlay$ | async)">
-       <p-message severity="error"> Oups le jeu ne s'est pas chargé correctement. </p-message>
-     </div>
-   </div>
-
    <!-- operation -->
    <app-operation></app-operation>
   </div>

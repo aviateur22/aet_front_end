@@ -9,7 +9,9 @@ export function mapToOperationModel(activeOperation: IOperationState, isActiveOp
     isActiveOperationVisible,
     mapToMentalCardModel(activeOperation.mentalCards),
     activeOperation.mathOperations,
-    activeOperation.proposalResponse
+    activeOperation.proposalResponse,
+    activeOperation.isUnselectedAnswerTextVisible,
+    activeOperation.playerResponse.playerAnswer
   );
 }
 

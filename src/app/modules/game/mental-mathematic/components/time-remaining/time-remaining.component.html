@@ -1,3 +1,19 @@
-<div [style.background-color]="colorClass" class="border__color shadow-5 border-3 border-0 border-circle w-4rem h-4rem m-2 font-bold flex align-items-center justify-content-center">
-  <div class="p-2 text-2xl">{{ duration }}</div>
+<!--petit ecran -->
+<div *ngIf="isOnMobile; else xlScreen">
+  <div class=" p-2">
+    <div class="progress-container">
+      <div
+        class="progress-bar"
+        [style.width.%]="percentage"
+        [style.background-color]="colorClass">
+      </div>
+    </div>
+  </div>
 </div>
+
+<ng-template #xlScreen>
+  <!--Grand ecran -->
+  <div [style.background-color]="colorClass" class="border__color shadow-5 border-3 border-0 border-circle w-4rem h-4rem m-2 font-bold flex align-items-center justify-content-center">
+    <div class="p-2 text-2xl">{{ duration }}</div>
+  </div>
+</ng-template>

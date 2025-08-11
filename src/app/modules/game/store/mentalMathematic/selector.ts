@@ -39,5 +39,9 @@ export const getValidCalculResponseOnActiveOperationSelector = (activeOperationI
 export const remainingTimeSelector = () => createSelector(activeOperationSelector, (state) => state?.timeToCalculate.time);
 export const badResponseSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.badResponseCumultated);
 
+export const isUnselectedAnswerVisibleSelector = createSelector(activeOperationModelSelector, state => state!.isUnselectedAnswerTextVisible);
+export const activePlayerAnswerSelector = createSelector(activeOperationModelSelector, state => state?.playerAnswer);
+
+
 
 

@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../../../../store/state';
 import * as mentalMathematicSelectors from '../../../store/mentalMathematic/selector';
 import { Subject, takeUntil } from 'rxjs';
+import { MobileDeviceService } from '../../../../mobile-device/service/mobile-device.service';
 
 @Component({
   selector: 'app-time-remaining',
@@ -32,7 +33,10 @@ export class TimeRemainingComponent implements OnInit, OnDestroy {
   percentage: number = 100;
   colorClass = "#3ce000";
 
-  constructor(private _store: Store<IAppState>) {
+  // Si support sur un téléphone iu tablette
+  isOnMobile: boolean = false;
+
+  constructor(private _store: Store<IAppState>, private _mobileDeviceService: MobileDeviceService) {
   }
 
   ngOnDestroy(): void {
@@ -41,6 +45,8 @@ export class TimeRemainingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.isOnMobile = this._mobileDeviceService.isOnMobileDevice();
+    console.log(this.isOnMobile)
     this._store.pipe(select(mentalMathematicSelectors.activeTimeToCalculateSelector))
         .pipe(takeUntil(this._destroyed$))
         .subscribe(res => {
@@ -60,10 +66,12 @@ export class TimeRemainingComponent implements OnInit, OnDestroy {
     }
 
   updateColor() {
-      if (this.percentage > 60) {
+      if (this.percentage > 70) {
         this.colorClass = '#3ce000';
-      } else if (this.percentage > 30) {
-        this.colorClass = "#ebb434";
+      } else if (this.percentage > 50) {
+        this.colorClass = "#def700ff";
+      }else if (this.percentage > 30) {
+        this.colorClass = "#fcbb24ff";
       } else {
         this.colorClass = "#f73434";
       }

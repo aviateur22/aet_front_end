@@ -1,8 +1,12 @@
 <!-- Operation -->
-<div *ngIf="isOperationVisible$ | async" @fadeScale>
+<div class="relative" *ngIf="isOperationVisible$ | async" @fadeScale>
+  <!-- Text de non selection-->
+  <app-unselected-answer class="absolute w-full  z-3"></app-unselected-answer>
+
   <!-- compteur de temps-->
-  <app-time-remaining class="absolute"></app-time-remaining>
-  <div>
+  <app-time-remaining class="absolute w-full"></app-time-remaining>
+
+  <div class="pt-4">
     <!-- Données sue le calcul -->
     <div class="w-full flex flex-column align-items-center justify-content-center">
       <!-- Card avec le chiffre du calcul-->

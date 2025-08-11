@@ -33,10 +33,11 @@ export function mapToOperationstate(dtos: IOperationDto[]): IOperationState[] {
       mathOperations: dto.mathOperations,
       proposalResponse: mapToPropsalResponseState(dto.proposalResponse),
       playerResponse: {
-        playerAnswer: 0,
+        playerAnswer: undefined,
         isAnswerValid: false
       },
-      validOperationResponse: dto.validOperationResponse
+      validOperationResponse: dto.validOperationResponse,
+      isUnselectedAnswerTextVisible: false
     }
     return operationState;
   })
