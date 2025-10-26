@@ -17,7 +17,8 @@ export function mapToMentalMathState(dto: IMentalMathDataDto): IMentalMathState 
     activeOperationIndex: 0,
     isActiveOperationVisible: false,
     mentalMathStartTime: new Date(),
-    mentalMathEndTime: new Date()
+    mentalMathEndTime: new Date(),
+    isCorrectionToShow: true
   }
 
   return mentalMathState;
@@ -25,13 +26,12 @@ export function mapToMentalMathState(dto: IMentalMathDataDto): IMentalMathState 
 
 export function mapToOperationstate(dtos: IOperationDto[]): IOperationState[] {
   return dtos.map(dto => {
-
     const operationState: IOperationState = {
       id: dto.id,
       timeToCalculate: dto.timeToCalculate,
       mentalCards: mapToMentalCardState(dto.mentalNumbers),
       mathOperations: dto.mathOperations,
-      proposalResponse: mapToPropsalResponseState(dto.proposalResponse),
+      proposalResponse: mapToPropsalResponseState(dto.proposalResponses),
       playerResponse: {
         playerAnswer: undefined,
         isAnswerValid: false
@@ -39,6 +39,7 @@ export function mapToOperationstate(dtos: IOperationDto[]): IOperationState[] {
       validOperationResponse: dto.validOperationResponse,
       isUnselectedAnswerTextVisible: false
     }
+
     return operationState;
   })
 }

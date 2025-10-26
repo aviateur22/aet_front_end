@@ -17,7 +17,8 @@ export interface IMentalMathState {
   isGameFinish: boolean,
   isGameWin: boolean,
   activeOperationIndex: number,
-  isActiveOperationVisible: boolean
+  isActiveOperationVisible: boolean,
+  isCorrectionToShow: boolean
 }
 
 /**

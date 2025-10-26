@@ -32,6 +32,7 @@ import { ProposalResponseComponent } from './mental-mathematic/components/propos
 import { TimeRemainingComponent } from './mental-mathematic/components/time-remaining/time-remaining.component';
 import { UnselectedAnswerComponent } from './mental-mathematic/components/unselected-answer/unselected-answer.component';
 import { ErrorMessageComponent } from './mental-mathematic/components/error-message/error-message.component';
+import { GameCorrectionComponent } from './mental-mathematic/components/game-correction/game-correction.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { ErrorMessageComponent } from './mental-mathematic/components/error-mess
     ProposalResponseComponent,
     TimeRemainingComponent,
     UnselectedAnswerComponent,
-    ErrorMessageComponent
+    ErrorMessageComponent,
+    GameCorrectionComponent
   ],
   imports: [
     CommonModule,

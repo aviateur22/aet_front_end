@@ -10,6 +10,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { GameSelection } from '../../../game-selected/models/game-selected.model';
 import { MentalMathematicGameRule } from '../../../business/mental-mathematic-game.rule';
 import { GameLevel } from '../../../mental-mathematic/models/mental-math.model';
+import { Router } from '@angular/router';
+import frontPage from '../../../../../../misc/front-page';
 
 @Component({
   selector: 'app-game-text-presentation',
@@ -36,6 +38,7 @@ export class GameTextPresentationComponent implements OnInit, OnDestroy {
   presentationText$ = this._store.pipe(select(gameTextSelector.presentationTextSelector));
 
   constructor(
+    private _router: Router,
     private _store: Store<IAppState>,
     private _memoryCardGameRules: MemoryCardGameRules,
     private _mentalMathematicRules: MentalMathematicGameRule){}
@@ -50,6 +53,13 @@ export class GameTextPresentationComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
    this._destroyed$.next;
    this._destroyed$.complete;
+  }
+
+  backToMenu() {
+    if(this._gameSelected === GameSelection.MENTAL_MATHEMATIC_GAME)
+      this._router.navigate([frontPage.mathSelection.url]);
+    else if (this._gameSelected === GameSelection.MEMORY_CARD_GAME)
+      this._router.navigate([frontPage.gameSelection.url])
   }
 
   startGame(): void {

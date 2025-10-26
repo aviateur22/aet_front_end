@@ -2,7 +2,7 @@
   <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center surface-0 m--w--1024 text-center">
     <!-- Text -->
     <div>
-      <!-- Text de victoire -->
+      <!-- Text de fin -->
       <div class="p-5">
         <p class="p-5"> Tu as eu
           <span class="font-semibold text-lg" [ngClass]="actualErrorLevel! | errorLevel">
@@ -11,13 +11,21 @@
           mauvaise{{ badResponseQuantity > 1 ? 's' : ''}}  réponse{{ badResponseQuantity > 1 ? 's' : ''}} </p>
         <p  class="text-lg font-bold" [ngClass]="actualErrorLevel! | errorLevel"> {{ endGameTitle }} </p>
         <p class="p-2">{{ endGameText }} </p>
+        <div class="p-5">
+
+          <!--Zone de correction mathématique-->
+          <ng-container *ngIf="isMathematicalCorrectionButtonVisible()">
+            <p-button (click)="displayMentalGameCorrection()" label="Voire la correction" variant="text" [raised]="true" severity="help" />
+          </ng-container>
+        </div>
       </div>
+
     </div>
 
-      <!-- Button recommencer -->
-      <div class="flex flex-column">
+    <!-- Button recommencer -->
+    <div class="flex flex-column">
         <p-button class="m-2 full--width--btn" (onClick)="backToMenu()" label="Arreter" variant="outlined" severity="help" />
         <p-button class="m-2 full--width--btn" (onClick)="restartGame()" label="Recommencer le jeur" severity="help" />
-      </div>
+    </div>
   </div>
 </div>

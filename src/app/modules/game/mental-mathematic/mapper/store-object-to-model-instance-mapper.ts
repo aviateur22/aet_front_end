@@ -11,6 +11,7 @@ export function mapToOperationModel(activeOperation: IOperationState, isActiveOp
     activeOperation.mathOperations,
     activeOperation.proposalResponse,
     activeOperation.isUnselectedAnswerTextVisible,
+    activeOperation.validOperationResponse,
     activeOperation.playerResponse.playerAnswer
   );
 }

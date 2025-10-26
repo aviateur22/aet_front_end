@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { MentalMathematicApiService } from "../../mental-mathematic/service/mental-mathematic-api.service";
 import * as mentalMathAction from "./action";
 import * as selectors from "./selector";
-import { catchError, concat, delay, EMPTY, filter, iif, interval, map, mergeMap, of, switchMap, take, takeUntil, tap, timer, withLatestFrom } from "rxjs";
+import { catchError, concat, delay, EMPTY, filter, iif, interval, map, mergeMap, of, switchMap, take, takeUntil, tap, timeout, timer, withLatestFrom } from "rxjs";
 import * as commonAction from './../../../common-component/store/action';
 import * as gameTextAction from "../gameText/action";
 import { select, Store } from "@ngrx/store";
@@ -76,7 +76,7 @@ export class MentalMathematicEffect {
       map((remainingTime) => {
         const nextReamainingTime = remainingTime! - 1;
 
-        if(nextReamainingTime <= 0) {
+        if(nextReamainingTime <= -1) {
           return mentalMathAction.prepareNextOperationAcion()
         }
         console.log(nextReamainingTime)
@@ -88,8 +88,12 @@ export class MentalMathematicEffect {
   manualyEndRemainingCalculationTime$ = createEffect(() =>
     this._action$.pipe(
       ofType(mentalMathAction.manualyGoToNextOperationAction),
-      withLatestFrom(this._store.select(selectors.activePlayerAnswerSelector)),
-      switchMap(([_, playerAnswer]) => {
+      withLatestFrom(
+        this._store.select(selectors.activePlayerAnswerSelector),
+        this._store.select(selectors.activeOperationIndexSelector),
+        this._store.select(selectors.operationListSelector)
+      ),
+      switchMap(([_, playerAnswer, _index, _operationList]) => {
         console.log('playerAnswer:', playerAnswer);
 
         if (playerAnswer === undefined || playerAnswer === null) {
@@ -97,15 +101,27 @@ export class MentalMathematicEffect {
             mentalMathAction.isUnselectedAnswerTextVisibleAction({ isVisible: true })
           );
         }
+        const isLast = _index >= _operationList.length - 1;
+        console.log(`derniere operération ${isLast}`);
 
-        return of(mentalMathAction.prepareNextOperationAcion());
+        if(isLast)
+          return of(
+        mentalMathAction.incrementBadResponseAction(),
+        mentalMathAction.stopOperationTimer(),
+        mentalMathAction.loadEndGameTextAction(),
+        gameTextAction.showEndTextAction()
+          )
+
+
+        return of(
+          mentalMathAction.prepareNextOperationAcion()
+        );
       })
     )
   );
 
-
   prepareNextOperation$ = createEffect(() =>
-     this._action$.pipe(
+    this._action$.pipe(
     ofType(mentalMathAction.prepareNextOperationAcion),
     withLatestFrom(
       this._store.select(selectors.activeOperationIndexSelector),
@@ -140,7 +156,7 @@ export class MentalMathematicEffect {
     )
   ));
 
-endGameAction$ = createEffect(() =>
+  endGameAction$ = createEffect(() =>
   this._action$.pipe(
     ofType(mentalMathAction.loadEndGameTextAction),
     switchMap(() =>

@@ -22,7 +22,7 @@ export class TimeRemainingComponent implements OnInit, OnDestroy {
   set duration(value: number) {
     this._duration = value;
 
-    if (!this.totalDuration && this._duration > 0) {
+    if (!this.totalDuration && this._duration > -1) {
       this.totalDuration = this.duration;
     }
     this.updatePercentage();
@@ -50,7 +50,7 @@ export class TimeRemainingComponent implements OnInit, OnDestroy {
     this._store.pipe(select(mentalMathematicSelectors.activeTimeToCalculateSelector))
         .pipe(takeUntil(this._destroyed$))
         .subscribe(res => {
-          if(!res)
+          if(res == null)
             return;
 
           this.duration = res;

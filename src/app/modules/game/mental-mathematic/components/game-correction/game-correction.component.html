@@ -1,0 +1,39 @@
+<div class="flex p-2 w-full fixed flex-1 h-full z-2 overlay--background justify-content-center" *ngIf="isCorrectionToshow$ | async" @fadeInOut>
+   <div class="flex flex-1 h-full w-full flex-column align-items-center justify-content-center surface-0 m--w--1024 text-center">
+      <h2>La correction</h2>
+      <div class="pt-4 w-full max-w-30rem">
+        <!-- Données sue le calcul -->
+        <div class="w-full">
+            <ng-container class="w-full" *ngIf="(operation$ | async) as operations">
+              <div class="shadow-3 w-full flex align-items-center p-3" *ngFor="let operation of operations">
+                <div class="flex align-items-center" *ngFor="let mentalCard of operation.mentalCards; let j = index;">
+                  <p> {{ mentalCard.number}}</p>
+                  <!-- Operateur arithmétique-->
+                  <span *ngIf="operation && j < operation.mathOperations.length" class="text-2xl text-indigo-600 font-semibold text-center w-2rem">
+                    <span >
+                      {{ operation.mathOperations[j] }}
+                    </span>
+                  </span>
+                </div>
+                <span class="min--width">:</span>
+                <!--respone correcte-->
+                <div *ngIf="operation.validOperationResponse == operation.playerAnswer; else badAnswer" >
+                  <span class="good--answer">{{operation.validOperationResponse}}</span>
+                </div>
+
+                <!--mauvaise correcte-->
+                <ng-template #badAnswer>
+                  <span class="bad--answer font-semibold">{{operation.playerAnswer ?? "??"}}</span>
+                  <span class="good--answer px-2">{{operation.validOperationResponse}}</span>
+                </ng-template>
+              </div>
+            </ng-container>
+        </div>
+      </div>
+      <!-- Button fermer -->
+      <div class="flex flex-column">
+        <p-button class="m-2 full--width--btn" (onClick)="close()" label="Fermer la page" variant="outlined" severity="help" />
+      </div>
+  </div>
+</div>
+

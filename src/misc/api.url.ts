@@ -8,6 +8,6 @@ export default {
     url : `${environment.api_base}/images/{imageName}`
   },
   generateNewMentalMathematicGame: {
-    url: `${environment.api_base}/games/mental-mathematic/player/{playerId}/level/{gameLevel}/generate-mental-methematic-game`
+    url: `${environment.api_base}/games/mental-calcul-game/level/{gameLevel}/generate-mental-calcul-game`
   }
 }

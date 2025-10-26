@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import frontPage from '../../../../../misc/front-page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-selection-page',
@@ -9,6 +10,11 @@ import frontPage from '../../../../../misc/front-page';
 export class GameSelectionPageComponent {
   memoryCardGameUrl: string = frontPage.memoryCardGame.url;
   memoryColorGameUrl: string = frontPage.memoryColorGame.url;
+  mainPageGameUrl: string = frontPage.home.url;
 
+  constructor(private _router: Router){}
 
+  backToMenu() {
+    this._router.navigate([this.mainPageGameUrl])
+  }
 }

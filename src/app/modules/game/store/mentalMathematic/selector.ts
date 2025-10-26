@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { IGameSate } from "../state";
-import { mapToOperationModel } from "../../mental-mathematic/mapper/store-object-to-model-instance-mapper";
-import { state } from "@angular/animations";
+import { mapToMentalCardModel, mapToOperationModel } from "../../mental-mathematic/mapper/store-object-to-model-instance-mapper";
 
 const selectGameState = createFeatureSelector<IGameSate>('gameState');
 
@@ -15,6 +14,7 @@ export const isLoadingSuccessSelector = createSelector(mentalMathematicGameState
 export const isGameReadyToPlaySelector = createSelector(mentalMathematicGameState, (state) => state.isGameReadyToPlay);
 export const areProposalResponseVisibleSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.arePropoalResponseVisible);
 export const operationListSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.operations);
+export const mentalCardListSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.operations.map(operation => mapToOperationModel(operation, true)));
 
 export const activeOperationIndexSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.activeOperationIndex);
 export const activeOperationSelector = createSelector(
@@ -41,6 +41,7 @@ export const badResponseSelector = createSelector(mentalMathematicGameState, (st
 
 export const isUnselectedAnswerVisibleSelector = createSelector(activeOperationModelSelector, state => state!.isUnselectedAnswerTextVisible);
 export const activePlayerAnswerSelector = createSelector(activeOperationModelSelector, state => state?.playerAnswer);
+export const isCorrectionToShowSelector = createSelector(mentalMathematicGameState, (state) => state.mentalMathGame.isCorrectionToShow)
 
 
 

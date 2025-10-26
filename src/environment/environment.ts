@@ -5,5 +5,5 @@ export const environment: IEnvironment  = {
   name: 'loc',
   api_base: 'http://localhost:8080/api/v1',
   main_page_title: 'AET-LOCAL',
-  isFakeData: true
+  isFakeData: false
 }

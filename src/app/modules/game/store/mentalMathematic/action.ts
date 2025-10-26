@@ -28,3 +28,4 @@ export const getValidOperationResultAction = createAction('[ge tValid Operation 
 export const loadEndGameTextAction = createAction('[loadEndGameTextAction] loadEndGameTextAction');
 export const isNextOperationAvail = createAction('[loadEndGameTextAction] loadEndGameTextAction');
 export const isUnselectedAnswerTextVisibleAction  = createAction('[is Unselected Answer Text Visible Action] is Unselected Answer Text Visible Action', props<{ isVisible: boolean }>());
+export const isCorrectionToShowAction = createAction('[is Correction To Show Action] is Correction To Show Action', props<{ isVisible: boolean }>())

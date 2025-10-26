@@ -11,6 +11,7 @@ export class ActiveOperation {
     public readonly mathOperations: string[],
     public readonly propsalResponses: ProposalResponse[],
     public readonly isUnselectedAnswerTextVisible: boolean,
+    public readonly validOperationResponse: number,
     public readonly playerAnswer: number | undefined){}
 
 }

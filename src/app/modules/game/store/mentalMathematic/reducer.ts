@@ -16,7 +16,8 @@ export const initialMentalMathDataState: IMentalMathDataState = {
     activeOperationIndex: 0,
     isActiveOperationVisible: false,
     mentalMathStartTime: new Date(),
-    mentalMathEndTime: new Date()
+    mentalMathEndTime: new Date(),
+    isCorrectionToShow: false
   }
 }
 
@@ -168,6 +169,12 @@ export const mentalMathReducers = createReducer (
         operations: updatedOperations
       }
     }
-  })
+  }),
+  on(mentalMathAction.isCorrectionToShowAction, (state, { isVisible }) => ({
+    ...state, mentalMathGame: {
+      ...state.mentalMathGame,
+        isCorrectionToShow: isVisible
+    }
+  }))
 );
 

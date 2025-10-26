@@ -117,7 +117,7 @@
         "+",
         "-"
       ],
-      "proposalResponse": [
+      "proposalResponses": [
         {
           "id": 1,
           "proposalResponse": 5
@@ -164,7 +164,7 @@
         "+",
         "+"
       ],
-      "proposalResponse": [
+      "proposalResponses": [
         {
           "id": 1,
           "proposalResponse": 65
@@ -211,7 +211,7 @@
         "-",
         "+"
       ],
-      "proposalResponse": [
+      "proposalResponses": [
         {
           "id": 1,
           "proposalResponse": 20
@@ -252,7 +252,7 @@
       "mathOperations": [
         "x"
       ],
-      "proposalResponse": [
+      "proposalResponses": [
         {
           "id": 1,
           "proposalResponse": 30

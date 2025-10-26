@@ -1,0 +1,15 @@
+.main--color {
+  color: var(--primary_color);
+}
+
+.good--answer {
+  color: var(--color_good);
+}
+
+.bad--answer {
+  color: var(--color_bad);
+}
+
+.min--width {
+  min-width: 15px;
+}

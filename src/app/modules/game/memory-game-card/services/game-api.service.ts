@@ -25,7 +25,7 @@ constructor(
       return data;
     }
 
-    const url = apiUrl.generateNewMemoryCardGame.url.replace('{gameLevel}', 'difficult');
+    const url = apiUrl.generateNewMemoryCardGame.url.replace('{gameLevel}', 'easy');
 
     return this._http.get<ICardGameDto>(url).pipe(
       tap(data=> this._gameTextInformationService.setGameTextInformation(data.gameTextInformation))

@@ -17,7 +17,7 @@ export interface IOperationDto {
   timeToCalculate: ITimeToCalculateDto,
   mentalNumbers: IMentalNumberDto[],
   mathOperations: string[],
-  proposalResponse: IProposalResponseDto[],
+  proposalResponses: IProposalResponseDto[],
   validOperationResponse: number
 }
 

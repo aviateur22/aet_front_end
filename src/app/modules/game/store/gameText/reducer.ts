@@ -56,6 +56,12 @@ on(gameTextAction.showEndTextAction, (state) => ({
     ...state.textVisibility,
     isEndGameTextVisible: true
   }
+})),
+on(gameTextAction.hideEndTextAction, (state) => ({
+  ...state, textVisibility: {
+    ...state.textVisibility,
+    isEndGameTextVisible: false
+  }
 }))
 
 )

@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { IAppState } from '../../../../../store/state';
-import { Observable, Subject, take, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import * as selectors from '../../../store/memoryCardGame/selector';
 import * as mentalMathSelectors from '../../../store/mentalMathematic/selector';
 import * as gameTextSelectors from '../../../store/gameText/selector';
 import * as gameSelectedSelector from '../../../store/gameSelected/selector';
+import * as mentalGameAction from '../../../store/mentalMathematic/action';
+import * as gameTextAction from '../../../store/gameText/action';
 import { MemoryCardGameRules } from '../../../business/memory-card-game-rule';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Router } from '@angular/router';
@@ -96,6 +98,18 @@ export class GameEndTextComponent implements OnInit, OnDestroy {
   }
 
   backToMenu() {
-    this._router.navigate([frontPage.gameSelection.url]);
+    if(this._gameSelected === GameSelection.MENTAL_MATHEMATIC_GAME)
+      this._router.navigate([frontPage.mathSelection.url]);
+    else if (this._gameSelected === GameSelection.MEMORY_CARD_GAME)
+      this._router.navigate([frontPage.gameSelection.url])
+  }
+
+  displayMentalGameCorrection() {
+    this._store.dispatch(gameTextAction.hideEndTextAction());
+    this._store.dispatch(mentalGameAction.isCorrectionToShowAction({ isVisible: true}));
+  }
+
+  isMathematicalCorrectionButtonVisible() {
+    return this._gameSelected === GameSelection.MENTAL_MATHEMATIC_GAME;
   }
 }
