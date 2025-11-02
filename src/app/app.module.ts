@@ -46,7 +46,10 @@ import { CommonComponentModule } from "./modules/common-component/common-compone
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: lara
+        preset: lara,
+        options: {
+          darkModeSelector: false
+        }
       }
   })],
   bootstrap: [AppComponent]

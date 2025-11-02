@@ -1,5 +1,5 @@
 <app-main-container>
-   <div class="flex w-full flex-column">
+   <div class="flex flex-1 w-full flex-column">
     <!-- Titre-->
     <div class="flex w-full justify-content-center">
       <h2 class="p-3 text-center">Que veux-tu faire?</h2>
@@ -8,8 +8,8 @@
     <!-- Button des jeux-->
     <div class="flex w-full flex-grow-1 justify-content-center align-items-center shadow-1">
       <div class="flex w-full justify-content-center">
-        <app-button-game-selection buttonText="Les cartes mémoires" [url]=memoryGameUrl></app-button-game-selection>
-        <app-button-game-selection buttonText="Mathématique" [url]=mathGameUrl></app-button-game-selection>
+        <app-button-game-selection imageUrl="/images/icone-1.svg" buttonText="Les cartes mémoires" [url]=memoryGameUrl></app-button-game-selection>
+        <app-button-game-selection imageUrl="/images/icone-2.svg" buttonText="Mathématique" [url]=mathGameUrl></app-button-game-selection>
       </div>
     </div>
   </div>

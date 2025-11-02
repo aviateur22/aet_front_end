@@ -10,6 +10,7 @@ export class ButtonGameSelectionComponent {
 
   @Input() buttonText: string = '';
   @Input() url: string = '';
+  @Input() imageUrl = ''
 
   constructor(private _router: Router) {}
 

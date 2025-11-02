@@ -2,15 +2,15 @@
   <div class="flex w-full flex-column flex-1 relative">
     <!-- Titre-->
     <div class="flex w-full">
-      <h2 class="p-3">Selectionne ton jeu de mémoire</h2>
+      <h2 class="w-full text-center p-3">Sélectionne ton jeu de mémoire</h2>
       <button class="absolute top-0 right-0 m-2" type="button" (click)="backToMenu()">Retour</button>
     </div>
 
     <!-- Button des jeux-->
     <div class="flex w-full flex-grow-1 justify-content-center align-items-center shadow-1">
       <div class="flex w-full justify-content-center">
-        <app-button-game-selection buttonText="Les cartes mémoires" [url]=memoryCardGameUrl></app-button-game-selection>
-        <app-button-game-selection buttonText="Les couleurs mémoire" [url]=memoryColorGameUrl></app-button-game-selection>
+        <app-button-game-selection imageUrl="/images/memory-game.svg" buttonText="Les cartes mémoires" [url]=memoryCardGameUrl></app-button-game-selection>
+        <app-button-game-selection imageUrl="/images/color-game.svg" buttonText="Les couleurs mémoire" [url]=memoryColorGameUrl></app-button-game-selection>
       </div>
     </div>
   </div>
