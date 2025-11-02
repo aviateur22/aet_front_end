@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 import { AuthorizeModule } from './modules/authorize/authorize.module';
 
 import { ToastModule } from 'primeng/toast';
+import { CommonComponentModule } from "./modules/common-component/common-component.module";
 
 @NgModule({
   declarations: [
@@ -32,13 +33,14 @@ import { ToastModule } from 'primeng/toast';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(),
     StoreDevtoolsModule.instrument({
-      maxAge: 1000,
-      logOnly: environment.production,
-      trace: true,
-      serialize: {replacer: (_key, value) => (typeof value === "bigint" ? value.toString() : value)}
+        maxAge: 1000,
+        logOnly: environment.production,
+        trace: true,
+        serialize: { replacer: (_key, value) => (typeof value === "bigint" ? value.toString() : value) }
     }),
-    ToastModule
-  ],
+    ToastModule,
+    CommonComponentModule
+],
   providers: [
     provideHttpClient(),
     provideAnimationsAsync(),

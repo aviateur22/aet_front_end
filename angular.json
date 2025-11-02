@@ -92,6 +92,9 @@
             },
             "development": {
               "buildTarget": "aet:build:development"
+            },
+            "moe": {
+              "buildTarget": "aet:build:moe"
             }
           },
           "defaultConfiguration": "development"

@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommonEffect } from './store/effect';
 import { MainContainerComponent } from './components/main-container/main-container.component';
 import { ButtonGameSelectionComponent } from './components/button/button-game-selection/button-game-selection.component';
+import { NavComponent } from './components/nav/nav.component';
 
 import { ButtonModule } from 'primeng/button';
 import { WindowLoaderComponent } from './components/window-loader/window-loader.component';
@@ -17,7 +18,8 @@ import { WindowLoaderComponent } from './components/window-loader/window-loader.
   declarations: [
     MainContainerComponent,
     ButtonGameSelectionComponent,
-    WindowLoaderComponent
+    WindowLoaderComponent,
+    NavComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { WindowLoaderComponent } from './components/window-loader/window-loader.
   ],
   exports: [
     MainContainerComponent,
-    ButtonGameSelectionComponent
+    ButtonGameSelectionComponent,
+    NavComponent
   ]
 })
 export class CommonComponentModule { }
