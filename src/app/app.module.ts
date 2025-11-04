@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { reducers } from "./store/state";
@@ -19,6 +19,8 @@ import { AuthorizeModule } from './modules/authorize/authorize.module';
 
 import { ToastModule } from 'primeng/toast';
 import { CommonComponentModule } from "./modules/common-component/common-component.module";
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +41,13 @@ import { CommonComponentModule } from "./modules/common-component/common-compone
         serialize: { replacer: (_key, value) => (typeof value === "bigint" ? value.toString() : value) }
     }),
     ToastModule,
-    CommonComponentModule
+    CommonComponentModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
 ],
   providers: [
     provideHttpClient(),
